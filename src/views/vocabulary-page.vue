@@ -1,0 +1,111 @@
+<script setup lang="ts">
+import { computed } from "vue";
+
+import {
+  BaseHeader,
+  BaseSection,
+  HighlightedText,
+  ReviewGrid,
+  ReviewNavigation,
+  SubjectDetails,
+  SubjectOverview,
+} from "../components";
+import { useSubjectNavigation, vocabularyCollection } from "../composables";
+import type { Vocabulary } from "../types";
+import {
+  getParsedText,
+  getSubjectMeanings,
+  getVocabularyReadings,
+} from "../utils";
+
+const { subject: vocabulary, onNavigate } =
+  useSubjectNavigation<Vocabulary>(vocabularyCollection);
+
+const meanings = computed(() =>
+  vocabulary.value ? getSubjectMeanings(vocabulary.value) : null,
+);
+const readings = computed(() =>
+  vocabulary.value ? getVocabularyReadings(vocabulary.value) : null,
+);
+const wordType = computed(() =>
+  vocabulary.value ? vocabulary.value.parts_of_speech.join(", ") : null,
+);
+</script>
+
+<template>
+  <review-grid v-if="vocabulary">
+    <base-header />
+    <subject-overview
+      type="vocabulary"
+      :meaning="meanings!.primary"
+      :reading="readings!.primary"
+    >
+      <p class="vocabulary-characters japanese">{{ vocabulary.characters }}</p>
+    </subject-overview>
+    <subject-details>
+      <base-section title="Meaning">
+        <div class="meaning-list">
+          <p class="meaning">
+            <span class="dimmed">Primary</span><br />
+            {{ meanings!.primary }}
+          </p>
+          <p v-if="meanings!.secondary" class="meaning">
+            <span class="dimmed">Alternative</span><br />
+            {{ meanings!.secondary }}
+          </p>
+        </div>
+        <p>
+          <span class="dimmed">Word type</span><br />
+          {{ wordType }}
+        </p>
+        <p>
+          <span class="dimmed">Explanation</span><br />
+          <highlighted-text
+            :parsed-text="getParsedText(vocabulary.meaning_mnemonic)"
+          />
+        </p>
+      </base-section>
+      <base-section title="Reading">
+        <p class="japanese">
+          <b>{{ readings?.primary }}</b>
+          <span v-if="readings?.secondary"> ({{ readings?.secondary }})</span>
+        </p>
+        <p>
+          <span class="dimmed">Explanation</span><br />
+          <highlighted-text
+            :parsed-text="getParsedText(vocabulary.reading_mnemonic)"
+          />
+        </p>
+      </base-section>
+      <base-section title="Context">
+        <p
+          v-for="contextSentence in vocabulary.context_sentences"
+          :key="contextSentence.en"
+        >
+          <span class="japanese">{{ contextSentence.ja }}</span
+          ><br />
+          <span>{{ contextSentence.en }}</span>
+        </p>
+      </base-section>
+    </subject-details>
+    <review-navigation
+      @previous-click="onNavigate('previous')()"
+      @next-click="onNavigate('next')()"
+    />
+  </review-grid>
+</template>
+
+<style scoped>
+.vocabulary-characters {
+  font-size: 2rem;
+}
+
+.meaning-list {
+  display: flex;
+  gap: 60px;
+}
+
+.meaning {
+  margin-block-end: 0;
+}
+</style>

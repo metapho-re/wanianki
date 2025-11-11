@@ -1,0 +1,56 @@
+:root {
+  --foreground-color: #dcd7ba;
+	--background-color-1: #1f1f28;
+	--background-color-2: #2a2a37;
+	--background-color-3: #363646;
+  --dimmed-color: #717c7c;
+  --success-color: #98bb6c;
+  --error-color: #e82424;
+  --kanji-color: #e46876;
+  --kanji-color-transparent: #e4687680;
+  --vocabulary-color: #957fb8;
+  --vocabulary-color-transparent: #957fb880;
+	--radical-color: #7e9cd8;
+	--radical-color-transparent: #7e9cd880;
+  --primary-color: #ffa066;
+  --primary-color-transparent: #ffa06680;
+
+  background-color: var(--background-color-0);
+  color: var(--foreground-color);
+  color-scheme: light dark;
+  font-family: 'Roboto Mono', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  font-synthesis: none;
+  font-weight: 400;
+  line-height: 1.6;
+  text-rendering: optimizelegibility;
+}
+
+body {
+  margin: 0;
+}
+
+#app {
+  width: 100vw;
+  height: 100vh;
+}
+
+img {
+  filter: invert(94%) sepia(8%) saturate(601%) hue-rotate(7deg) brightness(91%) contrast(91%);
+}
+
+.japanese {
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+.section .japanese {
+  font-size: 1.2rem;
+}
+
+.dimmed {
+  color: var(--dimmed-color);
+}
+
+.primary {
+  font-weight: bold;
+}
