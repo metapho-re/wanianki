@@ -23,6 +23,7 @@ const navigateHome = () => {
       :left-icon-path="kanjiIconPath"
       >WaniAnki</base-button
     >
+    <slot></slot>
     <base-button
       title="Delete all data in browser file system"
       :disabled="isDataCleanupLoading"

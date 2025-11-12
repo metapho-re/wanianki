@@ -2,11 +2,11 @@
 import { computed } from "vue";
 
 import {
-  BaseHeader,
   BaseImage,
   BaseSection,
   HighlightedText,
   ReviewGrid,
+  ReviewHeader,
   ReviewNavigation,
   SubjectDetails,
   SubjectOverview,
@@ -40,7 +40,7 @@ const radicals = computed(() =>
 
 <template>
   <review-grid v-if="kanji">
-    <base-header />
+    <review-header type="kanji" />
     <subject-overview
       type="kanji"
       :meaning="meanings!.primary"

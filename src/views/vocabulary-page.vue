@@ -2,10 +2,10 @@
 import { computed } from "vue";
 
 import {
-  BaseHeader,
   BaseSection,
   HighlightedText,
   ReviewGrid,
+  ReviewHeader,
   ReviewNavigation,
   SubjectDetails,
   SubjectOverview,
@@ -34,7 +34,7 @@ const wordType = computed(() =>
 
 <template>
   <review-grid v-if="vocabulary">
-    <base-header />
+    <review-header type="vocabulary" />
     <subject-overview
       type="vocabulary"
       :meaning="meanings!.primary"

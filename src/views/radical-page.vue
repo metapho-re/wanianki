@@ -2,11 +2,11 @@
 import { computed } from "vue";
 
 import {
-  BaseHeader,
   BaseImage,
   BaseSection,
   HighlightedText,
   ReviewGrid,
+  ReviewHeader,
   ReviewNavigation,
   SubjectDetails,
   SubjectOverview,
@@ -32,7 +32,7 @@ const url = computed(() =>
 
 <template>
   <review-grid v-if="radical">
-    <base-header />
+    <review-header type="radical" />
     <subject-overview type="radical" :meaning="meanings!.primary">
       <base-image :key="url!" :width="'192px'" :height="'192px'" :url="url!" />
     </subject-overview>

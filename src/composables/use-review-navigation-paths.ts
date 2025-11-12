@@ -1,6 +1,5 @@
-import type { Ref } from "vue";
+import { ref, type Ref } from "vue";
 
-import type { Store } from "../types";
 import { getNavigationPathsFromSelectedSubjects } from "../utils";
 
 import {
@@ -9,12 +8,9 @@ import {
   vocabularyCollection,
 } from "./use-learning-material";
 
-const reviewNavigationPathsStore: Store<string, "collection"> = {
-  value: [],
-};
-const reviewNavigationIndexStore: Store<number, "report"> = {
-  value: -1,
-};
+export const reviewNavigationPaths: Ref<string[]> = ref([]);
+
+export const reviewNavigationIndex: Ref<number> = ref(-1);
 
 interface ReturnValue {
   createReviewNavigationPaths: ({
@@ -36,7 +32,7 @@ export const useReviewNavigationPaths = (): ReturnValue => {
     selectedLevels: Ref<number[]>;
     selectedTypes: Ref<string[]>;
   }) => {
-    const reviewNavigationPaths = [
+    reviewNavigationPaths.value = [
       ...getNavigationPathsFromSelectedSubjects({
         selectedLevels,
         selectedTypes,
@@ -57,22 +53,21 @@ export const useReviewNavigationPaths = (): ReturnValue => {
       }),
     ];
 
-    reviewNavigationPathsStore.value = reviewNavigationPaths;
-    reviewNavigationIndexStore.value = -1;
+    reviewNavigationIndex.value = -1;
   };
 
   const getPreviousReviewNavigationPath = () => {
-    if (reviewNavigationIndexStore.value > 0) {
-      reviewNavigationIndexStore.value -= 1;
+    if (reviewNavigationIndex.value > 0) {
+      reviewNavigationIndex.value -= 1;
     }
 
-    return reviewNavigationPathsStore.value[reviewNavigationIndexStore.value];
+    return reviewNavigationPaths.value[reviewNavigationIndex.value];
   };
 
   const getNextReviewNavigationPath = () => {
-    reviewNavigationIndexStore.value += 1;
+    reviewNavigationIndex.value += 1;
 
-    return reviewNavigationPathsStore.value[reviewNavigationIndexStore.value];
+    return reviewNavigationPaths.value[reviewNavigationIndex.value];
   };
 
   return {
