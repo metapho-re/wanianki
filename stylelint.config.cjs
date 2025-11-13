@@ -4,5 +4,6 @@ module.exports = {
     "stylelint-config-recommended-vue",
     "stylelint-config-idiomatic-order",
   ],
+  ignoreFiles: ["dist/**/*.css"],
   plugins: ["stylelint-order"],
 };
