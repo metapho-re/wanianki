@@ -1,6 +1,6 @@
 import { ref, type Ref } from "vue";
 
-import { getNavigationPathsFromSelectedSubjects } from "../utils";
+import { getNavigationPathsFromSelectedSubjects, shuffleArray } from "../utils";
 
 import {
   kanjiCollection,
@@ -16,9 +16,11 @@ interface ReturnValue {
   createReviewNavigationPaths: ({
     selectedLevels,
     selectedTypes,
+    shouldShuffle,
   }: {
     selectedLevels: Ref<number[]>;
     selectedTypes: Ref<string[]>;
+    shouldShuffle: Ref<boolean>;
   }) => void;
   getPreviousReviewNavigationPath: () => string | undefined;
   getNextReviewNavigationPath: () => string | undefined;
@@ -28,9 +30,11 @@ export const useReviewNavigationPaths = (): ReturnValue => {
   const createReviewNavigationPaths = ({
     selectedLevels,
     selectedTypes,
+    shouldShuffle,
   }: {
     selectedLevels: Ref<number[]>;
     selectedTypes: Ref<string[]>;
+    shouldShuffle: Ref<boolean>;
   }) => {
     reviewNavigationPaths.value = [
       ...getNavigationPathsFromSelectedSubjects({
@@ -52,6 +56,10 @@ export const useReviewNavigationPaths = (): ReturnValue => {
         subjectCollection: vocabularyCollection.value,
       }),
     ];
+
+    if (shouldShuffle.value) {
+      shuffleArray(reviewNavigationPaths.value);
+    }
 
     reviewNavigationIndex.value = -1;
   };

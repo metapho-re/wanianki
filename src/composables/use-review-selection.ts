@@ -9,6 +9,7 @@ type ReturnValue = Promise<{
   types: string[];
   selectedLevels: Ref<number[]>;
   selectedTypes: Ref<string[]>;
+  shouldShuffle: Ref<boolean>;
   isLoading: ComputedRef<boolean>;
   onStartReview: () => void;
 }>;
@@ -21,6 +22,7 @@ export const useReviewSelection = async (userLevel: number): ReturnValue => {
 
   const selectedLevels = ref<number[]>([]);
   const selectedTypes = ref<string[]>([]);
+  const shouldShuffle = ref<boolean>(false);
 
   const isLoading = await useLearningMaterial(userLevel);
 
@@ -31,6 +33,7 @@ export const useReviewSelection = async (userLevel: number): ReturnValue => {
     createReviewNavigationPaths({
       selectedLevels,
       selectedTypes,
+      shouldShuffle,
     });
 
     const navigationPath = getNextReviewNavigationPath();
@@ -45,6 +48,7 @@ export const useReviewSelection = async (userLevel: number): ReturnValue => {
     types,
     selectedLevels,
     selectedTypes,
+    shouldShuffle,
     isLoading,
     onStartReview,
   };

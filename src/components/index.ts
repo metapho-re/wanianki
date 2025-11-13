@@ -3,6 +3,7 @@ import BaseHeader from "./base-header.vue";
 import BaseIcon from "./base-icon.vue";
 import BaseImage from "./base-image.vue";
 import BaseSection from "./base-section.vue";
+import BaseSwitch from "./base-switch.vue";
 import HighlightedText from "./highlighted-text.vue";
 import NotificationContainer from "./notification-container.vue";
 import ReviewGrid from "./review-grid.vue";
@@ -17,6 +18,7 @@ export {
   BaseIcon,
   BaseImage,
   BaseSection,
+  BaseSwitch,
   HighlightedText,
   NotificationContainer,
   ReviewGrid,

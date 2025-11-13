@@ -9,4 +9,5 @@ export { getSubjectMeanings } from "./get-subject-meanings";
 export { getSubjectsUrl } from "./get-subjects-url";
 export { getVocabularyReadings } from "./get-vocabulary-readings";
 export { isSubscriptionValid } from "./is-subscription-valid";
+export { shuffleArray } from "./shuffle-array";
 export { sortById } from "./sort-by-id";

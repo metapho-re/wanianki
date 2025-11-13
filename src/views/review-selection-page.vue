@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 
-import { BaseButton, BaseHeader } from "../components";
+import { BaseButton, BaseHeader, BaseSwitch } from "../components";
 import { useReviewSelection } from "../composables";
 import { bookIconPath } from "../icon-paths";
 import type { User } from "../types";
@@ -15,6 +15,7 @@ const {
   types,
   selectedLevels,
   selectedTypes,
+  shouldShuffle,
   isLoading: isReviewSelectionLoading,
   onStartReview,
 } = await useReviewSelection(user.level);
@@ -63,6 +64,18 @@ const canReview = computed(
         </div>
       </div>
     </div>
+    <div class="shuffle-section section">
+      <p class="text">Toggle to shuffle subject review order:</p>
+      <div class="list-container">
+        <div class="list-item">
+          <base-switch
+            v-model="shouldShuffle"
+            off-label="Ordered"
+            on-label="Shuffled"
+          />
+        </div>
+      </div>
+    </div>
     <div class="navigation-section section">
       <base-button
         title="Start a fresh review session"
@@ -82,13 +95,7 @@ const canReview = computed(
   width: 100%;
   height: 100%;
   gap: 20px;
-  grid-template-areas:
-    "header"
-    "user-info"
-    "level-selection"
-    "type-selection"
-    "navigation";
-  grid-template-rows: 1fr 1fr 8fr 4fr 1fr;
+  grid-template: "header header" 1fr "user-info user-info" 1fr "level-selection level-selection" 8fr "type-selection shuffle-selection" 4fr "navigation navigation" 1fr / 1fr 1fr;
 }
 
 .section {
@@ -114,11 +121,16 @@ const canReview = computed(
   grid-area: type-selection;
 }
 
+.shuffle-section {
+  grid-area: shuffle-selection;
+}
+
 .navigation-section {
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 4px;
+  grid-area: navigation;
 }
 
 .list-container {
