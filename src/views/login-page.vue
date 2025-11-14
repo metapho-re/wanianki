@@ -97,7 +97,7 @@ const tagline = useTagline();
   height: 100%;
   box-sizing: border-box;
   border: 1px solid var(--background-color-3);
-  background-color: var(--background-color-2);
+  background-color: var(--background-color-1);
   border-bottom-left-radius: 1rem;
   border-top-left-radius: 1rem;
   color: var(--foreground-color);
@@ -134,7 +134,6 @@ const tagline = useTagline();
 
 .input:disabled,
 .button:disabled {
-  border-color: var(--dimmed-color);
   background-color: var(--background-color-2);
   color: var(--dimmed-color);
   cursor: not-allowed;
@@ -146,7 +145,7 @@ const tagline = useTagline();
 }
 
 .form .input:focus:not(:disabled),
-.form:has(.input:focus) .button {
+.form:has(.input:focus) .button:not(:disabled) {
   border-color: var(--primary-color);
 }
 </style>
