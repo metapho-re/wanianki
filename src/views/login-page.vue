@@ -29,7 +29,7 @@ const tagline = useTagline();
         <button
           class="button"
           type="button"
-          :disabled="isLoading"
+          :disabled="isLoading || !inputModel?.length"
           @click="$emit('submit')"
         >
           Authenticate
