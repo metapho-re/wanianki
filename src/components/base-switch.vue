@@ -29,8 +29,19 @@ const checked = defineModel<boolean>();
 .switch {
   position: relative;
   display: inline-block;
-  width: 48px;
-  height: 28px;
+  width: 36px;
+  height: 18px;
+  border: 1px solid var(--primary-color-transparent);
+  border-radius: 12px;
+  transition: 0.25s;
+}
+
+.switch:hover {
+  border-color: var(--primary-color);
+}
+
+.switch:has(input:checked) {
+  border-color: var(--primary-color);
 }
 
 .switch input {
@@ -41,19 +52,23 @@ const checked = defineModel<boolean>();
 
 .slider {
   position: absolute;
-  border-radius: 28px;
-  background-color: var(--dimmed-color);
+  border-radius: 18px;
+  background-color: var(--background-color-1);
   cursor: pointer;
   inset: 0;
   transition: 0.25s;
 }
 
+.slider:hover {
+  background-color: var(--primary-color-transparent);
+}
+
 .slider::before {
   position: absolute;
-  bottom: 3px;
-  left: 3px;
-  width: 22px;
-  height: 22px;
+  bottom: 1px;
+  left: 1px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
   background-color: var(--foreground-color);
   content: "";
@@ -61,10 +76,11 @@ const checked = defineModel<boolean>();
 }
 
 input:checked + .slider {
-  background-color: var(--primary-color);
+  background-color: transparent;
 }
 
 input:checked + .slider::before {
-  transform: translateX(20px);
+  background-color: var(--primary-color);
+  transform: translateX(18px);
 }
 </style>

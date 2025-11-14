@@ -1,4 +1,5 @@
 import BaseButton from "./base-button.vue";
+import BaseCheckbox from "./base-checkbox.vue";
 import BaseHeader from "./base-header.vue";
 import BaseIcon from "./base-icon.vue";
 import BaseImage from "./base-image.vue";
@@ -14,6 +15,7 @@ import SubjectOverview from "./subject-overview.vue";
 
 export {
   BaseButton,
+  BaseCheckbox,
   BaseHeader,
   BaseIcon,
   BaseImage,

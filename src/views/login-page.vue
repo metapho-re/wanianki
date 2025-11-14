@@ -97,12 +97,13 @@ const tagline = useTagline();
   height: 100%;
   box-sizing: border-box;
   border: 1px solid var(--background-color-3);
-  border-right: none;
   background-color: var(--background-color-2);
   border-bottom-left-radius: 1rem;
   border-top-left-radius: 1rem;
+  color: var(--foreground-color);
   font-size: 1.2rem;
   padding-inline-start: 1rem;
+  transition: 0.25s;
 }
 
 .button {
@@ -110,7 +111,8 @@ const tagline = useTagline();
   height: 100%;
   align-items: center;
   border: 1px solid var(--background-color-3);
-  background-color: var(--primary-color);
+  border-left: none;
+  background-color: var(--primary-color-transparent);
   border-bottom-right-radius: 1rem;
   border-top-right-radius: 1rem;
   color: var(--background-color-1);
@@ -118,10 +120,11 @@ const tagline = useTagline();
   font-size: 1.2rem;
   gap: 8px;
   padding-inline: 1rem;
+  transition: 0.25s;
 }
 
 .button:hover {
-  background-color: var(--primary-color-transparent);
+  background-color: var(--primary-color);
 }
 
 .input:focus,
@@ -131,7 +134,19 @@ const tagline = useTagline();
 
 .input:disabled,
 .button:disabled {
+  border-color: var(--dimmed-color);
+  background-color: var(--background-color-2);
+  color: var(--dimmed-color);
   cursor: not-allowed;
-  opacity: 0.5;
+}
+
+.form:hover .input:not(:disabled),
+.form:hover .button:not(:disabled) {
+  border-color: var(--primary-color-transparent);
+}
+
+.form .input:focus:not(:disabled),
+.form:has(.input:focus) .button {
+  border-color: var(--primary-color);
 }
 </style>

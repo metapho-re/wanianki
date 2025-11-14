@@ -1,7 +1,12 @@
 <script setup lang="ts">
 import { computed } from "vue";
 
-import { BaseButton, BaseHeader, BaseSwitch } from "../components";
+import {
+  BaseButton,
+  BaseCheckbox,
+  BaseHeader,
+  BaseSwitch,
+} from "../components";
 import { useReviewSelection } from "../composables";
 import { bookIconPath } from "../icon-paths";
 import type { User } from "../types";
@@ -40,13 +45,9 @@ const canReview = computed(
       <p class="text">Select the levels you wish to review:</p>
       <div class="list-container">
         <div v-for="level in levels" :key="level" class="list-item">
-          <input
-            :id="String(level)"
-            v-model="selectedLevels"
-            type="checkbox"
-            :value="level"
-          />
-          <label :for="String(level)">{{ level }}</label>
+          <base-checkbox v-model="selectedLevels" :value="level">
+            {{ level }}
+          </base-checkbox>
         </div>
       </div>
     </div>
@@ -54,13 +55,9 @@ const canReview = computed(
       <p class="text">Select the subject types you wish to review:</p>
       <div class="list-container">
         <div v-for="type in types" :key="type" :class="`list-item ${type}`">
-          <input
-            :id="type"
-            v-model="selectedTypes"
-            type="checkbox"
-            :value="type"
-          />
-          <label :for="type">{{ type }}</label>
+          <base-checkbox v-model="selectedTypes" :value="type">
+            {{ type }}
+          </base-checkbox>
         </div>
       </div>
     </div>

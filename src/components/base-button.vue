@@ -38,25 +38,19 @@ defineProps<{
   cursor: pointer;
   font-size: 1rem;
   gap: 10px;
-  transition:
-    color 0.25s,
-    background-color 0.25s;
+  transition: 0.25s;
 }
 
 .button:hover {
+  border-color: var(--primary-color);
   background-color: var(--primary-color-transparent);
   color: var(--background-color-1);
-  transition:
-    color 0.25s,
-    background-color 0.25s;
 }
 
 .button:disabled {
+  border-color: var(--dimmed-color);
   background-color: var(--background-color-2);
   color: var(--dimmed-color);
   cursor: not-allowed;
-  transition:
-    color 0.25s,
-    background-color 0.25s;
 }
 </style>
