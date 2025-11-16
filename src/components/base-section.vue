@@ -14,6 +14,7 @@ defineProps<{
 <style scoped>
 .section {
   padding: 20px;
+  border: 1px solid var(--background-color-3);
   border-radius: 8px;
   background-color: var(--background-color-2);
   margin-block-end: 20px;

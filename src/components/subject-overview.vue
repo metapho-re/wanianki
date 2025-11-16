@@ -59,6 +59,7 @@ defineProps<{
   align-items: center;
   justify-content: space-around;
   padding: 20px;
+  border: 1px solid var(--background-color-3);
   border-radius: 8px;
   background-color: var(--background-color-2);
   font-size: 1.2rem;
