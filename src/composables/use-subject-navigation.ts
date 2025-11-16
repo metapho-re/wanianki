@@ -46,7 +46,7 @@ export const useSubjectNavigation = <T extends Subject>(
     if (navigationPath) {
       router.push(`../${navigationPath}`);
     } else {
-      router.push("..");
+      router.push("/");
     }
   };
 
@@ -76,7 +76,7 @@ export const useSubjectNavigation = <T extends Subject>(
 
   onMounted(() => {
     if (!subject.value) {
-      router.push("../..");
+      router.push("/");
     }
 
     window.addEventListener("keydown", onKeyDownEventListener);

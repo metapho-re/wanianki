@@ -50,6 +50,7 @@ export const useFetch = async <T, U>({
 
   const refresh = async () => {
     try {
+      data.value = null;
       isLoading.value = true;
 
       let pages: Pagination | undefined = {

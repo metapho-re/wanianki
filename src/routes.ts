@@ -1,6 +1,7 @@
 import {
-  AuthenticationPage,
+  DashboardPage,
   KanjiPage,
+  LoginPage,
   RadicalPage,
   VocabularyPage,
 } from "./views";
@@ -8,7 +9,11 @@ import {
 export const routes = [
   {
     path: "/",
-    component: AuthenticationPage,
+    component: DashboardPage,
+  },
+  {
+    path: "/login",
+    component: LoginPage,
   },
   {
     path: "/kanji/:slug",

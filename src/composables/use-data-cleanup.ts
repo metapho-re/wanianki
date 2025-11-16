@@ -56,7 +56,7 @@ export const useDataCleanup = (): ReturnValue => {
     } finally {
       isLoading.value = false;
 
-      router.push("/");
+      router.push("/login");
     }
   };
 

@@ -1,4 +1,5 @@
 import { ref, type Ref } from "vue";
+import { useRouter } from "vue-router";
 
 import { getUserReport } from "../api";
 import { USER_KEY } from "../storage-keys";
@@ -26,6 +27,8 @@ type ReturnValue = Promise<{
 }>;
 
 export const useLogin = async (): ReturnValue => {
+  const router = useRouter();
+
   const { addNotification } = useNotifications();
 
   const { setValue: setUser } = useOpfsStorage<User, "report">(USER_KEY);
@@ -52,6 +55,8 @@ export const useLogin = async (): ReturnValue => {
         await setUser(null);
       } else {
         user.value = userData;
+
+        router.push("/");
       }
     } catch {
       apiToken.value = null;

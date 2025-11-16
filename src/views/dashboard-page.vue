@@ -7,13 +7,8 @@ import {
   BaseHeader,
   BaseSwitch,
 } from "../components";
-import { useReviewSelection } from "../composables";
+import { user, useReviewSelection } from "../composables";
 import { bookIconPath } from "../icon-paths";
-import type { User } from "../types";
-
-const { user } = defineProps<{
-  user: User;
-}>();
 
 const {
   levels,
@@ -21,9 +16,9 @@ const {
   selectedLevels,
   selectedTypes,
   shouldShuffle,
-  isLoading: isReviewSelectionLoading,
+  isLoading,
   onStartReview,
-} = await useReviewSelection(user.level);
+} = await useReviewSelection(user.value!.level);
 
 const canReview = computed(
   () => selectedLevels.value.length > 0 && selectedTypes.value.length > 0,
@@ -31,14 +26,14 @@ const canReview = computed(
 </script>
 
 <template>
-  <div v-if="isReviewSelectionLoading">Loading...</div>
-  <div v-else class="review-selection">
+  <div v-if="isLoading">Loading...</div>
+  <div v-else class="dashboard">
     <base-header />
     <div class="user-section section">
       <p class="text">
-        Welcome <b>{{ user.username }}</b
-        >! You're <b>level {{ user.level }}</b> already.
-        {{ 60 - user.level }} levels to go until mastery!
+        Welcome <b>{{ user?.username }}</b
+        >! You're <b>level {{ user?.level }}</b> already.
+        {{ 60 - (user?.level || 0) }} levels to go until mastery!
       </p>
     </div>
     <div class="levels-section section">
@@ -87,7 +82,7 @@ const canReview = computed(
 </template>
 
 <style scoped>
-.review-selection {
+.dashboard {
   display: grid;
   width: 100%;
   height: 100%;

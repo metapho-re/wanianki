@@ -1,12 +1,9 @@
 <script setup lang="ts">
 import { BaseIcon } from "../components";
-import { useTagline } from "../composables";
+import { useLogin, useTagline } from "../composables";
 import { loginIconPath } from "../icon-paths";
 
-defineEmits<{ submit: [] }>();
-defineProps<{ isLoading: boolean }>();
-
-const inputModel = defineModel<string>();
+const { inputValue, isLoading, onSubmit } = await useLogin();
 
 const tagline = useTagline();
 </script>
@@ -20,7 +17,7 @@ const tagline = useTagline();
     <div className="form-container">
       <div className="form">
         <input
-          v-model="inputModel"
+          v-model="inputValue"
           class="input"
           placeholder="Enter you WaniKani API key"
           type="password"
@@ -29,8 +26,8 @@ const tagline = useTagline();
         <button
           class="button"
           type="button"
-          :disabled="isLoading || !inputModel?.length"
-          @click="$emit('submit')"
+          :disabled="isLoading || !inputValue?.length"
+          @click="onSubmit"
         >
           Authenticate
           <base-icon width="32px" height="32px" :path="loginIconPath" />

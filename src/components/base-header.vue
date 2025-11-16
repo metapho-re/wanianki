@@ -18,14 +18,14 @@ const navigateHome = () => {
 <template>
   <div class="header">
     <base-button
-      title="Go back to the home page"
+      title="Go back to dashboard"
       :on-click="navigateHome"
       :left-icon-path="kanjiIconPath"
       >WaniAnki</base-button
     >
     <slot></slot>
     <base-button
-      title="Delete all data in browser file system"
+      title="Clean up browser file system and log out"
       :disabled="isDataCleanupLoading"
       :on-click="cleanUpData"
       :left-icon-path="deleteIconPath"
