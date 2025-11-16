@@ -18,10 +18,12 @@ const tagline = useTagline();
       <div className="form">
         <input
           v-model="inputValue"
+          autofocus
           class="input"
           placeholder="Enter you WaniKani API key"
           type="password"
           :disabled="isLoading"
+          @keyup.enter="onSubmit"
         />
         <button
           class="button"
