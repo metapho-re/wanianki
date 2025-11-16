@@ -43,6 +43,7 @@ const radicals = computed(() =>
     <review-header type="kanji" />
     <subject-overview
       type="kanji"
+      :level="kanji.level"
       :meaning="meanings!.primary"
       :reading="primaryKanjiReading!.reading"
       :reading-type="primaryKanjiReading!.type"

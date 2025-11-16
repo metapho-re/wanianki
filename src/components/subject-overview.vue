@@ -1,6 +1,7 @@
 <script setup lang="ts">
 defineProps<{
   type: "kanji" | "radical" | "vocabulary";
+  level: number;
   meaning: string;
   reading?: string;
   readingType?: string;
@@ -9,6 +10,7 @@ defineProps<{
 
 <template>
   <div class="subject-overview">
+    <p class="level">Level {{ level }}</p>
     <div class="characters">
       <slot></slot>
     </div>
@@ -33,6 +35,14 @@ defineProps<{
   border-radius: 8px;
   background-color: var(--background-color-1);
   grid-area: subject;
+}
+
+.level {
+  border: 1px solid var(--background-color-3);
+  border-radius: 12px;
+  margin: 0;
+  background-color: var(--background-color-2);
+  padding-inline: 8px;
 }
 
 .characters {

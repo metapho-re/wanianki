@@ -37,6 +37,7 @@ const wordType = computed(() =>
     <review-header type="vocabulary" />
     <subject-overview
       type="vocabulary"
+      :level="vocabulary.level"
       :meaning="meanings!.primary"
       :reading="readings!.primary"
     >
