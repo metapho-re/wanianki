@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { useReviewCounter } from "../composables";
+import type { SubjectType } from "../types";
 
 import BaseHeader from "./base-header.vue";
 
 defineProps<{
-  type: "kanji" | "radical" | "vocabulary";
+  type: SubjectType;
 }>();
 
 const reviewCounter = useReviewCounter();

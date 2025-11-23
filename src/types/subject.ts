@@ -20,6 +20,8 @@ export interface Subject {
 
 export interface SubjectResponse<T> {
   id: number;
-  object: "kanji" | "radical" | "vocabulary";
+  object: SubjectType;
   data: T;
 }
+
+export type SubjectType = "kanji" | "radical" | "vocabulary";

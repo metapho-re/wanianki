@@ -1,3 +1,5 @@
+import type { SubjectType } from "../types";
+
 const getLevelsQueryParameter = (level: number): string =>
   Array.from({ length: level }, (_, index) => index + 1).reduce(
     (previousValue, currentValue, index) =>
@@ -7,6 +9,6 @@ const getLevelsQueryParameter = (level: number): string =>
 
 export const getSubjectsUrl = (
   level: number,
-  subjectType: "kanji" | "radical" | "vocabulary",
+  subjectType: SubjectType,
 ): string =>
   `/subjects?types=${subjectType}&levels=${getLevelsQueryParameter(level)}`;

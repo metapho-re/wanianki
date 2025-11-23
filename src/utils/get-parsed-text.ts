@@ -1,4 +1,6 @@
-type Tag = "kanji" | "radical" | "vocabulary" | "meaning" | "reading";
+import type { QuizType, SubjectType } from "../types";
+
+type Tag = SubjectType | QuizType;
 
 type ReturnValue = {
   tag: Tag | null;

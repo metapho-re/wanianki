@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import type { SubjectType } from "../types";
+
 defineProps<{
-  type: "kanji" | "radical" | "vocabulary";
+  type: SubjectType;
   level: number;
   meaning: string;
   reading?: string;
