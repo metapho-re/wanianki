@@ -46,7 +46,7 @@ export const useFetch = async <T, U>({
   const data: Store<T, U, true> = {
     value: await getValue(),
   };
-  const isLoading = ref(false);
+  const isLoading = ref<boolean>(false);
 
   const refresh = async () => {
     try {

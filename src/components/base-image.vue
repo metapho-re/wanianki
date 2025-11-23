@@ -12,8 +12,8 @@ defineProps<{
   height: string;
 }>();
 
-const loading = ref(true);
-const error = ref(false);
+const loading = ref<boolean>(true);
+const error = ref<boolean>(false);
 
 const onLoad = () => {
   loading.value = false;

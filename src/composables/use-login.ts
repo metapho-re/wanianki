@@ -42,7 +42,7 @@ export const useLogin = async (): ReturnValue => {
     onComplete,
   });
 
-  const inputValue = ref("");
+  const inputValue = ref<string>("");
 
   const onSubmit = async () => {
     apiToken.value = inputValue.value;
