@@ -8,19 +8,21 @@ import {
   vocabularyCollection,
 } from "./use-learning-material";
 
-export const reviewNavigationPaths: Ref<string[]> = ref([]);
+export const reviewNavigationPaths = ref<string[]>([]);
 
-export const reviewNavigationIndex: Ref<number> = ref(-1);
+export const reviewNavigationIndex = ref<number>(-1);
 
 interface ReturnValue {
   createReviewNavigationPaths: ({
     selectedLevels,
     selectedTypes,
     shouldShuffle,
+    isQuizMode,
   }: {
     selectedLevels: Ref<number[]>;
     selectedTypes: Ref<string[]>;
     shouldShuffle: Ref<boolean>;
+    isQuizMode: Ref<boolean>;
   }) => void;
   getPreviousReviewNavigationPath: () => string | undefined;
   getNextReviewNavigationPath: () => string | undefined;
@@ -31,27 +33,32 @@ export const useReviewNavigationPaths = (): ReturnValue => {
     selectedLevels,
     selectedTypes,
     shouldShuffle,
+    isQuizMode,
   }: {
     selectedLevels: Ref<number[]>;
     selectedTypes: Ref<string[]>;
     shouldShuffle: Ref<boolean>;
+    isQuizMode: Ref<boolean>;
   }) => {
     reviewNavigationPaths.value = [
       ...getNavigationPathsFromSelectedSubjects({
         selectedLevels,
         selectedTypes,
+        isQuizMode,
         collectionType: "kanji",
         subjectCollection: kanjiCollection.value,
       }),
       ...getNavigationPathsFromSelectedSubjects({
         selectedLevels,
         selectedTypes,
+        isQuizMode,
         collectionType: "radical",
         subjectCollection: radicalCollection.value,
       }),
       ...getNavigationPathsFromSelectedSubjects({
         selectedLevels,
         selectedTypes,
+        isQuizMode,
         collectionType: "vocabulary",
         subjectCollection: vocabularyCollection.value,
       }),

@@ -11,7 +11,7 @@ import {
   SubjectDetails,
   SubjectOverview,
 } from "../components";
-import { kanjiCollection, useSubjectNavigation } from "../composables";
+import { kanjiCollection, useStudyNavigation } from "../composables";
 import type { Kanji } from "../types";
 import {
   getKanjiReadings,
@@ -22,7 +22,7 @@ import {
 } from "../utils";
 
 const { subject: kanji, onNavigate } =
-  useSubjectNavigation<Kanji>(kanjiCollection);
+  useStudyNavigation<Kanji>(kanjiCollection);
 
 const meanings = computed(() =>
   kanji.value ? getSubjectMeanings(kanji.value) : null,

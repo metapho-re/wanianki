@@ -11,7 +11,7 @@ interface ReturnValue<T> {
   onNavigate: (direction: "previous" | "next") => () => void;
 }
 
-export const useSubjectNavigation = <T extends Subject>(
+export const useStudyNavigation = <T extends Subject>(
   subjectCollection: Store<SubjectResponse<T>, "collection">,
 ): ReturnValue<T> => {
   const route = useRoute();
@@ -44,7 +44,7 @@ export const useSubjectNavigation = <T extends Subject>(
         : getPreviousReviewNavigationPath();
 
     if (navigationPath) {
-      router.push(`../${navigationPath}`);
+      router.push(`../../${navigationPath}`);
     } else {
       router.push("/");
     }

@@ -1,22 +1,45 @@
 import type { Ref } from "vue";
 
-import type { Kanji, Radical, SubjectResponse, Vocabulary } from "../types";
+import type {
+  Kanji,
+  Radical,
+  SubjectResponse,
+  SubjectType,
+  Vocabulary,
+} from "../types";
 
 interface Params {
   selectedLevels: Ref<number[]>;
   selectedTypes: Ref<string[]>;
-  collectionType: "kanji" | "radical" | "vocabulary";
+  isQuizMode: Ref<boolean>;
+  collectionType: SubjectType;
   subjectCollection: SubjectResponse<Kanji | Radical | Vocabulary>[];
 }
 
 export const getNavigationPathsFromSelectedSubjects = ({
   selectedLevels,
   selectedTypes,
+  isQuizMode,
   collectionType,
   subjectCollection,
-}: Params): string[] =>
-  selectedTypes.value.indexOf(collectionType) >= 0
-    ? subjectCollection
-        .filter(({ data }) => selectedLevels.value.indexOf(data.level) >= 0)
-        .map(({ data: { slug } }) => `${collectionType}/${slug}`)
-    : [];
+}: Params): string[] => {
+  const paths =
+    selectedTypes.value.indexOf(collectionType) >= 0
+      ? subjectCollection
+          .filter(({ data }) => selectedLevels.value.indexOf(data.level) >= 0)
+          .map(({ data: { slug } }) => `${collectionType}/${slug}`)
+      : [];
+
+  if (isQuizMode.value) {
+    return paths
+      .map((path) =>
+        (path.split("/")[0] === "radical"
+          ? ["meaning"]
+          : ["meaning", "reading"]
+        ).map((type) => `quiz/${type}/${path}`),
+      )
+      .flat();
+  } else {
+    return paths.map((path) => `study/${path}`);
+  }
+};

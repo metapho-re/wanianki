@@ -16,6 +16,7 @@ const {
   selectedLevels,
   selectedTypes,
   shouldShuffle,
+  isQuizMode,
   isLoading,
   onStartReview,
 } = await useReviewSelection(user.value!.level);
@@ -27,11 +28,11 @@ const canReview = computed(
 
 <template>
   <div v-if="isLoading">Loading...</div>
-  <div v-else class="dashboard">
+  <div v-else class="dashboard-page">
     <base-header />
     <div class="user-section section">
       <p class="text">
-        Welcome <b>{{ user?.username }}</b
+        Welcome, <b>{{ user?.username }}</b
         >! You're <b>level {{ user?.level }}</b> already.
         {{ 60 - (user?.level || 0) }} levels to go until mastery!
       </p>
@@ -68,6 +69,21 @@ const canReview = computed(
         </div>
       </div>
     </div>
+    <div class="mode-section section">
+      <p class="text">
+        Toggle to switch between study (<i>passive</i>) mode and quiz
+        (<i>active</i>) mode:
+      </p>
+      <div class="list-container">
+        <div class="list-item">
+          <base-switch
+            v-model="isQuizMode"
+            off-label="Study mode"
+            on-label="Quiz mode"
+          />
+        </div>
+      </div>
+    </div>
     <div class="navigation-section section">
       <base-button
         title="Start a fresh review session"
@@ -82,12 +98,17 @@ const canReview = computed(
 </template>
 
 <style scoped>
-.dashboard {
+.dashboard-page {
   display: grid;
   width: 100%;
   height: 100%;
   gap: 20px;
-  grid-template: "header header" 1fr "user-info user-info" 1fr "level-selection level-selection" 8fr "type-selection shuffle-selection" 4fr "navigation navigation" 1fr / 1fr 1fr;
+  grid-template:
+    "header header header" 1fr
+    "user-info user-info user-info" 1fr
+    "level-selection level-selection level-selection" 8fr
+    "type-selection shuffle-selection mode-selection" 4fr
+    "navigation navigation navigation" 1fr / 1fr 1fr 1fr;
 }
 
 .section {
@@ -115,6 +136,10 @@ const canReview = computed(
 
 .shuffle-section {
   grid-area: shuffle-selection;
+}
+
+.mode-section {
+  grid-area: mode-selection;
 }
 
 .navigation-section {

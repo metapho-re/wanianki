@@ -4,7 +4,7 @@ import { chevronLeftIconPath, chevronRightIconPath } from "../icon-paths";
 import BaseButton from "./base-button.vue";
 
 defineProps<{
-  onPreviousClick: () => void;
+  onPreviousClick?: () => void;
   onNextClick: () => void;
 }>();
 </script>
@@ -12,11 +12,13 @@ defineProps<{
 <template>
   <div class="navigation">
     <base-button
+      v-if="onPreviousClick"
       title="Navigate to the previous subject"
       :on-click="onPreviousClick"
       :left-icon-path="chevronLeftIconPath"
       >Previous</base-button
     >
+    <div v-else></div>
     <base-button
       title="Navigate to the next subject"
       :on-click="onNextClick"

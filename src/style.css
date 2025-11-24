@@ -5,7 +5,9 @@
 	--background-color-3: #363646;
   --dimmed-color: #717c7c;
   --success-color: #98bb6c;
+  --success-color-transparent: #98bb6c80;
   --error-color: #e82424;
+  --error-color-transparent: #e8242480;
   --kanji-color: #e46876;
   --kanji-color-transparent: #e4687680;
   --vocabulary-color: #957fb8;
@@ -37,6 +39,10 @@ body {
 
 img {
   filter: invert(94%) sepia(8%) saturate(601%) hue-rotate(7deg) brightness(91%) contrast(91%);
+}
+
+input {
+  font-family: 'Roboto Mono', sans-serif;
 }
 
 .japanese {

@@ -11,7 +11,7 @@ import {
   SubjectDetails,
   SubjectOverview,
 } from "../components";
-import { radicalCollection, useSubjectNavigation } from "../composables";
+import { radicalCollection, useStudyNavigation } from "../composables";
 import type { Radical } from "../types";
 import {
   getParsedText,
@@ -20,7 +20,7 @@ import {
 } from "../utils";
 
 const { subject: radical, onNavigate } =
-  useSubjectNavigation<Radical>(radicalCollection);
+  useStudyNavigation<Radical>(radicalCollection);
 
 const meanings = computed(() =>
   radical.value ? getSubjectMeanings(radical.value) : null,

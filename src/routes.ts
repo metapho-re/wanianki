@@ -2,6 +2,7 @@ import {
   DashboardPage,
   KanjiPage,
   LoginPage,
+  QuizPage,
   RadicalPage,
   VocabularyPage,
 } from "./views";
@@ -16,15 +17,19 @@ export const routes = [
     component: LoginPage,
   },
   {
-    path: "/kanji/:slug",
+    path: "/study/kanji/:slug",
     component: KanjiPage,
   },
   {
-    path: "/radical/:slug",
+    path: "/study/radical/:slug",
     component: RadicalPage,
   },
   {
-    path: "/vocabulary/:slug",
+    path: "/study/vocabulary/:slug",
     component: VocabularyPage,
+  },
+  {
+    path: "/quiz/:quizType/:subjectType/:slug",
+    component: QuizPage,
   },
 ];
