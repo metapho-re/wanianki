@@ -1,5 +1,6 @@
 export { getAcceptedProperties } from "./get-accepted-properties";
 export { getDiceCoefficient } from "./get-dice-coefficient";
+export { getFormattedPercentage } from "./get-formatted-percentage";
 export { getKanjiReadings } from "./get-kanji-readings";
 export { getNavigationPathsFromSelectedSubjects } from "./get-navigation-paths-from-selected-subjects";
 export { getParsedText } from "./get-parsed-text";

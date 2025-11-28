@@ -16,13 +16,15 @@ import {
   radicalCollection,
   vocabularyCollection,
 } from "../composables";
-import type { QuizType, Subject, SubjectType } from "../types";
+import type { QuizReport, QuizType, Subject, SubjectType } from "../types";
 import {
   getAcceptedProperties,
   getDiceCoefficient,
   getSubjectDataFromSlug,
 } from "../utils";
 
+import { useQuizDialog } from "./use-quiz-dialog";
+import { useQuizReport } from "./use-quiz-report";
 import { useReviewNavigationPaths } from "./use-review-navigation-paths";
 
 type ValidationResult = "" | "correct" | "incorrect" | "invalid";
@@ -42,6 +44,8 @@ interface ReturnValue {
   subject: Ref<Subject | null>;
   subjectType: Ref<SubjectType>;
   quizType: Ref<QuizType>;
+  quizReport: Ref<QuizReport>;
+  dialogRef: Ref<{ dialogRef: HTMLDialogElement | null }>;
   onInput: (event: Event) => void;
   onNavigate: () => void;
 }
@@ -53,6 +57,8 @@ export const useQuizNavigation = (): ReturnValue => {
   const inputRef = useTemplateRef<HTMLInputElement>("user-input");
 
   const { getNextReviewNavigationPath } = useReviewNavigationPaths();
+  const { dialogRef, open: openDialog } = useQuizDialog();
+  const { quizReport, update: updateQuizReport } = useQuizReport();
 
   const subject = ref<Subject | null>(
     getSubjectDataFromSlug<Subject>(
@@ -86,28 +92,32 @@ export const useQuizNavigation = (): ReturnValue => {
   );
 
   const validate = () => {
-    if (quizType.value === "reading") {
-      if (!isHiragana(inputValue.value) || inputValue.value.length === 0) {
-        validationResult.value = "invalid";
-      } else {
-        validationResult.value = acceptedAnswers.value.includes(
-          inputValue.value.trim(),
-        )
-          ? "correct"
-          : "incorrect";
-      }
-    } else {
-      if (inputValue.value.length === 0) {
-        validationResult.value = "invalid";
-      } else {
-        validationResult.value = acceptedAnswers.value.some(
-          (acceptedAnswer) =>
-            getDiceCoefficient(acceptedAnswer, inputValue.value) >=
-            MINIMUM_ACCEPTABLE_DICE_COEFFICIENT,
-        )
-          ? "correct"
-          : "incorrect";
-      }
+    let _validationResult: ValidationResult = "incorrect";
+
+    if (inputValue.value.length === 0) {
+      _validationResult = "invalid";
+    } else if (quizType.value === "reading" && !isHiragana(inputValue.value)) {
+      _validationResult = "invalid";
+    } else if (
+      quizType.value === "reading" &&
+      acceptedAnswers.value.includes(inputValue.value.trim())
+    ) {
+      _validationResult = "correct";
+    } else if (
+      quizType.value === "meaning" &&
+      acceptedAnswers.value.some(
+        (acceptedAnswer) =>
+          getDiceCoefficient(acceptedAnswer, inputValue.value) >=
+          MINIMUM_ACCEPTABLE_DICE_COEFFICIENT,
+      )
+    ) {
+      _validationResult = "correct";
+    }
+
+    validationResult.value = _validationResult;
+
+    if (_validationResult === "correct" || _validationResult === "incorrect") {
+      updateQuizReport(subjectType.value, quizType.value, _validationResult);
     }
   };
 
@@ -123,7 +133,7 @@ export const useQuizNavigation = (): ReturnValue => {
       if (navigationPath) {
         router.push(`../../../${navigationPath}`);
       } else {
-        router.push("/");
+        openDialog();
       }
     }
   };
@@ -178,6 +188,8 @@ export const useQuizNavigation = (): ReturnValue => {
     subject,
     subjectType,
     quizType,
+    quizReport,
+    dialogRef,
     onInput,
     onNavigate,
   };

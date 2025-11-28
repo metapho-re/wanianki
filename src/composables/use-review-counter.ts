@@ -10,6 +10,9 @@ export const useReviewCounter = (): ComputedRef<{
   length: number;
 }> =>
   computed(() => ({
-    index: reviewNavigationIndex.value + 1,
+    index: Math.min(
+      reviewNavigationIndex.value + 1,
+      reviewNavigationPaths.value.length,
+    ),
     length: reviewNavigationPaths.value.length,
   }));

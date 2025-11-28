@@ -4,7 +4,7 @@ import BaseIcon from "./base-icon.vue";
 defineProps<{
   leftIconPath?: string;
   rightIconPath?: string;
-  onClick: () => void;
+  onClick: (event: MouseEvent) => void;
 }>();
 </script>
 
@@ -52,5 +52,9 @@ defineProps<{
   background-color: var(--background-color-2);
   color: var(--dimmed-color);
   cursor: not-allowed;
+}
+
+.button:focus {
+  outline: none;
 }
 </style>

@@ -7,6 +7,8 @@ import BaseSection from "./base-section.vue";
 import BaseSwitch from "./base-switch.vue";
 import HighlightedText from "./highlighted-text.vue";
 import NotificationContainer from "./notification-container.vue";
+import QuizDialog from "./quiz-dialog.vue";
+import QuizSummary from "./quiz-summary.vue";
 import ReviewGrid from "./review-grid.vue";
 import ReviewHeader from "./review-header.vue";
 import ReviewNavigation from "./review-navigation.vue";
@@ -23,6 +25,8 @@ export {
   BaseSwitch,
   HighlightedText,
   NotificationContainer,
+  QuizDialog,
+  QuizSummary,
   ReviewGrid,
   ReviewHeader,
   ReviewNavigation,

@@ -1,7 +1,7 @@
 export type { Error } from "./error";
 export type { Kanji, Reading as KanjiReading } from "./kanji";
 export type { Notification, NotificationType } from "./notification";
-export type { QuizType } from "./quiz";
+export type { QuizReport, QuizType } from "./quiz";
 export type { Radical } from "./radical";
 export type {
   CollectionResponse,
