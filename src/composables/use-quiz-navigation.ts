@@ -62,7 +62,9 @@ export const useQuizNavigation = (): ReturnValue => {
 
   const subject = ref<Subject | null>(
     getSubjectDataFromSlug<Subject>(
-      route.params.slug as string,
+      route.params.subjectType === "radical"
+        ? atob(route.params.slug as string)
+        : (route.params.slug as string),
       collectionMap[route.params.subjectType as keyof typeof collectionMap]
         .value,
     ),
@@ -81,7 +83,9 @@ export const useQuizNavigation = (): ReturnValue => {
     () => route.params,
     (params) => {
       subject.value = getSubjectDataFromSlug<Subject>(
-        params.slug as string,
+        params.subjectType === "radical"
+          ? atob(params.slug as string)
+          : (params.slug as string),
         collectionMap[params.subjectType as keyof typeof collectionMap].value,
       );
       subjectType.value = params.subjectType as SubjectType;

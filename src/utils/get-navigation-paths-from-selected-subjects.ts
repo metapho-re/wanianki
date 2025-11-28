@@ -27,7 +27,10 @@ export const getNavigationPathsFromSelectedSubjects = ({
     selectedTypes.value.indexOf(collectionType) >= 0
       ? subjectCollection
           .filter(({ data }) => selectedLevels.value.indexOf(data.level) >= 0)
-          .map(({ data: { slug } }) => `${collectionType}/${slug}`)
+          .map(
+            ({ data: { slug }, object }) =>
+              `${collectionType}/${isQuizMode.value && object === "radical" ? btoa(slug) : slug}`,
+          )
       : [];
 
   if (isQuizMode.value) {
