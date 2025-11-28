@@ -30,7 +30,7 @@ const navigateHome = () => {
       :on-click="cleanUpData"
       :left-icon-path="deleteIconPath"
     >
-      Clean up data
+      Log out
     </base-button>
   </div>
 </template>
