@@ -19,7 +19,7 @@ export const useReviewSelection = async (userLevel: number): ReturnValue => {
   const router = useRouter();
 
   const levels = Array.from({ length: userLevel }, (_, index) => index + 1);
-  const types = ["kanji", "radical", "vocabulary"];
+  const types = ["radical", "kanji", "vocabulary"];
 
   const selectedLevels = ref<number[]>([]);
   const selectedTypes = ref<string[]>([]);

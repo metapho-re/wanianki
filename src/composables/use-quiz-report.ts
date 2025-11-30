@@ -2,7 +2,7 @@ import { ref, type Ref } from "vue";
 
 import type { QuizReport, QuizType, SubjectType } from "../types";
 
-const subjectTypes: SubjectType[] = ["kanji", "radical", "vocabulary"];
+const subjectTypes: SubjectType[] = ["radical", "kanji", "vocabulary"];
 const quizTypes: QuizType[] = ["meaning", "reading"];
 const properties: ("correct" | "total")[] = ["correct", "total"];
 
