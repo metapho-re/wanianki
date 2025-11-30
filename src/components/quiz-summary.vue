@@ -9,10 +9,13 @@ const { quizReport } = defineProps<{ quizReport: QuizReport }>();
 const tableData = computed(() =>
   Object.entries(quizReport).map(([category, values]) => ({
     category,
-    rows: [
-      { type: "meaning", ...values.meaning },
-      { type: "reading", ...values.reading },
-    ],
+    rows:
+      category === "radical"
+        ? [{ type: "meaning", ...values.meaning }]
+        : [
+            { type: "meaning", ...values.meaning },
+            { type: "reading", ...values.reading },
+          ],
   })),
 );
 </script>
@@ -28,7 +31,11 @@ const tableData = computed(() =>
             class="tr"
             :class="item.category"
           >
-            <td v-if="index === 0" class="td" :rowspan="2">
+            <td
+              v-if="index === 0"
+              class="td"
+              :rowspan="item.category !== 'radical' ? 2 : 1"
+            >
               {{ item.category }}
             </td>
             <td class="td">{{ row.type }}</td>
@@ -67,7 +74,7 @@ const tableData = computed(() =>
   border-top-right-radius: 16px;
 }
 
-.tr:nth-of-type(5n) .td:first-of-type {
+.tr:nth-of-type(4n) .td:first-of-type {
   border-bottom-left-radius: 16px;
 }
 
