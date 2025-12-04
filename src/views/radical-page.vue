@@ -2,9 +2,9 @@
 import { computed } from "vue";
 
 import {
-  BaseImage,
   BaseSection,
   HighlightedText,
+  RadicalView,
   ReviewGrid,
   ReviewHeader,
   ReviewNavigation,
@@ -38,7 +38,12 @@ const url = computed(() =>
       :level="radical.level"
       :meaning="meanings!.primary"
     >
-      <base-image :key="url!" :width="'192px'" :height="'192px'" :url="url!" />
+      <radical-view
+        :key="url!"
+        :characters="radical.characters"
+        :url="url!"
+        :size="'192px'"
+      />
     </subject-overview>
     <subject-details>
       <base-section title="Name">

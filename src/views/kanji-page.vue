@@ -2,9 +2,9 @@
 import { computed } from "vue";
 
 import {
-  BaseImage,
   BaseSection,
   HighlightedText,
+  RadicalView,
   ReviewGrid,
   ReviewHeader,
   ReviewNavigation,
@@ -82,10 +82,10 @@ const radicals = computed(() =>
             :key="radical.slug"
             class="radical-box"
           >
-            <base-image
-              :width="'32px'"
-              :height="'32px'"
+            <radical-view
+              :characters="radical.characters"
               :url="radical.characterImageUrl"
+              :size="'32px'"
             />
             <p class="radical-text">{{ radical.meaning }}</p>
           </div>
@@ -178,6 +178,11 @@ const radicals = computed(() =>
 
 .radical-box,
 .reading-box {
+  display: flex;
+  height: 66px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
   text-align: center;
 }
 

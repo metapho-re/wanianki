@@ -2,9 +2,9 @@
 import { computed } from "vue";
 
 import {
-  BaseImage,
   QuizDialog,
   QuizSummary,
+  RadicalView,
   ReviewHeader,
   ReviewNavigation,
 } from "../components";
@@ -45,12 +45,12 @@ const characters = computed(() =>
     </quiz-dialog>
     <review-header :type="subjectType" />
     <div class="subject-section">
-      <base-image
+      <radical-view
         v-if="subjectType === 'radical' && url"
-        :key="url!"
-        :width="'192px'"
-        :height="'192px'"
-        :url="url!"
+        :key="url"
+        :characters="characters"
+        :url="url"
+        :size="'192px'"
       />
       <p v-else :class="subjectType" class="characters japanese">
         {{ characters }}
