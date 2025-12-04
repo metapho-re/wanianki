@@ -13,4 +13,4 @@ export { getSubjectsUrl } from "./get-subjects-url";
 export { getVocabularyReadings } from "./get-vocabulary-readings";
 export { isSubscriptionValid } from "./is-subscription-valid";
 export { shuffleArray } from "./shuffle-array";
-export { sortById } from "./sort-by-id";
+export { sortByIdAndLevel } from "./sort-by-id-and-level";

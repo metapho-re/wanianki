@@ -3,7 +3,7 @@ import { onMounted, ref, type Ref } from "vue";
 
 import type { Fetcher } from "../api";
 import type { Error, Pagination, ReportOrCollection, Store } from "../types";
-import { sortById } from "../utils";
+import { sortByIdAndLevel } from "../utils";
 
 import { useNotifications } from "./use-notifications";
 import { useOpfsStorage } from "./use-opfs-storage";
@@ -76,7 +76,7 @@ export const useFetch = async <T, U>({
       } while (pages?.next_url);
 
       if (Array.isArray(data.value)) {
-        sortById(data.value);
+        sortByIdAndLevel(data.value);
       }
 
       await setValue(data.value);
