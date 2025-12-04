@@ -1,4 +1,5 @@
-import "@fontsource/noto-sans-jp/japanese-400.css";
+import "@fontsource/noto-sans-jp/400.css";
+import "@fontsource/noto-sans-sc/400.css";
 import "@fontsource/roboto-mono/400.css";
 import "@fontsource/roboto-mono/400-italic.css";
 import "@fontsource/roboto-mono/700.css";
