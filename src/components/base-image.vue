@@ -27,25 +27,23 @@ const onError = () => {
 </script>
 
 <template>
-  <div>
-    <div v-if="loading"><base-spinner :width="width" :height="height" /></div>
-    <div v-else-if="error">
-      <base-icon
-        class="error"
-        :path="hideImageIconPath"
-        :width="width"
-        :height="height"
-      />
-    </div>
-    <img
-      v-show="!loading && !error"
-      :src="url"
+  <div v-if="loading"><base-spinner :width="width" :height="height" /></div>
+  <div v-else-if="error">
+    <base-icon
+      class="error"
+      :path="hideImageIconPath"
       :width="width"
       :height="height"
-      @load="onLoad"
-      @error="onError"
     />
   </div>
+  <img
+    v-show="!loading && !error"
+    :src="url"
+    :width="width"
+    :height="height"
+    @load="onLoad"
+    @error="onError"
+  />
 </template>
 
 <style scoped>
