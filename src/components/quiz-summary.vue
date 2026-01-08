@@ -40,7 +40,9 @@ const tableData = computed(() =>
             </td>
             <td class="td">{{ row.type }}</td>
             <td class="td">
-              {{ getFormattedPercentage(row.correct, row.total) }}
+              {{
+                `${row.correct}/${row.total} (${getFormattedPercentage(row.correct, row.total)})`
+              }}
             </td>
           </tr>
         </template>
