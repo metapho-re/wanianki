@@ -14,15 +14,15 @@ defineProps<{
     <base-button
       v-if="onPreviousClick"
       title="Navigate to the previous subject"
-      :on-click="onPreviousClick"
       :left-icon-path="chevronLeftIconPath"
+      @click="onPreviousClick"
       >Previous</base-button
     >
     <div v-else></div>
     <base-button
       title="Navigate to the next subject"
-      :on-click="onNextClick"
       :right-icon-path="chevronRightIconPath"
+      @click="onNextClick"
       >Next</base-button
     >
   </div>
