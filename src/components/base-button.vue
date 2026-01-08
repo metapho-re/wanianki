@@ -2,6 +2,7 @@
 import BaseIcon from "./base-icon.vue";
 
 defineProps<{
+  size?: "normal" | "small";
   leftIconPath?: string;
   rightIconPath?: string;
   onClick: (event: MouseEvent) => void;
@@ -9,7 +10,11 @@ defineProps<{
 </script>
 
 <template>
-  <button class="button" @click="onClick">
+  <button
+    class="button"
+    :class="size === 'small' ? 'small' : ''"
+    @click="onClick"
+  >
     <base-icon
       v-if="leftIconPath"
       :path="leftIconPath"
@@ -39,6 +44,12 @@ defineProps<{
   font-size: 1rem;
   gap: 10px;
   transition: 0.25s;
+}
+
+.button.small {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.8rem;
+  gap: 8px;
 }
 
 .button:hover {
