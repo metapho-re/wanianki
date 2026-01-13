@@ -11,11 +11,7 @@ import {
 import { useRoute, useRouter } from "vue-router";
 import { isHiragana, toHiragana, toRomaji } from "wanakana";
 
-import {
-  kanjiCollection,
-  radicalCollection,
-  vocabularyCollection,
-} from "../composables";
+import { subjectCollection } from "../composables";
 import type { QuizReport, QuizType, Subject, SubjectType } from "../types";
 import {
   getAcceptedProperties,
@@ -30,12 +26,6 @@ import { useReviewNavigationPaths } from "./use-review-navigation-paths";
 type ValidationResult = "" | "correct" | "incorrect" | "invalid";
 
 const MINIMUM_ACCEPTABLE_DICE_COEFFICIENT = 0.8;
-
-const collectionMap = {
-  kanji: kanjiCollection,
-  radical: radicalCollection,
-  vocabulary: vocabularyCollection,
-};
 
 interface ReturnValue {
   inputValue: Ref<string>;
@@ -65,8 +55,9 @@ export const useQuizNavigation = (): ReturnValue => {
       route.params.subjectType === "radical"
         ? atob(route.params.slug as string)
         : (route.params.slug as string),
-      collectionMap[route.params.subjectType as keyof typeof collectionMap]
-        .value,
+      subjectCollection[
+        route.params.subjectType as keyof typeof subjectCollection
+      ].value,
     ),
   );
   const subjectType = ref<SubjectType>(route.params.subjectType as SubjectType);
@@ -86,7 +77,8 @@ export const useQuizNavigation = (): ReturnValue => {
         params.subjectType === "radical"
           ? atob(params.slug as string)
           : (params.slug as string),
-        collectionMap[params.subjectType as keyof typeof collectionMap].value,
+        subjectCollection[params.subjectType as keyof typeof subjectCollection]
+          .value,
       );
       subjectType.value = params.subjectType as SubjectType;
       quizType.value = params.quizType as QuizType;

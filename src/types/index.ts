@@ -10,7 +10,12 @@ export type {
   Response,
 } from "./response";
 export type { Store } from "./store";
-export type { Subject, SubjectResponse, SubjectType } from "./subject";
+export type {
+  ReviewSubject,
+  Subject,
+  SubjectResponse,
+  SubjectType,
+} from "./subject";
 export type { Subscription } from "./subscription";
 export type { User } from "./user";
 export type { ReportOrCollection } from "./utils";

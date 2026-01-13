@@ -1,4 +1,4 @@
-import { radicalCollection } from "../composables";
+import { subjectCollection } from "../composables";
 import type { Kanji } from "../types";
 
 import { getRadicalImageUrl } from "./get-radical-image-url";
@@ -12,7 +12,7 @@ type ReturnValue = {
 }[];
 
 export const getRadicalCombination = (kanji: Kanji): ReturnValue =>
-  radicalCollection.value
+  subjectCollection.radical.value
     .filter(({ id }) => kanji.component_subject_ids.indexOf(id) >= 0)
     .map(({ data }) => ({
       characters: data.characters,

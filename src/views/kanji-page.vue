@@ -11,7 +11,7 @@ import {
   SubjectDetails,
   SubjectOverview,
 } from "../components";
-import { kanjiCollection, useStudyNavigation } from "../composables";
+import { subjectCollection, useStudyNavigation } from "../composables";
 import type { Kanji } from "../types";
 import {
   getKanjiReadings,
@@ -21,17 +21,18 @@ import {
   getSubjectMeanings,
 } from "../utils";
 
-const { subject: kanji, onNavigate } =
-  useStudyNavigation<Kanji>(kanjiCollection);
+const { subject: kanji, onNavigate } = useStudyNavigation<Kanji>(
+  subjectCollection.kanji,
+);
 
 const meanings = computed(() =>
   kanji.value ? getSubjectMeanings(kanji.value) : null,
 );
 const readings = computed(() =>
-  kanji.value ? getKanjiReadings(kanji?.value) : null,
+  kanji.value ? getKanjiReadings(kanji.value) : null,
 );
 const primaryKanjiReading = computed(() =>
-  kanji.value ? getPrimaryKanjiReading(readings.value!) : null,
+  kanji.value ? getPrimaryKanjiReading(kanji.value.readings) : null,
 );
 const radicals = computed(() =>
   kanji.value ? getRadicalCombination(kanji.value) : null,

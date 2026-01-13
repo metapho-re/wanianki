@@ -1,37 +1,20 @@
-import type { Ref } from "vue";
+import type { ComputedRef, Ref } from "vue";
 
-import type {
-  Kanji,
-  Radical,
-  SubjectResponse,
-  SubjectType,
-  Vocabulary,
-} from "../types";
+import type { ReviewSubject } from "../types";
 
 interface Params {
-  selectedLevels: Ref<number[]>;
-  selectedTypes: Ref<string[]>;
+  selectedSubjects: ComputedRef<ReviewSubject[]>;
   isQuizMode: Ref<boolean>;
-  collectionType: SubjectType;
-  subjectCollection: SubjectResponse<Kanji | Radical | Vocabulary>[];
 }
 
 export const getNavigationPathsFromSelectedSubjects = ({
-  selectedLevels,
-  selectedTypes,
+  selectedSubjects,
   isQuizMode,
-  collectionType,
-  subjectCollection,
 }: Params): string[] => {
-  const paths =
-    selectedTypes.value.indexOf(collectionType) >= 0
-      ? subjectCollection
-          .filter(({ data }) => selectedLevels.value.indexOf(data.level) >= 0)
-          .map(
-            ({ data: { slug }, object }) =>
-              `${collectionType}/${isQuizMode.value && object === "radical" ? btoa(slug) : slug}`,
-          )
-      : [];
+  const paths = selectedSubjects.value.map(
+    ({ data: { slug }, object }) =>
+      `${object}/${isQuizMode.value && object === "radical" ? btoa(slug) : slug}`,
+  );
 
   if (isQuizMode.value) {
     return paths

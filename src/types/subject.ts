@@ -1,3 +1,7 @@
+import type { Kanji } from "./kanji";
+import type { Radical } from "./radical";
+import type { Vocabulary } from "./vocabulary";
+
 interface AuxiliaryMeaning {
   meaning: string;
   type: "whitelist" | "blacklist";
@@ -25,3 +29,5 @@ export interface SubjectResponse<T> {
 }
 
 export type SubjectType = "kanji" | "radical" | "vocabulary";
+
+export type ReviewSubject = SubjectResponse<Radical | Kanji | Vocabulary>;

@@ -18,14 +18,20 @@ import { useFetch } from "./use-fetch";
 
 type SubjectResponseStore<T> = Store<SubjectResponse<T>, "collection">;
 
-export const kanjiCollection: SubjectResponseStore<Kanji> = {
+const kanjiCollection: SubjectResponseStore<Kanji> = {
   value: [],
 };
-export const radicalCollection: SubjectResponseStore<Radical> = {
+const radicalCollection: SubjectResponseStore<Radical> = {
   value: [],
 };
-export const vocabularyCollection: SubjectResponseStore<Vocabulary> = {
+const vocabularyCollection: SubjectResponseStore<Vocabulary> = {
   value: [],
+};
+
+export const subjectCollection = {
+  kanji: kanjiCollection,
+  radical: radicalCollection,
+  vocabulary: vocabularyCollection,
 };
 
 const onCompleteFactory =

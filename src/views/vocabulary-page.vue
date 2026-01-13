@@ -10,7 +10,7 @@ import {
   SubjectDetails,
   SubjectOverview,
 } from "../components";
-import { useStudyNavigation, vocabularyCollection } from "../composables";
+import { subjectCollection, useStudyNavigation } from "../composables";
 import type { Vocabulary } from "../types";
 import {
   getParsedText,
@@ -18,8 +18,9 @@ import {
   getVocabularyReadings,
 } from "../utils";
 
-const { subject: vocabulary, onNavigate } =
-  useStudyNavigation<Vocabulary>(vocabularyCollection);
+const { subject: vocabulary, onNavigate } = useStudyNavigation<Vocabulary>(
+  subjectCollection.vocabulary,
+);
 
 const meanings = computed(() =>
   vocabulary.value ? getSubjectMeanings(vocabulary.value) : null,

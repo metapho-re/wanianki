@@ -33,7 +33,15 @@ export const useFetch = async <T, U>({
   const { addNotification } = useNotifications();
   const { getValue, setValue } = useOpfsStorage<T, U>(storageKey);
 
+  const isLoading = ref<boolean>(false);
+  const data: Store<T, U, true> = {
+    value: null,
+  };
+
   onMounted(async () => {
+    isLoading.value = true;
+    data.value = await getValue();
+
     if (shouldFetchOnMounted && data.value === null) {
       await refresh();
     }
@@ -41,17 +49,13 @@ export const useFetch = async <T, U>({
     if (onComplete) {
       onComplete(data.value);
     }
-  });
 
-  const data: Store<T, U, true> = {
-    value: await getValue(),
-  };
-  const isLoading = ref<boolean>(false);
+    isLoading.value = false;
+  });
 
   const refresh = async () => {
     try {
       data.value = null;
-      isLoading.value = true;
 
       let pages: Pagination | undefined = {
         next_url: null,
@@ -92,8 +96,6 @@ export const useFetch = async <T, U>({
       } else {
         addNotification(errorMessage, "error");
       }
-    } finally {
-      isLoading.value = false;
     }
 
     return data.value;

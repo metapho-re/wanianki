@@ -3,96 +3,65 @@ import { computed } from "vue";
 
 import {
   BaseButton,
-  BaseCheckbox,
   BaseHeader,
   BaseSwitch,
+  SubjectSelector,
 } from "../components";
 import { user, useReviewSelection } from "../composables";
 import { bookIconPath } from "../icon-paths";
 
 const {
-  levels,
-  types,
-  selectedLevels,
-  selectedTypes,
+  selectedSubjectIds,
+  selectedSubjects,
   shouldShuffle,
   isQuizMode,
   isLoading,
+  addSubjectId,
+  deleteSubjectId,
+  clearSubjectIds,
   onStartReview,
 } = await useReviewSelection(user.value!.level);
 
-const canReview = computed(
-  () => selectedLevels.value.length > 0 && selectedTypes.value.length > 0,
-);
+const canReview = computed(() => selectedSubjects.value.length > 0);
 </script>
 
 <template>
   <div v-if="isLoading">Loading...</div>
   <div v-else class="dashboard-page">
-    <base-header />
-    <div class="user-section section">
+    <base-header>
       <p class="text">
-        Welcome, <b>{{ user?.username }}</b
-        >! You're <b>level {{ user?.level }}</b> already.
-        {{ 60 - (user?.level || 0) }} levels to go until mastery!
+        <b> Logged in as {{ user?.username }} (level {{ user?.level }}) </b>
       </p>
+    </base-header>
+    <div class="subject-selection-section">
+      <subject-selector
+        :level="user!.level"
+        :selected-subject-ids="selectedSubjectIds"
+        :selected-subjects="selectedSubjects"
+        :add-subject-id="addSubjectId"
+        :delete-subject-id="deleteSubjectId"
+        :clear-subject-ids="clearSubjectIds"
+      />
     </div>
-    <div class="levels-section section">
-      <p class="text">Select the levels you wish to review:</p>
-      <div class="list-container">
-        <div v-for="level in levels" :key="level" class="list-item">
-          <base-checkbox v-model="selectedLevels" :value="level">
-            {{ level }}
-          </base-checkbox>
-        </div>
-      </div>
-    </div>
-    <div class="types-section section">
-      <p class="text">Select the subject types you wish to review:</p>
-      <div class="list-container">
-        <div v-for="type in types" :key="type" :class="`list-item ${type}`">
-          <base-checkbox v-model="selectedTypes" :value="type">
-            {{ type }}
-          </base-checkbox>
-        </div>
-      </div>
-    </div>
-    <div class="shuffle-section section">
-      <p class="text">Toggle to shuffle subject review order:</p>
-      <div class="list-container">
-        <div class="list-item">
-          <base-switch
-            v-model="shouldShuffle"
-            off-label="Ordered"
-            on-label="Shuffled"
-          />
-        </div>
-      </div>
-    </div>
-    <div class="mode-section section">
-      <p class="text">
-        Toggle to switch between study (<i>passive</i>) mode and quiz
-        (<i>active</i>) mode:
-      </p>
-      <div class="list-container">
-        <div class="list-item">
-          <base-switch
-            v-model="isQuizMode"
-            off-label="Study mode"
-            on-label="Quiz mode"
-          />
-        </div>
-      </div>
-    </div>
-    <div class="navigation-section section">
+    <div class="control-section section">
+      <base-switch
+        v-model="shouldShuffle"
+        off-label="Ordered"
+        on-label="Shuffled"
+      />
       <base-button
         title="Start a fresh review session"
-        :on-click="onStartReview"
         :left-icon-path="bookIconPath"
         :disabled="!canReview"
+        @click="onStartReview"
       >
         Start review
       </base-button>
+      <base-switch
+        v-model="isQuizMode"
+        off-label="Study mode"
+        on-label="Quiz mode"
+      />
     </div>
   </div>
 </template>
@@ -105,10 +74,8 @@ const canReview = computed(
   gap: 20px;
   grid-template:
     "header header header" 1fr
-    "user-info user-info user-info" 1fr
-    "level-selection level-selection level-selection" 8fr
-    "type-selection shuffle-selection mode-selection" 4fr
-    "navigation navigation navigation" 1fr / 1fr 1fr 1fr;
+    "subject-selection subject-selection subject-selection" 14fr
+    "control control control" 1fr / 1fr 1fr 1fr;
 }
 
 .section {
@@ -122,50 +89,17 @@ const canReview = computed(
   margin: 0;
 }
 
-.user-section {
-  grid-area: user-info;
+.subject-selection-section {
+  overflow: hidden;
+  grid-area: subject-selection;
 }
 
-.levels-section {
-  grid-area: level-selection;
-}
-
-.types-section {
-  grid-area: type-selection;
-}
-
-.shuffle-section {
-  grid-area: shuffle-selection;
-}
-
-.mode-section {
-  grid-area: mode-selection;
-}
-
-.navigation-section {
+.control-section {
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 4px;
-  grid-area: navigation;
-}
-
-.list-container {
-  display: flex;
-  flex-flow: row wrap;
-  gap: 20px;
-  padding-block-start: 20px;
-}
-
-.list-item {
-  display: flex;
-  width: fit-content;
-  min-width: 48px;
-  padding: 8px;
-  border: 1px solid var(--background-color-3);
-  border-radius: 12px;
-  background-color: var(--background-color-2);
-  gap: 8px;
+  justify-content: space-evenly;
+  grid-area: control;
+  padding-block: 0;
 }
 
 .kanji {

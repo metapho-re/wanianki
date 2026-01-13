@@ -1,5 +1,4 @@
 import BaseButton from "./base-button.vue";
-import BaseCheckbox from "./base-checkbox.vue";
 import BaseHeader from "./base-header.vue";
 import BaseIcon from "./base-icon.vue";
 import BaseSection from "./base-section.vue";
@@ -14,10 +13,10 @@ import ReviewHeader from "./review-header.vue";
 import ReviewNavigation from "./review-navigation.vue";
 import SubjectDetails from "./subject-details.vue";
 import SubjectOverview from "./subject-overview.vue";
+import SubjectSelector from "./subject-selector.vue";
 
 export {
   BaseButton,
-  BaseCheckbox,
   BaseHeader,
   BaseIcon,
   BaseSection,
@@ -32,4 +31,5 @@ export {
   ReviewNavigation,
   SubjectDetails,
   SubjectOverview,
+  SubjectSelector,
 };

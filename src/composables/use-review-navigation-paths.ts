@@ -1,12 +1,7 @@
-import { ref, type Ref } from "vue";
+import { ref, type ComputedRef, type Ref } from "vue";
 
+import type { ReviewSubject } from "../types";
 import { getNavigationPathsFromSelectedSubjects, shuffleArray } from "../utils";
-
-import {
-  kanjiCollection,
-  radicalCollection,
-  vocabularyCollection,
-} from "./use-learning-material";
 
 export const reviewNavigationPaths = ref<string[]>([]);
 
@@ -14,13 +9,11 @@ export const reviewNavigationIndex = ref<number>(-1);
 
 interface ReturnValue {
   createReviewNavigationPaths: ({
-    selectedLevels,
-    selectedTypes,
+    selectedSubjects,
     shouldShuffle,
     isQuizMode,
   }: {
-    selectedLevels: Ref<number[]>;
-    selectedTypes: Ref<string[]>;
+    selectedSubjects: ComputedRef<ReviewSubject[]>;
     shouldShuffle: Ref<boolean>;
     isQuizMode: Ref<boolean>;
   }) => void;
@@ -30,39 +23,18 @@ interface ReturnValue {
 
 export const useReviewNavigationPaths = (): ReturnValue => {
   const createReviewNavigationPaths = ({
-    selectedLevels,
-    selectedTypes,
+    selectedSubjects,
     shouldShuffle,
     isQuizMode,
   }: {
-    selectedLevels: Ref<number[]>;
-    selectedTypes: Ref<string[]>;
+    selectedSubjects: ComputedRef<ReviewSubject[]>;
     shouldShuffle: Ref<boolean>;
     isQuizMode: Ref<boolean>;
   }) => {
-    reviewNavigationPaths.value = [
-      ...getNavigationPathsFromSelectedSubjects({
-        selectedLevels,
-        selectedTypes,
-        isQuizMode,
-        collectionType: "radical",
-        subjectCollection: radicalCollection.value,
-      }),
-      ...getNavigationPathsFromSelectedSubjects({
-        selectedLevels,
-        selectedTypes,
-        isQuizMode,
-        collectionType: "kanji",
-        subjectCollection: kanjiCollection.value,
-      }),
-      ...getNavigationPathsFromSelectedSubjects({
-        selectedLevels,
-        selectedTypes,
-        isQuizMode,
-        collectionType: "vocabulary",
-        subjectCollection: vocabularyCollection.value,
-      }),
-    ];
+    reviewNavigationPaths.value = getNavigationPathsFromSelectedSubjects({
+      selectedSubjects,
+      isQuizMode,
+    });
 
     if (shouldShuffle.value) {
       shuffleArray(reviewNavigationPaths.value);

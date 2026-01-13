@@ -1,3 +1,5 @@
+export { capitalize } from "./capitalize";
+export { clamp } from "./clamp";
 export { getAcceptedProperties } from "./get-accepted-properties";
 export { getDiceCoefficient } from "./get-dice-coefficient";
 export { getFormattedPercentage } from "./get-formatted-percentage";
@@ -9,6 +11,7 @@ export { getRadicalCombination } from "./get-radical-combination";
 export { getRadicalImageUrl } from "./get-radical-image-url";
 export { getSubjectDataFromSlug } from "./get-subject-data-from-slug";
 export { getSubjectMeanings } from "./get-subject-meanings";
+export { getSubjectQueryString } from "./get-subject-query-string";
 export { getSubjectsUrl } from "./get-subjects-url";
 export { getVocabularyReadings } from "./get-vocabulary-readings";
 export { isSubscriptionValid } from "./is-subscription-valid";
