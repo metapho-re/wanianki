@@ -31,8 +31,8 @@ const url = computed(() =>
     : null,
 );
 const characters = computed(() =>
-  subjectType.value !== "radical" && subject.value
-    ? (subject.value as Kanji | Vocabulary).characters
+  subject.value
+    ? (subject.value as Kanji | Radical | Vocabulary).characters
     : null,
 );
 </script>
@@ -112,7 +112,7 @@ const characters = computed(() =>
 }
 
 .characters.vocabulary {
-  font-size: 2rem;
+  font-size: 8rem;
 }
 
 .answers {
