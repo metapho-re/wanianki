@@ -38,7 +38,7 @@ defineProps<{
   padding: 0.6rem 1.2rem;
   border: 1px solid var(--primary-color-transparent);
   border-radius: 8px;
-  background-color: transparent;
+  background-color: var(--background-color-0);
   color: var(--foreground-color);
   cursor: pointer;
   font-size: 1rem;

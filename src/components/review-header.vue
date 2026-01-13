@@ -28,7 +28,7 @@ const reviewCounter = useReviewCounter();
   border: 1px solid var(--background-color-3);
   border-radius: 12px;
   margin: 0;
-  background-color: var(--background-color-2);
+  background-color: var(--background-color-0);
   font-size: 1.5rem;
   font-weight: bold;
   padding-inline: 8px;

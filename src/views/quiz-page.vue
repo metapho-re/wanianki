@@ -142,12 +142,12 @@ const characters = computed(() =>
 }
 
 .input {
-  width: 100%;
-  height: 100%;
+  width: calc(100% - 2px);
+  height: calc(100% - 2px);
   padding: 0;
   border: 1px solid var(--background-color-3);
   border-radius: 8px;
-  background-color: var(--background-color-1);
+  background-color: var(--background-color-0);
   color: var(--foreground-color);
   font-size: 1.8rem;
   grid-area: input;

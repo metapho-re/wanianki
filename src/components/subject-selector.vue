@@ -283,7 +283,6 @@ const {
 
 .range input {
   appearance: none;
-  appearance: none;
   background-color: transparent;
 }
 
@@ -316,7 +315,6 @@ const {
   height: 16px;
   border-radius: 16px;
   margin-top: -6px;
-  appearance: none;
   appearance: none;
   background-color: var(--foreground-color);
 }
@@ -351,11 +349,11 @@ const {
   overflow: auto;
   border: 1px solid var(--background-color-3);
   border-radius: 8px;
-  background-color: var(--background-color-2);
+  background-color: var(--background-color-1);
 }
 
 .suggestion:nth-child(odd) {
-  background-color: var(--background-color-1);
+  background-color: var(--background-color-0);
 }
 
 .suggestion.highlighted {

@@ -53,6 +53,7 @@ const tableData = computed(() =>
 
 <style scoped>
 .table {
+  background-color: var(--background-color-0);
   border-spacing: 0;
 }
 
