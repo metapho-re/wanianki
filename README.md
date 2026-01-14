@@ -1,15 +1,14 @@
 # WaniAnki
 
-A lightweight web application that **fetches review subjects from your WaniKani account and lets you review them offline**. All review data is persisted locally using the browser **Origin Private File System (OPFS) API**, and **your API token is not retained in browser memory**. Filter and review by level and by subject type: **radical, kanji, and vocabulary**.
+A lightweight web application that **fetches review subjects from your WaniKani account and lets you review them offline**. All review data is persisted locally using the browser **Origin Private File System (OPFS) API**, and **your API token is not retained in browser memory**. Select subjects by type (radical, kanji, vocabulary), filter by level range, or search by meaning or reading.
 
 ## Features
 
 - **Offline reviews** — review cached subjects without an active network connection.
-- **Per-level filtering** — sync and review specific levels only.
-- **Subject types** — review radicals, kanji, and vocabulary.
+- **Flexible selection** — filter by subject type and level range, search by meaning or reading, or toggle entire levels at once.
 - **Local persistence** — all data is stored in-browser using the OPFS API.
+- **Two review modes** — study mode for reading content, quiz mode for testing yourself.
 - **Easy keyboard navigation** — use keyboard shortcuts to easily navigate through review subjects.
-- **Single-page subject layout** — a clean, focused layout for each review subject, aligned with WaniKani's original content structure.
 - **API token safety** — the API token is not kept in memory.
 
 ## Usage
@@ -18,33 +17,50 @@ A lightweight web application that **fetches review subjects from your WaniKani 
 Provide a valid WaniKani personal access token with `all_data:read` permission.
 
 ![selection-page](./assets/selection-page.png)
-Select the level(s) and subject type(s) you want to review.
+Select subjects using the tabbed filter (radical, kanji, vocabulary), adjust the level range with sliders, or search by meaning or reading with autocomplete suggestions. Browse subjects grouped by level, toggle entire levels at once, or click individual items. Selected subjects appear as removable chips at the bottom. Choose ordered or shuffled review, then start in either study mode or quiz mode.
 
-![radical-page](./assets/radical-page.png)
-![kanji-page](./assets/kanji-page.png)
-![vocabulary-page](./assets/vocabulary-page.png)
-Navigate through the subjects to review and master those kanji!
+## Study Mode vs Quiz Mode
+
+### Study Mode
+
+![study-mode](./assets/study-mode.png)
+
+A read-only mode for reviewing subject details. Displays the full breakdown of each subject including meanings, mnemonics, hints, radical combinations, and readings (on'yomi, kun'yomi, nanori). Navigate freely between subjects to reinforce your memory.
+
+### Quiz Mode
+
+![quiz-mode](./assets/quiz-mode.png)
+
+An interactive mode that tests your knowledge. You'll be prompted to type in either the meaning or reading of each subject. Answers are validated as you go — readings require an exact hiragana match, while meanings allow for close answers using fuzzy matching.
 
 ## Keyboard Shortcuts
+
+### Study Mode
 
 | Action           | Shortcut                   |
 | ---------------- | -------------------------- |
 | Next subject     | Space; Enter               |
 | Previous subject | Ctrl + Space; Ctrl + Enter |
-| Exit review      | Escape                     |
+| Exit to dashboard| Escape                     |
 
-## Installation
+### Quiz Mode
 
-`npm install`
+| Action                     | Shortcut |
+| ---------------------------| -------- |
+| Submit answer / Next review| Enter    |
+| Exit to dashboard          | Escape   |
 
-## Usage
+## Development
 
-- Start development server: `npm run dev`
-- Create production build: `npm run build`
-- Serve production build: `npm run preview`
-- Run the ES linter: `npm run lint`
-- Run the style linter: `npm run stylelint`
-- Run the types check: `npm run type-check`
+```bash
+npm install           # Install dependencies
+npm run dev           # Start development server
+npm run build         # Create production build
+npm run preview       # Serve production build
+npm run lint          # Run the ES linter
+npm run stylelint     # Run the style linter
+npm run type-check    # Run the types check
+```
 
 ## Built with
 
