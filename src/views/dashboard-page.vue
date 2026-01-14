@@ -30,7 +30,7 @@ const canReview = computed(() => selectedSubjects.value.length > 0);
   <div v-else class="dashboard-page">
     <base-header>
       <p class="text">
-        <b> Logged in as {{ user?.username }} (level {{ user?.level }}) </b>
+        Logged in as <b>{{ user?.username }}</b> (level {{ user?.level }})
       </p>
     </base-header>
     <div class="subject-selection-section">
