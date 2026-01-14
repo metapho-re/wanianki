@@ -18,7 +18,9 @@ import { NotificationContainer } from "./components";
 <style scoped>
 .wrapper {
   width: calc(100% - 40px);
+  max-width: 1920px;
   height: calc(100% - 40px);
+  max-height: 1080px;
   padding: 20px;
 }
 </style>
