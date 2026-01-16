@@ -2,6 +2,7 @@ import BaseButton from "./base-button.vue";
 import BaseHeader from "./base-header.vue";
 import BaseIcon from "./base-icon.vue";
 import BaseSection from "./base-section.vue";
+import BaseSpinner from "./base-spinner.vue";
 import BaseSwitch from "./base-switch.vue";
 import HighlightedText from "./highlighted-text.vue";
 import NotificationContainer from "./notification-container.vue";
@@ -20,6 +21,7 @@ export {
   BaseHeader,
   BaseIcon,
   BaseSection,
+  BaseSpinner,
   BaseSwitch,
   HighlightedText,
   NotificationContainer,

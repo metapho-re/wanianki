@@ -4,6 +4,7 @@ import { computed } from "vue";
 import {
   BaseButton,
   BaseHeader,
+  BaseSpinner,
   BaseSwitch,
   SubjectSelector,
 } from "../components";
@@ -26,7 +27,9 @@ const canReview = computed<boolean>(() => selectedSubjects.value.length > 0);
 </script>
 
 <template>
-  <div v-if="isLoading">Loading...</div>
+  <div v-if="isLoading" class="loading-page">
+    <base-spinner width="96px" height="96px" />
+  </div>
   <div v-else class="dashboard-page">
     <base-header>
       <p class="text">
@@ -67,6 +70,14 @@ const canReview = computed<boolean>(() => selectedSubjects.value.length > 0);
 </template>
 
 <style scoped>
+.loading-page {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
 .dashboard-page {
   display: grid;
   width: 100%;
