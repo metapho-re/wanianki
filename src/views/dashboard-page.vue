@@ -71,22 +71,33 @@ const canReview = computed(() => selectedSubjects.value.length > 0);
   display: grid;
   width: 100%;
   height: 100%;
-  gap: 20px;
+  gap: 16px;
   grid-template:
-    "header header header" 1fr
-    "subject-selection subject-selection subject-selection" 14fr
-    "control control control" 1fr / 1fr 1fr 1fr;
+    "header header header" auto
+    "subject-selection subject-selection subject-selection" 1fr
+    "control control control" auto / 1fr 1fr 1fr;
 }
 
 .section {
-  padding: 20px;
+  padding: 16px 20px;
   border: 1px solid var(--background-color-3);
-  border-radius: 8px;
-  background-color: var(--background-color-1);
+  border-radius: var(--radius-md);
+  background: linear-gradient(
+    180deg,
+    var(--background-color-1) 0%,
+    var(--background-color-transparent) 100%
+  );
+  box-shadow: var(--shadow-md);
 }
 
 .text {
   margin: 0;
+  color: var(--foreground-color-1);
+  font-size: 0.9rem;
+}
+
+.text b {
+  color: var(--primary-color);
 }
 
 .subject-selection-section {
@@ -99,7 +110,7 @@ const canReview = computed(() => selectedSubjects.value.length > 0);
   align-items: center;
   justify-content: space-evenly;
   grid-area: control;
-  padding-block: 0;
+  padding-block: 12px;
 }
 
 .kanji {

@@ -59,6 +59,7 @@ const tagline = useTagline();
 }
 
 .title {
+  animation: gradient-shift 8s ease infinite;
   background-clip: text;
   background-image: linear-gradient(
     90deg,
@@ -67,16 +68,33 @@ const tagline = useTagline();
     var(--radical-color) 80%
   );
   background-size: 100%;
-  font-size: 8rem;
+  font-size: 7rem;
   font-weight: 700;
+  letter-spacing: -0.02em;
   margin-block: 0;
   -webkit-text-fill-color: transparent;
   -moz-text-fill-color: transparent;
+  text-shadow: 0 0 60px var(--vocabulary-color-glow);
+}
+
+@keyframes gradient-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 .tagline {
-  font-size: 1.8rem;
+  margin-top: 0.5rem;
+  color: var(--foreground-color-1);
+  font-size: 1.4rem;
   font-weight: 400;
+  letter-spacing: 0.05em;
+  opacity: 0.85;
 }
 
 .form-container {
@@ -87,64 +105,88 @@ const tagline = useTagline();
 
 .form {
   display: flex;
-  width: 50vw;
-  height: 3.2rem;
+  overflow: hidden;
+  width: min(50vw, 600px);
+  height: 3.4rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  transition: var(--transition-base);
+}
+
+.form:hover {
+  box-shadow:
+    var(--shadow-lg),
+    var(--shadow-glow) var(--primary-color-glow);
 }
 
 .input {
   width: 100%;
   height: 100%;
   box-sizing: border-box;
+  padding: 0 1.2rem;
   border: 1px solid var(--background-color-3);
-  background-color: var(--background-color-1);
-  border-bottom-left-radius: 1rem;
-  border-top-left-radius: 1rem;
-  color: var(--foreground-color);
-  font-size: 1.2rem;
-  padding-inline-start: 1rem;
-  transition: 0.25s;
+  border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+  border-right: none;
+  background: linear-gradient(
+    180deg,
+    var(--background-color-2) 0%,
+    var(--background-color-1) 100%
+  );
+  color: var(--foreground-color-0);
+  font-size: 1rem;
+  transition: var(--transition-base);
+}
+
+.input::placeholder {
+  color: var(--muted-color);
 }
 
 .button {
   display: flex;
   height: 100%;
+  flex-shrink: 0;
   align-items: center;
-  border: 1px solid var(--background-color-3);
-  border-left: none;
-  background-color: var(--primary-color-transparent);
-  border-bottom-right-radius: 1rem;
-  border-top-right-radius: 1rem;
-  color: var(--background-color-1);
-  cursor: pointer;
-  font-size: 1.2rem;
-  gap: 8px;
-  padding-inline: 1rem;
-  transition: 0.25s;
-}
-
-.button:hover {
+  padding: 0 1.4rem;
+  border: 1px solid var(--primary-color);
+  border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
   background-color: var(--primary-color);
-}
-
-.input:focus,
-.button:focus {
-  outline: none;
+  color: var(--sumi-ink-0);
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 700;
+  gap: 10px;
+  letter-spacing: 0.02em;
+  transition: var(--transition-base);
 }
 
 .input:disabled,
 .button:disabled {
-  background-color: var(--background-color-2);
-  color: var(--dimmed-color);
+  background: var(--background-color-2);
+  color: var(--muted-color);
   cursor: not-allowed;
+  opacity: 0.6;
 }
 
-.form:hover .input:not(:disabled),
-.form:hover .button:not(:disabled) {
-  border-color: var(--primary-color-transparent);
+.button:disabled {
+  border-color: var(--background-color-3);
 }
 
-.form .input:focus:not(:disabled),
-.form:has(.input:focus) .button:not(:disabled) {
+.button:hover:not(:disabled) {
+  filter: brightness(1.1);
+  transform: translateX(2px);
+}
+
+.button:active:not(:disabled) {
+  transform: translateX(0);
+}
+
+.form:has(.input:focus) {
+  box-shadow:
+    var(--shadow-lg),
+    var(--shadow-glow) var(--primary-color-glow);
+}
+
+.form:has(.input:focus) .input {
   border-color: var(--primary-color);
 }
 </style>

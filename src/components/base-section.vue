@@ -13,11 +13,12 @@ defineProps<{
 
 <style scoped>
 .section {
-  padding: 20px;
+  padding: 20px 24px;
   border: 1px solid var(--background-color-3);
-  border-radius: 8px;
-  background-color: var(--background-color-0);
-  margin-block-end: 20px;
+  border-radius: var(--radius-md);
+  background: var(--background-color-0);
+  box-shadow: var(--shadow-sm);
+  margin-block-end: 16px;
 }
 
 .section:last-child {
@@ -25,6 +26,11 @@ defineProps<{
 }
 
 .section-title {
-  margin: 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--background-color-3);
+  margin: 0 0 12px;
+  color: var(--foreground-color-1);
+  font-size: 1.1rem;
+  font-weight: 700;
 }
 </style>

@@ -23,25 +23,31 @@ const checked = defineModel<boolean>();
   display: flex;
   align-items: center;
   padding: 2px;
-  gap: 8px;
+  color: var(--foreground-color-0);
+  font-size: 0.9rem;
+  gap: 10px;
 }
 
 .switch {
   position: relative;
   display: inline-block;
-  width: 36px;
-  height: 18px;
-  border: 1px solid var(--primary-color-transparent);
-  border-radius: 12px;
-  transition: 0.25s;
+  width: 40px;
+  height: 20px;
+  border: 1px solid var(--background-color-3);
+  border-radius: var(--radius-full);
+  background: var(--background-color-0);
+  box-shadow: inset 0 1px 3px var(--text-shadow-color);
+  transition: var(--transition-base);
 }
 
 .switch:hover {
-  border-color: var(--primary-color);
+  border-color: var(--primary-color-transparent);
 }
 
 .switch:has(input:checked) {
   border-color: var(--primary-color);
+  background: var(--primary-color-transparent);
+  box-shadow: var(--shadow-glow) var(--primary-color-glow);
 }
 
 .switch input {
@@ -52,35 +58,30 @@ const checked = defineModel<boolean>();
 
 .slider {
   position: absolute;
-  border-radius: 18px;
-  background-color: var(--background-color-1);
+  border-radius: var(--radius-full);
   cursor: pointer;
   inset: 0;
-  transition: 0.25s;
-}
-
-.slider:hover {
-  background-color: var(--primary-color-transparent);
+  transition: var(--transition-base);
 }
 
 .slider::before {
   position: absolute;
-  bottom: 1px;
-  left: 1px;
+  top: 2px;
+  left: 2px;
   width: 16px;
   height: 16px;
-  border-radius: 50%;
-  background-color: var(--foreground-color);
+  border-radius: var(--radius-full);
+  background: var(--foreground-color-1);
+  box-shadow: var(--shadow-sm);
   content: "";
-  transition: 0.25s;
-}
-
-input:checked + .slider {
-  background-color: transparent;
+  transition: var(--transition-base);
 }
 
 input:checked + .slider::before {
-  background-color: var(--primary-color);
-  transform: translateX(18px);
+  background: var(--primary-color);
+  box-shadow:
+    var(--shadow-sm),
+    var(--shadow-glow) var(--primary-color-glow);
+  transform: translateX(20px);
 }
 </style>

@@ -40,10 +40,11 @@ const navigateHome = () => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 4px;
+  padding: 6px 8px;
   border: 1px solid var(--background-color-3);
-  border-radius: 8px;
-  background-color: var(--background-color-1);
+  border-radius: var(--radius-md);
+  background: var(--background-color-1);
+  box-shadow: var(--shadow-sm);
   grid-area: header;
 }
 </style>

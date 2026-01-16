@@ -9,28 +9,77 @@
 
 
 :root {
-  --foreground-color: #dcd7ba;
-	--background-color-0: #16161d;
-	--background-color-1: #1f1f28;
-	--background-color-2: #2a2a37;
-	--background-color-3: #363646;
-  --dimmed-color: #717c7c;
-  --success-color: #98bb6c;
-  --success-color-transparent: #98bb6c80;
-  --error-color: #e82424;
-  --error-color-transparent: #e8242480;
-  --kanji-color: #e46876;
-  --kanji-color-transparent: #e4687680;
-  --vocabulary-color: #957fb8;
-  --vocabulary-color-transparent: #957fb880;
-	--radical-color: #7e9cd8;
-	--radical-color-transparent: #7e9cd880;
-  --primary-color: #ffa066;
-  --primary-color-transparent: #ffa06680;
+  /* Color palette */
+  --fuji-white: #dcd7ba;
+  --old-white: #c8c093;
+  --sumi-ink-0: #16161d;
+  --sumi-ink-1: #1f1f28;
+  --sumi-ink-2: #2a2a37;
+  --sumi-ink-3: #363646;
+  --sumi-ink-4: #54546d;
+  --wave-blue-2: #2d4f67;
+  --spring-violet-1: #938aa9;
+  --fuji-gray: #727169;
+  --oni-violet: #957fb8;
+  --crystal-blue: #7e9cd8;
+  --spring-green: #98bb6c;
+  --carp-yellow: #e6c384;
+  --sakura-pink: #d27e99;
+  --surimi-orange: #ffa066;
+  --samurai-red: #e82424;
+
+  /* Semantic mappings */
+  --foreground-color-0: var(--fuji-white);
+  --foreground-color-1: var(--old-white);
+  --background-color-0: var(--sumi-ink-0);
+  --background-color-1: var(--sumi-ink-1);
+  --background-color-2: var(--sumi-ink-2);
+  --background-color-3: var(--sumi-ink-3);
+  --background-color-transparent: #1f1f28cc;
+  --overlay-color: rgb(0 0 0 / 50%);
+  --text-shadow-color: rgb(0 0 0 / 30%);
+  --dimmed-color: var(--fuji-gray);
+  --muted-color: var(--sumi-ink-4);
+  --success-color: var(--spring-green);
+  --success-color-transparent: #98bb6c40;
+  --success-color-subtle: #98bb6c20;
+  --success-color-glow: #98bb6c66;
+  --error-color: var(--samurai-red);
+  --error-color-transparent: #e8242440;
+  --error-color-subtle: #e8242420;
+  --error-color-glow: #e824244d;
+  --kanji-color: var(--sakura-pink);
+  --kanji-color-transparent: #d27e9960;
+  --kanji-color-glow: #d27e9980;
+  --vocabulary-color: var(--oni-violet);
+  --vocabulary-color-transparent: #957fb860;
+  --vocabulary-color-glow: #957fb880;
+  --radical-color: var(--crystal-blue);
+  --radical-color-transparent: #7e9cd860;
+  --radical-color-glow: #7e9cd880;
+  --primary-color: var(--surimi-orange);
+  --primary-color-transparent: #ffa06640;
+  --primary-color-glow: #ffa06660;
+
+  /* Shadows and effects */
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 30%);
+  --shadow-md: 0 4px 12px rgb(0 0 0 / 40%);
+  --shadow-lg: 0 8px 24px rgb(0 0 0 / 50%);
+  --shadow-glow: 0 0 20px;
+
+  /* Border radius */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-base: 0.3s ease;
 
   background-color: var(--background-color-0);
-  color: var(--foreground-color);
-  color-scheme: light dark;
+  color: var(--foreground-color-0);
+  color-scheme: dark;
   font-family: 'Roboto Mono', sans-serif;
   -webkit-font-smoothing: antialiased;
   font-synthesis: none;
@@ -59,6 +108,39 @@ input {
   font-family: 'Roboto Mono', sans-serif;
 }
 
+:focus-visible {
+  outline: none;
+}
+
+::selection {
+  background-color: var(--wave-blue-2);
+  color: var(--foreground-color-1);
+}
+
+* {
+  scrollbar-color: var(--sumi-ink-4) var(--background-color-1);
+  scrollbar-width: auto;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: var(--radius-full);
+  background: var(--background-color-1);
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: var(--radius-full);
+  background: var(--sumi-ink-4);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--spring-violet-1);
+}
+
 .japanese {
   font-family: 'Noto Sans JP', 'Noto Sans SC', 'Noto Sans SC Radicals', sans-serif;
 }
@@ -72,5 +154,5 @@ input {
 }
 
 .primary {
-  font-weight: bold;
+  font-weight: 700;
 }

@@ -14,32 +14,33 @@ defineProps<{
 <style scoped>
 .notification-item {
   padding: 12px 20px;
-  border-radius: 6px;
+  border-radius: var(--radius-md);
   margin-bottom: 10px;
-  animation: fade-in 0.3s ease;
-  box-shadow: 0 2px 8px var(--background-color-1);
-  font-weight: bold;
+  animation: slide-in 0.3s ease;
+  box-shadow: var(--shadow-lg);
+  font-size: 0.9rem;
+  font-weight: 400;
 }
 
 .notification-item.success {
   background-color: var(--success-color);
-  color: var(--foreground-color);
+  color: var(--sumi-ink-0);
 }
 
 .notification-item.error {
   background-color: var(--error-color);
-  color: var(--foreground-color);
+  color: var(--fuji-white);
 }
 
-@keyframes fade-in {
+@keyframes slide-in {
   from {
     opacity: 0;
-    transform: translateY(-20px);
+    transform: translateX(20px);
   }
 
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0);
   }
 }
 </style>

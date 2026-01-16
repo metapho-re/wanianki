@@ -18,28 +18,54 @@ defineProps<{
 <style scoped>
 .meaning,
 .reading {
+  color: var(--carp-yellow);
   font-style: italic;
 }
 
 .kanji,
 .radical,
 .vocabulary {
-  border-radius: 8px;
-  padding-inline: 4px;
+  padding: 1px 6px;
+  border-radius: var(--radius-sm);
+  transition: var(--transition-fast);
 }
 
 .kanji {
   border: 1px solid var(--kanji-color);
-  background-color: var(--kanji-color-transparent);
+  background: linear-gradient(
+    135deg,
+    var(--kanji-color-transparent) 0%,
+    transparent 100%
+  );
+}
+
+.kanji:hover {
+  box-shadow: var(--shadow-glow) var(--kanji-color-glow);
 }
 
 .radical {
   border: 1px solid var(--radical-color);
-  background-color: var(--radical-color-transparent);
+  background: linear-gradient(
+    135deg,
+    var(--radical-color-transparent) 0%,
+    transparent 100%
+  );
+}
+
+.radical:hover {
+  box-shadow: var(--shadow-glow) var(--radical-color-glow);
 }
 
 .vocabulary {
   border: 1px solid var(--vocabulary-color);
-  background-color: var(--vocabulary-color-transparent);
+  background: linear-gradient(
+    135deg,
+    var(--vocabulary-color-transparent) 0%,
+    transparent 100%
+  );
+}
+
+.vocabulary:hover {
+  box-shadow: var(--shadow-glow) var(--vocabulary-color-glow);
 }
 </style>

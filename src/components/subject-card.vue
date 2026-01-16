@@ -59,44 +59,78 @@ const url =
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 16px 8px;
+  padding: 14px 10px;
 }
 
 .wrapper {
-  padding: 8px;
-  border-radius: 8px;
+  padding: 8px 10px;
+  border-radius: var(--radius-md);
   margin-block-end: 8px;
+  transition: var(--transition-fast);
 }
 
 .wrapper.radical {
-  background-color: var(--radical-color-transparent);
+  border: 1px solid transparent;
+  background: linear-gradient(
+    135deg,
+    var(--radical-color-transparent) 0%,
+    transparent 100%
+  );
 }
 
 .wrapper.kanji {
-  background-color: var(--kanji-color-transparent);
+  border: 1px solid transparent;
+  background: linear-gradient(
+    135deg,
+    var(--kanji-color-transparent) 0%,
+    transparent 100%
+  );
 }
 
 .wrapper.vocabulary {
-  background-color: var(--vocabulary-color-transparent);
+  border: 1px solid transparent;
+  background: linear-gradient(
+    135deg,
+    var(--vocabulary-color-transparent) 0%,
+    transparent 100%
+  );
+}
+
+.subject-card:hover .wrapper.radical {
+  border-color: var(--radical-color);
+  box-shadow: var(--shadow-glow) var(--radical-color-glow);
+}
+
+.subject-card:hover .wrapper.kanji {
+  border-color: var(--kanji-color);
+  box-shadow: var(--shadow-glow) var(--kanji-color-glow);
+}
+
+.subject-card:hover .wrapper.vocabulary {
+  border-color: var(--vocabulary-color);
+  box-shadow: var(--shadow-glow) var(--vocabulary-color-glow);
 }
 
 .characters {
   margin: 0;
-}
-
-.kanji .characters {
-  font-size: 36px;
-  line-height: 36px;
+  font-size: 32px;
+  line-height: 32px;
 }
 
 .vocabulary .characters {
-  font-size: 24px;
-  line-height: 24px;
+  font-size: 22px;
+  line-height: 22px;
 }
 
-.reading,
+.reading {
+  margin: 0;
+  color: var(--foreground-color-1);
+  font-size: 0.75rem;
+}
+
 .meaning {
   margin: 0;
-  font-size: 0.8rem;
+  color: var(--dimmed-color);
+  font-size: 0.75rem;
 }
 </style>

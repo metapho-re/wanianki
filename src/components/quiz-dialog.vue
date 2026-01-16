@@ -40,25 +40,42 @@ defineExpose<{
 
 <style scoped>
 .dialog {
-  padding: 40px;
+  padding: 32px 40px;
   border: 1px solid var(--background-color-3);
-  border-radius: 16px;
-  background-color: var(--background-color-2);
-  color: var(--foreground-color);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(
+    180deg,
+    var(--background-color-2) 0%,
+    var(--background-color-1) 100%
+  );
+  box-shadow:
+    var(--shadow-lg),
+    0 0 60px var(--overlay-color);
+  color: var(--foreground-color-0);
+}
+
+.dialog::backdrop {
+  backdrop-filter: blur(4px);
+  background: var(--overlay-color);
 }
 
 .dialog-header {
   display: flex;
   justify-content: space-between;
-  font-size: 1.5rem;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--background-color-3);
+  font-size: 1.3rem;
+  font-weight: 700;
 }
 
 .dialog-body {
-  padding-block: 40px;
+  padding-block: 24px;
 }
 
 .dialog-footer {
   display: flex;
   justify-content: flex-end;
+  padding-top: 16px;
+  border-top: 1px solid var(--background-color-3);
 }
 </style>

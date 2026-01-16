@@ -99,12 +99,14 @@ const wordType = computed(() =>
 
 <style scoped>
 .vocabulary-characters {
-  font-size: 2rem;
+  font-size: 4rem;
+  text-shadow: 0 4px 30px var(--text-shadow-color);
 }
 
 .meaning-list {
   display: flex;
-  gap: 60px;
+  flex-wrap: wrap;
+  gap: 40px;
 }
 
 .meaning {

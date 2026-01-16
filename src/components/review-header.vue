@@ -25,24 +25,27 @@ const reviewCounter = useReviewCounter();
 
 <style scoped>
 .counter {
+  padding: 4px 14px;
   border: 1px solid var(--background-color-3);
-  border-radius: 12px;
+  border-radius: var(--radius-full);
   margin: 0;
-  background-color: var(--background-color-0);
-  font-size: 1.5rem;
-  font-weight: bold;
-  padding-inline: 8px;
+  background: var(--background-color-0);
+  font-size: 1.2rem;
+  font-weight: 700;
 }
 
 .kanji {
   color: var(--kanji-color);
+  text-shadow: var(--shadow-glow) var(--kanji-color-glow);
 }
 
 .radical {
   color: var(--radical-color);
+  text-shadow: var(--shadow-glow) var(--radical-color-glow);
 }
 
 .vocabulary {
   color: var(--vocabulary-color);
+  text-shadow: var(--shadow-glow) var(--vocabulary-color-glow);
 }
 </style>

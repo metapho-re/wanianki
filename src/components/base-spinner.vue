@@ -25,7 +25,8 @@ defineProps<{
   width: v-bind(width);
   height: v-bind(height);
   box-sizing: border-box;
-  border: 2px solid var(--foreground-color);
+  border: 2px solid var(--foreground-color-1);
+  border-radius: var(--radius-sm);
   animation: rotation-break 3s ease-in-out infinite alternate;
   content: "";
 }
@@ -33,6 +34,7 @@ defineProps<{
 .loader::after {
   border-color: var(--primary-color);
   animation-direction: alternate-reverse;
+  box-shadow: var(--shadow-glow) var(--primary-color-glow);
 }
 
 @keyframes rotation-break {

@@ -36,36 +36,50 @@ defineProps<{
   display: flex;
   align-items: center;
   padding: 0.6rem 1.2rem;
-  border: 1px solid var(--primary-color-transparent);
-  border-radius: 8px;
-  background-color: var(--background-color-0);
-  color: var(--foreground-color);
+  border: 1px solid var(--background-color-3);
+  border-radius: var(--radius-md);
+  background: linear-gradient(
+    180deg,
+    var(--background-color-2) 0%,
+    var(--background-color-1) 100%
+  );
+  box-shadow: var(--shadow-sm);
+  color: var(--foreground-color-0);
   cursor: pointer;
-  font-size: 1rem;
-  gap: 10px;
-  transition: 0.25s;
+  font-size: 0.9rem;
+  font-weight: 400;
+  gap: 8px;
+  letter-spacing: 0.01em;
+  transition: var(--transition-base);
 }
 
 .button.small {
-  padding: 0.4rem 0.8rem;
+  padding: 0.35rem 0.7rem;
   font-size: 0.8rem;
-  gap: 8px;
-}
-
-.button:hover {
-  border-color: var(--primary-color);
-  background-color: var(--primary-color-transparent);
-  color: var(--background-color-1);
+  gap: 6px;
 }
 
 .button:disabled {
-  border-color: var(--dimmed-color);
-  background-color: var(--background-color-2);
-  color: var(--dimmed-color);
+  border-color: var(--background-color-3);
+  background: var(--background-color-2);
+  color: var(--muted-color);
   cursor: not-allowed;
+  opacity: 0.6;
 }
 
-.button:focus {
-  outline: none;
+.button:hover:not(:disabled) {
+  border-color: var(--primary-color);
+  background: linear-gradient(
+    180deg,
+    var(--primary-color-transparent) 0%,
+    var(--background-color-1) 100%
+  );
+  box-shadow: var(--shadow-glow) var(--primary-color-glow);
+  transform: translateY(-1px);
+}
+
+.button:active:not(:disabled) {
+  box-shadow: var(--shadow-sm);
+  transform: translateY(0);
 }
 </style>

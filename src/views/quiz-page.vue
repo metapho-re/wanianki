@@ -84,12 +84,12 @@ const characters = computed(() =>
   display: grid;
   width: 100%;
   height: 100%;
-  gap: 20px;
+  gap: 16px;
   grid-template:
-    "header" 1fr
-    "subject" 12fr
-    "input" 1fr
-    "navigation" 1fr / 1fr;
+    "header" auto
+    "subject" 1fr
+    "input" auto
+    "navigation" auto / 1fr;
 }
 
 .subject-section {
@@ -98,104 +98,134 @@ const characters = computed(() =>
   align-items: center;
   justify-content: center;
   border: 1px solid var(--background-color-3);
-  border-radius: 8px;
-  background-color: var(--background-color-1);
+  border-radius: var(--radius-md);
+  background: linear-gradient(
+    180deg,
+    var(--background-color-1) 0%,
+    var(--background-color-transparent) 100%
+  );
+  box-shadow: var(--shadow-md);
   grid-area: subject;
 }
 
 .characters {
   margin: 0;
+  text-shadow: 0 4px 20px var(--text-shadow-color);
 }
 
 .characters.kanji {
-  font-size: 12rem;
+  font-size: 10rem;
 }
 
 .characters.vocabulary {
-  font-size: 8rem;
+  font-size: 6rem;
 }
 
 .answers {
-  border-radius: 16px;
-  font-size: 1.2rem;
+  padding: 4px 16px;
+  border-radius: var(--radius-full);
+  font-size: 1.1rem;
   opacity: 0;
-  padding-inline: 8px;
 }
 
 .answers.radical {
   border: 1px solid var(--radical-color);
-  background-color: var(--radical-color-transparent);
+  background: linear-gradient(
+    135deg,
+    var(--radical-color-transparent) 0%,
+    transparent 100%
+  );
+  box-shadow: var(--shadow-glow) var(--radical-color-glow);
 }
 
 .answers.kanji {
   border: 1px solid var(--kanji-color);
-  background-color: var(--kanji-color-transparent);
+  background: linear-gradient(
+    135deg,
+    var(--kanji-color-transparent) 0%,
+    transparent 100%
+  );
+  box-shadow: var(--shadow-glow) var(--kanji-color-glow);
 }
 
 .answers.vocabulary {
   border: 1px solid var(--vocabulary-color);
-  background-color: var(--vocabulary-color-transparent);
+  background: linear-gradient(
+    135deg,
+    var(--vocabulary-color-transparent) 0%,
+    transparent 100%
+  );
+  box-shadow: var(--shadow-glow) var(--vocabulary-color-glow);
 }
 
 .answers.incorrect {
   opacity: 1;
+  transition: var(--transition-base);
+}
+
+.input-section {
+  grid-area: input;
 }
 
 .input {
-  width: calc(100% - 2px);
-  height: calc(100% - 2px);
+  width: 100%;
+  height: 3.2rem;
   padding: 0;
   border: 1px solid var(--background-color-3);
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   background-color: var(--background-color-0);
-  color: var(--foreground-color);
-  font-size: 1.8rem;
-  grid-area: input;
+  box-shadow: var(--shadow-sm);
+  color: var(--foreground-color-0);
+  font-size: 1.4rem;
   text-align: center;
-  transition: 0.25s;
+  transition: var(--transition-base);
+}
+
+.input:focus {
+  border-color: var(--primary-color);
+  box-shadow: var(--shadow-glow) var(--primary-color-glow);
 }
 
 .input.correct {
   border-color: var(--success-color);
-  background-color: var(--success-color-transparent);
+  background: linear-gradient(
+    180deg,
+    var(--success-color-transparent) 0%,
+    var(--success-color-subtle) 100%
+  );
+  box-shadow: var(--shadow-glow) var(--success-color-glow);
+  transition: var(--transition-base);
 }
 
 .input.incorrect {
   border-color: var(--error-color);
-  background-color: var(--error-color-transparent);
+  background: linear-gradient(
+    180deg,
+    var(--error-color-transparent) 0%,
+    var(--error-color-subtle) 100%
+  );
+  box-shadow: var(--shadow-glow) var(--error-color-glow);
+  transition: var(--transition-base);
 }
 
 .input.invalid {
   animation: shake 0.25s ease-in-out;
 }
 
-.input:focus {
-  outline: none;
-}
-
 @keyframes shake {
-  0% {
-    transform: translateX(0);
-  }
-
-  20% {
-    transform: translateX(-5px);
-  }
-
-  40% {
-    transform: translateX(5px);
-  }
-
-  60% {
-    transform: translateX(-5px);
-  }
-
-  80% {
-    transform: translateX(5px);
-  }
-
+  0%,
   100% {
     transform: translateX(0);
+  }
+
+  20%,
+  60% {
+    transform: translateX(-4px);
+  }
+
+  40%,
+  80% {
+    transform: translateX(4px);
   }
 }
 </style>

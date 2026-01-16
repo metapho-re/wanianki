@@ -7,7 +7,7 @@
   display: grid;
   width: 100%;
   height: 100%;
-  gap: 20px;
-  grid-template: "header header" 1fr "subject details" 14fr "navigation navigation" 1fr / 1fr 3fr;
+  gap: 16px;
+  grid-template: "header header" auto "subject details" 1fr "navigation navigation" auto / 1fr 3fr;
 }
 </style>

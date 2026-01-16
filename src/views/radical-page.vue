@@ -76,7 +76,8 @@ const url = computed(() =>
 <style scoped>
 .meaning-list {
   display: flex;
-  gap: 60px;
+  flex-wrap: wrap;
+  gap: 40px;
 }
 
 .meaning {

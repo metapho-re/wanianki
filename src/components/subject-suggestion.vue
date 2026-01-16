@@ -58,7 +58,8 @@ const vocabularyReadings =
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: 8px 16px;
-  font-size: 0.8rem;
+  padding: 10px 16px;
+  color: var(--foreground-color-1);
+  font-size: 0.85rem;
 }
 </style>

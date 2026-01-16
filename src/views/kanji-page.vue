@@ -158,14 +158,16 @@ const radicals = computed(() =>
 <style scoped>
 .kanji-character {
   margin: 0;
-  font-size: 12rem;
+  font-size: 10rem;
+  text-shadow: 0 4px 30px var(--text-shadow-color);
 }
 
 .meaning-list,
 .radical-list,
 .reading-list {
   display: flex;
-  gap: 60px;
+  flex-wrap: wrap;
+  gap: 40px;
 }
 
 .meaning {
@@ -180,15 +182,29 @@ const radicals = computed(() =>
 .radical-box,
 .reading-box {
   display: flex;
-  height: 66px;
+  min-width: 80px;
+  height: 70px;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  padding: 10px;
+  border: 1px solid var(--background-color-3);
+  border-radius: var(--radius-md);
+  background: var(--background-color-1);
   text-align: center;
+  transition: var(--transition-fast);
+}
+
+.radical-box:hover,
+.reading-box:hover {
+  border-color: var(--primary-color-transparent);
+  box-shadow: var(--shadow-sm);
 }
 
 .radical-text,
 .reading-text {
   margin: 0;
+  color: var(--foreground-color-1);
+  font-size: 0.9rem;
 }
 </style>

@@ -33,10 +33,15 @@ defineProps<{
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 4px;
+  padding: 6px 8px;
   border: 1px solid var(--background-color-3);
-  border-radius: 8px;
-  background-color: var(--background-color-1);
+  border-radius: var(--radius-md);
+  background: linear-gradient(
+    180deg,
+    var(--background-color-1) 0%,
+    var(--background-color-transparent) 100%
+  );
+  box-shadow: var(--shadow-sm);
   grid-area: navigation;
 }
 </style>
