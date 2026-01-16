@@ -5,11 +5,13 @@ import {
   reviewNavigationPaths,
 } from "./use-review-navigation-paths";
 
-export const useReviewCounter = (): ComputedRef<{
+interface Counter {
   index: number;
   length: number;
-}> =>
-  computed(() => ({
+}
+
+export const useReviewCounter = (): ComputedRef<Counter> =>
+  computed<Counter>(() => ({
     index: Math.min(
       reviewNavigationIndex.value + 1,
       reviewNavigationPaths.value.length,

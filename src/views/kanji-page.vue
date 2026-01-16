@@ -25,17 +25,19 @@ const { subject: kanji, onNavigate } = useStudyNavigation<Kanji>(
   subjectCollection.kanji,
 );
 
-const meanings = computed(() =>
+const meanings = computed<ReturnType<typeof getSubjectMeanings> | null>(() =>
   kanji.value ? getSubjectMeanings(kanji.value) : null,
 );
-const readings = computed(() =>
+const readings = computed<ReturnType<typeof getKanjiReadings> | null>(() =>
   kanji.value ? getKanjiReadings(kanji.value) : null,
 );
-const primaryKanjiReading = computed(() =>
+const primaryKanjiReading = computed<ReturnType<
+  typeof getPrimaryKanjiReading
+> | null>(() =>
   kanji.value ? getPrimaryKanjiReading(kanji.value.readings) : null,
 );
-const radicals = computed(() =>
-  kanji.value ? getRadicalCombination(kanji.value) : null,
+const radicals = computed<ReturnType<typeof getRadicalCombination> | null>(
+  () => (kanji.value ? getRadicalCombination(kanji.value) : null),
 );
 </script>
 

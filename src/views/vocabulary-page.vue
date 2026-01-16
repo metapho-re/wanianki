@@ -22,13 +22,13 @@ const { subject: vocabulary, onNavigate } = useStudyNavigation<Vocabulary>(
   subjectCollection.vocabulary,
 );
 
-const meanings = computed(() =>
+const meanings = computed<ReturnType<typeof getSubjectMeanings> | null>(() =>
   vocabulary.value ? getSubjectMeanings(vocabulary.value) : null,
 );
-const readings = computed(() =>
-  vocabulary.value ? getVocabularyReadings(vocabulary.value) : null,
+const readings = computed<ReturnType<typeof getVocabularyReadings> | null>(
+  () => (vocabulary.value ? getVocabularyReadings(vocabulary.value) : null),
 );
-const wordType = computed(() =>
+const wordType = computed<string | null>(() =>
   vocabulary.value ? vocabulary.value.parts_of_speech.join(", ") : null,
 );
 </script>

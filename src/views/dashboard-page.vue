@@ -22,7 +22,7 @@ const {
   onStartReview,
 } = await useReviewSelection(user.value!.level);
 
-const canReview = computed(() => selectedSubjects.value.length > 0);
+const canReview = computed<boolean>(() => selectedSubjects.value.length > 0);
 </script>
 
 <template>

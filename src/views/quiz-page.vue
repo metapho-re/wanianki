@@ -25,12 +25,12 @@ const {
   onNavigate,
 } = useQuizNavigation();
 
-const url = computed(() =>
+const url = computed<string | null>(() =>
   subjectType.value === "radical" && subject.value
     ? getRadicalImageUrl((subject.value as Radical).character_images!)
     : null,
 );
-const characters = computed(() =>
+const characters = computed<string | null>(() =>
   subject.value
     ? (subject.value as Kanji | Radical | Vocabulary).characters
     : null,

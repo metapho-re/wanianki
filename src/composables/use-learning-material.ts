@@ -76,7 +76,7 @@ export const useLearningMaterial = async (
     }),
   ]);
 
-  const isLoading = computed(
+  const isLoading = computed<boolean>(
     () =>
       isKanjiCollectionLoading.value ||
       isRadicalCollectionLoading.value ||

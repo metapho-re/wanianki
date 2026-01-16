@@ -23,10 +23,10 @@ const { subject: radical, onNavigate } = useStudyNavigation<Radical>(
   subjectCollection.radical,
 );
 
-const meanings = computed(() =>
+const meanings = computed<ReturnType<typeof getSubjectMeanings> | null>(() =>
   radical.value ? getSubjectMeanings(radical.value) : null,
 );
-const url = computed(() =>
+const url = computed<string | null>(() =>
   radical.value ? getRadicalImageUrl(radical.value.character_images!) : null,
 );
 </script>

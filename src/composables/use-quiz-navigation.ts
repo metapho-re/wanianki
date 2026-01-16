@@ -66,7 +66,7 @@ export const useQuizNavigation = (): ReturnValue => {
   const inputValue = ref<string>("");
   const validationResult = ref<ValidationResult>("");
 
-  const acceptedAnswers = computed(() =>
+  const acceptedAnswers = computed<string[]>(() =>
     getAcceptedProperties(subject.value, quizType.value),
   );
 

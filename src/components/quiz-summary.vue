@@ -4,9 +4,18 @@ import { computed } from "vue";
 import type { QuizReport } from "../types";
 import { getFormattedPercentage } from "../utils";
 
+type TableData = {
+  category: string;
+  rows: {
+    correct: number;
+    total: number;
+    type: string;
+  }[];
+}[];
+
 const { quizReport } = defineProps<{ quizReport: QuizReport }>();
 
-const tableData = computed(() =>
+const tableData = computed<TableData>(() =>
   Object.entries(quizReport).map(([category, values]) => ({
     category,
     rows:
