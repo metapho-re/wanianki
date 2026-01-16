@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useSubjectSelection } from "../composables";
 import type { ReviewSubject, SubjectType } from "../types";
-import { capitalize } from "../utils";
+import { capitalize, getPluralizedQuantity } from "../utils";
 
 import BaseButton from "./base-button.vue";
 import SubjectCard from "./subject-card.vue";
@@ -139,12 +139,12 @@ const {
         <summary class="level-header">
           <div>
             <span class="title">Level {{ visibleLevel }}</span>
-            <span class="count"
-              >{{
-                filteredSubjectsByLevel[visibleLevel]?.length || 0
-              }}
-              items</span
-            >
+            <span class="count">{{
+              getPluralizedQuantity(
+                "item",
+                filteredSubjectsByLevel[visibleLevel]?.length || 0,
+              )
+            }}</span>
           </div>
           <base-button
             size="small"
@@ -168,7 +168,8 @@ const {
     </div>
     <div class="selection-summary">
       <div class="summary-header">
-        <strong>Selected:</strong> {{ selectedSubjectIds.size }} items
+        <strong>Selected:</strong>
+        {{ getPluralizedQuantity("item", selectedSubjectIds.size) }}
       </div>
       <div class="chips">
         <div

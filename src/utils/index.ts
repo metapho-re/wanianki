@@ -6,6 +6,7 @@ export { getFormattedPercentage } from "./get-formatted-percentage";
 export { getKanjiReadings } from "./get-kanji-readings";
 export { getNavigationPathsFromSelectedSubjects } from "./get-navigation-paths-from-selected-subjects";
 export { getParsedText } from "./get-parsed-text";
+export { getPluralizedQuantity } from "./get-pluralized-quantity";
 export { getPrimaryKanjiReading } from "./get-primary-kanji-reading";
 export { getRadicalCombination } from "./get-radical-combination";
 export { getRadicalImageUrl } from "./get-radical-image-url";
