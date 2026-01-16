@@ -37,8 +37,8 @@ const vocabularyReadings =
   <div class="subject-suggestion">
     <subject-view
       :subject="subject"
-      primary-size="'20px'"
-      secondary-size="'20px'"
+      :primary-size="'20px'"
+      :secondary-size="'20px'"
     />
     <span>&nbsp;•&nbsp;</span>
     <span>{{ capitalize(subject.object) }}</span>
