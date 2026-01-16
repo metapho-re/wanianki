@@ -45,6 +45,9 @@ const characters = computed<string | null>(() =>
     </quiz-dialog>
     <review-header :type="subjectType" />
     <div class="subject-section">
+      <span class="subject-type-badge" :class="subjectType">{{
+        `${subjectType} - ${quizType}`
+      }}</span>
       <radical-view
         v-if="subjectType === 'radical' && url"
         :key="url"
@@ -93,6 +96,7 @@ const characters = computed<string | null>(() =>
 }
 
 .subject-section {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -106,6 +110,47 @@ const characters = computed<string | null>(() =>
   );
   box-shadow: var(--shadow-md);
   grid-area: subject;
+}
+
+.subject-type-badge {
+  position: absolute;
+  top: 12px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  color: var(--foreground-color-0);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.subject-type-badge.radical {
+  border: 1px solid var(--radical-color);
+  background: linear-gradient(
+    135deg,
+    var(--radical-color-transparent) 0%,
+    transparent 100%
+  );
+  box-shadow: var(--shadow-glow) var(--radical-color-glow);
+}
+
+.subject-type-badge.kanji {
+  border: 1px solid var(--kanji-color);
+  background: linear-gradient(
+    135deg,
+    var(--kanji-color-transparent) 0%,
+    transparent 100%
+  );
+  box-shadow: var(--shadow-glow) var(--kanji-color-glow);
+}
+
+.subject-type-badge.vocabulary {
+  border: 1px solid var(--vocabulary-color);
+  background: linear-gradient(
+    135deg,
+    var(--vocabulary-color-transparent) 0%,
+    transparent 100%
+  );
+  box-shadow: var(--shadow-glow) var(--vocabulary-color-glow);
 }
 
 .characters {
