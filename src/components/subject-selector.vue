@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { computed } from "vue";
+
 import { useSubjectSelection } from "../composables";
 import type { ReviewSubject, SubjectType } from "../types";
 import { capitalize, getPluralizedQuantity } from "../utils";
@@ -52,6 +54,15 @@ const {
   deleteSubjectId,
   clearSubjectIds,
 });
+
+const getLevelSelectionButtonText = (level: number) =>
+  computed<string>(() =>
+    filteredSubjectsByLevel.value?.[level]?.every(({ id }) =>
+      selectedSubjectIds.has(id),
+    )
+      ? "Deselect all"
+      : "Select all",
+  );
 </script>
 
 <template>
@@ -150,7 +161,7 @@ const {
             size="small"
             @click.stop="toggleAllSubjectsInLevel(visibleLevel)"
           >
-            Toggle all
+            {{ getLevelSelectionButtonText(visibleLevel) }}
           </base-button>
         </summary>
         <div class="grid">
