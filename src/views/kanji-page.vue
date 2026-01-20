@@ -209,4 +209,47 @@ const radicals = computed<ReturnType<typeof getRadicalCombination> | null>(
   color: var(--foreground-color-1);
   font-size: 0.9rem;
 }
+
+@media (width <= 768px) {
+  .kanji-character {
+    font-size: clamp(4rem, 20vw, 8rem);
+  }
+
+  .meaning-list,
+  .radical-list,
+  .reading-list {
+    gap: 20px;
+  }
+
+  .radical-box,
+  .reading-box {
+    min-width: 70px;
+    height: 60px;
+    padding: 8px;
+  }
+}
+
+@media (width <= 480px) {
+  .kanji-character {
+    font-size: clamp(3rem, 18vw, 5rem);
+  }
+
+  .meaning-list,
+  .radical-list,
+  .reading-list {
+    gap: 12px;
+  }
+
+  .radical-box,
+  .reading-box {
+    min-width: 60px;
+    height: 55px;
+    padding: 6px;
+  }
+
+  .radical-text,
+  .reading-text {
+    font-size: 0.8rem;
+  }
+}
 </style>

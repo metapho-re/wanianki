@@ -25,4 +25,12 @@ const { notifications } = useNotifications();
   right: 20px;
   width: 400px;
 }
+
+@media (width <= 480px) {
+  .notification-container {
+    right: 12px;
+    left: 12px;
+    width: auto;
+  }
+}
 </style>

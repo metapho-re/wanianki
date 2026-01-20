@@ -33,4 +33,28 @@ defineProps<{
   font-size: 1.1rem;
   font-weight: 700;
 }
+
+@media (width <= 768px) {
+  .section {
+    padding: 16px 18px;
+    margin-block-end: 12px;
+  }
+
+  .section-title {
+    padding-bottom: 8px;
+    margin-bottom: 10px;
+    font-size: 1rem;
+  }
+}
+
+@media (width <= 480px) {
+  .section {
+    padding: 12px 14px;
+    margin-block-end: 10px;
+  }
+
+  .section-title {
+    font-size: 0.95rem;
+  }
+}
 </style>

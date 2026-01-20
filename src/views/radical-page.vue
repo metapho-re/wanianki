@@ -83,4 +83,16 @@ const url = computed<string | null>(() =>
 .meaning {
   margin-block-end: 0;
 }
+
+@media (width <= 768px) {
+  .meaning-list {
+    gap: 20px;
+  }
+}
+
+@media (width <= 480px) {
+  .meaning-list {
+    gap: 12px;
+  }
+}
 </style>

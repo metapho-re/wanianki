@@ -47,4 +47,37 @@ const navigateHome = () => {
   box-shadow: var(--shadow-sm);
   grid-area: header;
 }
+
+@media (width <= 768px) {
+  .header {
+    display: grid;
+    padding: 8px;
+    gap: 8px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+  }
+
+  .header :deep(:first-child) {
+    order: 1;
+    justify-self: start;
+  }
+
+  .header :deep(:nth-child(2)) {
+    order: 3;
+    grid-column: 1 / -1;
+    justify-self: center;
+  }
+
+  .header :deep(:last-child) {
+    order: 2;
+    justify-self: end;
+  }
+}
+
+@media (width <= 480px) {
+  .header {
+    padding: 6px;
+    gap: 6px;
+  }
+}
 </style>

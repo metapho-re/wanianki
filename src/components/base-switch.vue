@@ -84,4 +84,34 @@ input:checked + .slider::before {
     var(--shadow-glow) var(--primary-color-glow);
   transform: translateX(20px);
 }
+
+@media (width <= 768px) {
+  .switch-container {
+    font-size: 0.85rem;
+    gap: 8px;
+  }
+
+  .switch {
+    width: 44px;
+    height: 24px;
+  }
+
+  .slider::before {
+    top: 3px;
+    left: 3px;
+    width: 18px;
+    height: 18px;
+  }
+
+  input:checked + .slider::before {
+    transform: translateX(20px);
+  }
+}
+
+@media (width <= 480px) {
+  .switch-container {
+    font-size: 0.8rem;
+    gap: 6px;
+  }
+}
 </style>

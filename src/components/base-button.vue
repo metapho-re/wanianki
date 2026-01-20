@@ -82,4 +82,28 @@ defineProps<{
   box-shadow: var(--shadow-sm);
   transform: translateY(0);
 }
+
+@media (width <= 768px) {
+  .button {
+    min-height: 44px;
+    padding: 0.7rem 1rem;
+  }
+
+  .button.small {
+    min-height: 36px;
+    padding: 0.5rem 0.8rem;
+  }
+}
+
+@media (width <= 480px) {
+  .button {
+    padding: 0.6rem 0.9rem;
+    font-size: 0.85rem;
+  }
+
+  .button.small {
+    padding: 0.4rem 0.7rem;
+    font-size: 0.75rem;
+  }
+}
 </style>

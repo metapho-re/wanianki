@@ -18,4 +18,16 @@
   grid-area: details;
   overflow-y: auto;
 }
+
+@media (width <= 768px) {
+  .subject-details {
+    padding: 16px;
+  }
+}
+
+@media (width <= 480px) {
+  .subject-details {
+    padding: 12px;
+  }
+}
 </style>

@@ -44,4 +44,16 @@ defineProps<{
   box-shadow: var(--shadow-sm);
   grid-area: navigation;
 }
+
+@media (width <= 768px) {
+  .navigation {
+    padding: 8px;
+  }
+}
+
+@media (width <= 480px) {
+  .navigation {
+    padding: 6px;
+  }
+}
 </style>

@@ -128,4 +128,22 @@ const tableData = computed<TableData>(() =>
   text-align: center;
   text-transform: capitalize;
 }
+
+@media (width <= 768px) {
+  .table {
+    width: 100%;
+  }
+
+  .td {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (width <= 480px) {
+  .td {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+  }
+}
 </style>

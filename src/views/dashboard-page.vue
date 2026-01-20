@@ -177,4 +177,55 @@ const canReview = computed<boolean>(() => selectedSubjects.value.length > 0);
   border: 1px solid var(--vocabulary-color);
   background-color: var(--vocabulary-color-transparent);
 }
+
+@media (width <= 768px) {
+  .dashboard-page {
+    padding: 12px;
+    gap: 12px;
+    grid-template:
+      "header" auto
+      "subject-selection" 1fr
+      "control" auto / 1fr;
+  }
+
+  .control-section {
+    display: grid;
+    padding: 16px;
+    gap: 12px;
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+
+  .control-section > :first-child {
+    order: 2;
+  }
+
+  .control-section > :nth-child(2) {
+    order: 3;
+  }
+
+  .control-section > :last-child {
+    order: 1;
+  }
+
+  .text {
+    font-size: 0.85rem;
+  }
+}
+
+@media (width <= 480px) {
+  .dashboard-page {
+    min-height: 920px;
+    padding: 8px;
+    gap: 8px;
+  }
+
+  .section {
+    padding: 12px 16px;
+  }
+
+  .control-section {
+    padding: 12px;
+  }
+}
 </style>

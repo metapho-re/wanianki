@@ -123,4 +123,40 @@ defineProps<{
 .vocabulary:hover {
   box-shadow: var(--shadow-glow) var(--vocabulary-color-glow);
 }
+
+@media (width <= 768px) {
+  .subject-overview {
+    padding: 16px;
+  }
+
+  .characters {
+    height: auto;
+    padding: 16px 0;
+  }
+
+  .meaning-reading {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 16px;
+    font-size: 1rem;
+  }
+
+  .kanji,
+  .radical,
+  .vocabulary {
+    padding: 4px 12px;
+    margin: 4px;
+  }
+}
+
+@media (width <= 480px) {
+  .subject-overview {
+    padding: 12px;
+  }
+
+  .meaning-reading {
+    padding: 10px 12px;
+    font-size: 0.95rem;
+  }
+}
 </style>

@@ -573,4 +573,106 @@ const getLevelSelectionButtonText = (level: number) =>
 .chip:hover {
   transform: scale(1.05);
 }
+
+@media (width <= 768px) {
+  .review-selector {
+    gap: 12px;
+  }
+
+  .filters {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .tabs {
+    width: 100%;
+    justify-content: stretch;
+  }
+
+  .tab {
+    flex: 1;
+    justify-content: center;
+    padding: 0.6rem 0.5rem;
+    font-size: 0.85rem;
+    text-align: center;
+  }
+
+  .filter-group {
+    width: 100%;
+  }
+
+  .range {
+    flex-wrap: wrap;
+  }
+
+  .range input {
+    min-width: 80px;
+    flex: 1;
+  }
+
+  .search {
+    min-width: unset;
+  }
+
+  .levels {
+    padding: 12px;
+  }
+
+  .level-header {
+    flex-wrap: wrap;
+    padding: 10px 12px;
+    gap: 8px;
+  }
+
+  .grid {
+    justify-content: center;
+    padding: 0 12px 12px;
+    gap: 8px;
+  }
+
+  .selection-summary {
+    max-height: 150px;
+    padding: 12px;
+  }
+
+  .chips {
+    gap: 6px;
+  }
+}
+
+@media (width <= 480px) {
+  .filters {
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .tab {
+    padding: 0.5rem 0.4rem;
+    font-size: 0.8rem;
+  }
+
+  .level-header {
+    padding: 8px 10px;
+  }
+
+  .level-header .title {
+    font-size: 0.9rem;
+  }
+
+  .level-header .count {
+    font-size: 0.75rem;
+  }
+
+  .grid {
+    padding: 0 10px 10px;
+    gap: 6px;
+  }
+
+  .selection-summary {
+    max-height: 120px;
+    padding: 10px;
+  }
+}
 </style>

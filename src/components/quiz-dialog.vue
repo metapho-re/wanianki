@@ -78,4 +78,45 @@ defineExpose<{
   padding-top: 16px;
   border-top: 1px solid var(--background-color-3);
 }
+
+@media (width <= 768px) {
+  .dialog {
+    width: calc(100vw - 48px);
+    max-width: 500px;
+    padding: 24px;
+  }
+
+  .dialog-header {
+    padding-bottom: 12px;
+    font-size: 1.1rem;
+  }
+
+  .dialog-body {
+    padding-block: 16px;
+  }
+
+  .dialog-footer {
+    padding-top: 12px;
+  }
+}
+
+@media (width <= 480px) {
+  .dialog {
+    width: calc(100vw - 32px);
+    padding: 16px;
+  }
+
+  .dialog-header {
+    padding-bottom: 10px;
+    font-size: 1rem;
+  }
+
+  .dialog-body {
+    padding-block: 12px;
+  }
+
+  .dialog-footer {
+    padding-top: 10px;
+  }
+}
 </style>

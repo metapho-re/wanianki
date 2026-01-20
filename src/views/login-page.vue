@@ -189,4 +189,59 @@ const tagline = useTagline();
 .form:has(.input:focus) .input {
   border-color: var(--primary-color);
 }
+
+@media (width <= 768px) {
+  .login-page {
+    padding: 24px;
+  }
+
+  .title {
+    font-size: clamp(3rem, 12vw, 5rem);
+  }
+
+  .tagline {
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .form-container {
+    align-items: center;
+  }
+
+  .form {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    flex-direction: column;
+  }
+
+  .input {
+    height: 3.2rem;
+    border-radius: var(--radius-lg);
+    border-right: 1px solid var(--background-color-3);
+    border-bottom: none;
+    text-align: center;
+  }
+
+  .button {
+    height: 3.2rem;
+    justify-content: center;
+    border-radius: var(--radius-lg);
+  }
+}
+
+@media (width <= 480px) {
+  .login-page {
+    padding: 16px;
+  }
+
+  .title {
+    font-size: clamp(2.5rem, 15vw, 3.5rem);
+  }
+
+  .tagline {
+    font-size: 0.9rem;
+    padding-inline: 16px;
+  }
+}
 </style>

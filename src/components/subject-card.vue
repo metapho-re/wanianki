@@ -133,4 +133,30 @@ const url =
   color: var(--dimmed-color);
   font-size: 0.75rem;
 }
+
+@media (width <= 480px) {
+  .subject-card {
+    padding: 10px 8px;
+  }
+
+  .wrapper {
+    padding: 6px 8px;
+    margin-block-end: 6px;
+  }
+
+  .characters {
+    font-size: 28px;
+    line-height: 28px;
+  }
+
+  .vocabulary .characters {
+    font-size: 18px;
+    line-height: 18px;
+  }
+
+  .reading,
+  .meaning {
+    font-size: 0.7rem;
+  }
+}
 </style>

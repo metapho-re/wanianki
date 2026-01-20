@@ -112,4 +112,24 @@ const wordType = computed<string | null>(() =>
 .meaning {
   margin-block-end: 0;
 }
+
+@media (width <= 768px) {
+  .vocabulary-characters {
+    font-size: clamp(2rem, 10vw, 3.5rem);
+  }
+
+  .meaning-list {
+    gap: 20px;
+  }
+}
+
+@media (width <= 480px) {
+  .vocabulary-characters {
+    font-size: clamp(1.8rem, 8vw, 2.5rem);
+  }
+
+  .meaning-list {
+    gap: 12px;
+  }
+}
 </style>

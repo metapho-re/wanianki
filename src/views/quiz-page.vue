@@ -273,4 +273,64 @@ const characters = computed<string | null>(() =>
     transform: translateX(4px);
   }
 }
+
+@media (width <= 768px) {
+  .quiz-page {
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .subject-type-badge {
+    top: 8px;
+    padding: 3px 10px;
+    font-size: 0.75rem;
+  }
+
+  .characters.kanji {
+    font-size: clamp(4rem, 20vw, 8rem);
+  }
+
+  .characters.vocabulary {
+    font-size: clamp(2.5rem, 12vw, 5rem);
+  }
+
+  .answers {
+    padding: 3px 12px;
+    font-size: 1rem;
+  }
+
+  .input {
+    height: 3rem;
+    font-size: 1.2rem;
+  }
+}
+
+@media (width <= 480px) {
+  .quiz-page {
+    padding: 8px;
+    gap: 8px;
+  }
+
+  .subject-type-badge {
+    padding: 2px 8px;
+    font-size: 0.7rem;
+  }
+
+  .characters.kanji {
+    font-size: clamp(3rem, 18vw, 5rem);
+  }
+
+  .characters.vocabulary {
+    font-size: clamp(2rem, 10vw, 3.5rem);
+  }
+
+  .answers {
+    font-size: 0.9rem;
+  }
+
+  .input {
+    height: 2.8rem;
+    font-size: 1.1rem;
+  }
+}
 </style>
