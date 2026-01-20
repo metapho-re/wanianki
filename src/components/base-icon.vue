@@ -15,6 +15,5 @@ defineProps<{
     fill="currentColor"
   >
     <path :d="path" />
-    />
   </svg>
 </template>
