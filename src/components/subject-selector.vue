@@ -616,6 +616,10 @@ const getLevelSelectionButtonText = (level: number) =>
     min-width: unset;
   }
 
+  .suggestions {
+    max-height: 300px;
+  }
+
   .levels {
     padding: 12px;
   }

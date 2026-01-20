@@ -62,4 +62,13 @@ const vocabularyReadings =
   color: var(--foreground-color-1);
   font-size: 0.85rem;
 }
+
+@media (width <= 768px) {
+  .subject-suggestion {
+    flex-wrap: wrap;
+    padding: 10px 12px;
+    font-size: 0.8rem;
+    gap: 2px;
+  }
+}
 </style>
