@@ -43,7 +43,7 @@ const url = computed<string | null>(() =>
         :key="url!"
         :characters="radical.characters"
         :url="url!"
-        :size="'192px'"
+        :size="'clamp(72px, 24vw, 192px)'"
       />
     </subject-overview>
     <subject-details>

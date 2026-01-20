@@ -99,7 +99,7 @@ const wordType = computed<string | null>(() =>
 
 <style scoped>
 .vocabulary-characters {
-  font-size: 4rem;
+  font-size: clamp(24px, 8vw, 48px);
   text-shadow: 0 4px 30px var(--text-shadow-color);
 }
 
@@ -114,20 +114,12 @@ const wordType = computed<string | null>(() =>
 }
 
 @media (width <= 768px) {
-  .vocabulary-characters {
-    font-size: clamp(2rem, 10vw, 3.5rem);
-  }
-
   .meaning-list {
     gap: 20px;
   }
 }
 
 @media (width <= 480px) {
-  .vocabulary-characters {
-    font-size: clamp(1.8rem, 8vw, 2.5rem);
-  }
-
   .meaning-list {
     gap: 12px;
   }

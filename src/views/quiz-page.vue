@@ -53,7 +53,7 @@ const characters = computed<string | null>(() =>
         :key="url"
         :characters="characters"
         :url="url"
-        :size="'192px'"
+        :size="'clamp(72px, 24vw, 192px)'"
       />
       <p v-else :class="subjectType" class="characters japanese">
         {{ characters }}
@@ -159,11 +159,11 @@ const characters = computed<string | null>(() =>
 }
 
 .characters.kanji {
-  font-size: 10rem;
+  font-size: clamp(72px, 24vw, 192px);
 }
 
 .characters.vocabulary {
-  font-size: 6rem;
+  font-size: clamp(24px, 8vw, 48px);
 }
 
 .answers {
@@ -286,14 +286,6 @@ const characters = computed<string | null>(() =>
     font-size: 0.75rem;
   }
 
-  .characters.kanji {
-    font-size: clamp(4rem, 20vw, 8rem);
-  }
-
-  .characters.vocabulary {
-    font-size: clamp(2.5rem, 12vw, 5rem);
-  }
-
   .answers {
     padding: 3px 12px;
     font-size: 1rem;
@@ -314,14 +306,6 @@ const characters = computed<string | null>(() =>
   .subject-type-badge {
     padding: 2px 8px;
     font-size: 0.7rem;
-  }
-
-  .characters.kanji {
-    font-size: clamp(3rem, 18vw, 5rem);
-  }
-
-  .characters.vocabulary {
-    font-size: clamp(2rem, 10vw, 3.5rem);
   }
 
   .answers {

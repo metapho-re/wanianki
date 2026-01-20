@@ -160,7 +160,7 @@ const radicals = computed<ReturnType<typeof getRadicalCombination> | null>(
 <style scoped>
 .kanji-character {
   margin: 0;
-  font-size: 10rem;
+  font-size: clamp(72px, 24vw, 192px);
   text-shadow: 0 4px 30px var(--text-shadow-color);
 }
 
@@ -211,10 +211,6 @@ const radicals = computed<ReturnType<typeof getRadicalCombination> | null>(
 }
 
 @media (width <= 768px) {
-  .kanji-character {
-    font-size: clamp(4rem, 20vw, 8rem);
-  }
-
   .meaning-list,
   .radical-list,
   .reading-list {
@@ -230,10 +226,6 @@ const radicals = computed<ReturnType<typeof getRadicalCombination> | null>(
 }
 
 @media (width <= 480px) {
-  .kanji-character {
-    font-size: clamp(3rem, 18vw, 5rem);
-  }
-
   .meaning-list,
   .radical-list,
   .reading-list {
