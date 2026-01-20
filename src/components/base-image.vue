@@ -27,8 +27,10 @@ const onError = () => {
 </script>
 
 <template>
-  <div v-if="loading"><base-spinner :width="width" :height="height" /></div>
-  <div v-else-if="error">
+  <div v-if="loading" class="wrapper">
+    <base-spinner :width="width" :height="height" />
+  </div>
+  <div v-else-if="error" class="wrapper">
     <base-icon
       class="error"
       :path="hideImageIconPath"
@@ -38,15 +40,23 @@ const onError = () => {
   </div>
   <img
     v-show="!loading && !error"
+    class="image"
     :src="url"
-    :width="width"
-    :height="height"
     @load="onLoad"
     @error="onError"
   />
 </template>
 
 <style scoped>
+.wrapper {
+  display: flex;
+}
+
+.image {
+  width: v-bind(width);
+  height: v-bind(height);
+}
+
 .error {
   color: var(--error-color);
 }
