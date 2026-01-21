@@ -38,7 +38,7 @@ const url =
         v-if="subject.object === 'radical'"
         :characters="subject.data.characters"
         :url="url!"
-        :size="'36px'"
+        :size="'32px'"
       />
       <p v-else class="japanese characters">
         {{ subject.data.characters }}
@@ -63,6 +63,7 @@ const url =
 }
 
 .wrapper {
+  display: flex;
   padding: 8px 10px;
   border-radius: var(--radius-md);
   margin-block-end: 8px;
