@@ -24,12 +24,12 @@ defineProps<{
 
 .notification-item.success {
   background-color: var(--success-color);
-  color: var(--sumi-ink-0);
+  color: var(--on-success-color);
 }
 
 .notification-item.error {
   background-color: var(--error-color);
-  color: var(--fuji-white);
+  color: var(--on-error-color);
 }
 
 @keyframes slide-in {

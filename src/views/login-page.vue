@@ -150,7 +150,7 @@ const tagline = useTagline();
   border: 1px solid var(--primary-color);
   border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
   background-color: var(--primary-color);
-  color: var(--sumi-ink-0);
+  color: var(--on-primary-color);
   cursor: pointer;
   font-size: 1rem;
   font-weight: 700;

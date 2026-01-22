@@ -18,7 +18,7 @@ defineProps<{
 <style scoped>
 .meaning,
 .reading {
-  color: var(--carp-yellow);
+  color: var(--highlight-color);
   font-style: italic;
 }
 

@@ -9,7 +9,7 @@
 
 
 :root {
-  /* Color palette */
+  /* Color palette - dark */
   --fuji-white: #dcd7ba;
   --old-white: #c8c093;
   --sumi-ink-0: #16161d;
@@ -60,6 +60,15 @@
   --primary-color: var(--surimi-orange);
   --primary-color-transparent: #ffa06640;
   --primary-color-glow: #ffa06660;
+  --highlight-color: var(--carp-yellow);
+  --selection-color: var(--wave-blue-2);
+  --on-primary-color: var(--sumi-ink-0);
+  --on-success-color: var(--sumi-ink-0);
+  --on-error-color: var(--fuji-white);
+  --scrollbar-thumb: var(--sumi-ink-4);
+  --scrollbar-thumb-hover: var(--spring-violet-1);
+  --scrollbar-track: var(--sumi-ink-1);
+  --image-filter: invert(94%) sepia(8%) saturate(601%) hue-rotate(7deg) brightness(91%) contrast(91%);
 
   /* Shadows and effects */
   --shadow-sm: 0 1px 2px rgb(0 0 0 / 30%);
@@ -88,6 +97,76 @@
   text-rendering: optimizelegibility;
 }
 
+:root[data-theme="light"] {
+  /* Color palette - light */
+  --lotus-ink-2: #43436c;
+  --lotus-ink-1: #545464;
+  --lotus-white-3: #f2ecbc;
+  --lotus-white-2: #e5ddb0;
+  --lotus-white-1: #dcd5ac;
+  --lotus-white-0: #d5cea3;
+  --lotus-gray-3: #8a8980;
+  --lotus-blue-3: #9fb5c9;
+  --lotus-violet-2: #766b90;
+  --lotus-gray-2: #716e61;
+  --lotus-violet-4: #624c83;
+  --lotus-blue-4: #4d699b;
+  --lotus-green: #6f894e;
+  --lotus-yellow3: #de9800;
+  --lotus-pink: #b35b79;
+  --lotus-orange: #cc6d00;
+  --lotus-red: #c84053;
+
+  /* Semantic mappings */
+  --foreground-color-0: var(--lotus-ink-2);
+  --foreground-color-1: var(--lotus-ink-1);
+  --background-color-0: var(--lotus-white-3);
+  --background-color-1: var(--lotus-white-2);
+  --background-color-2: var(--lotus-white-1);
+  --background-color-3: var(--lotus-white-0);
+  --background-color-transparent: #e5ddb0cc;
+  --overlay-color: rgb(84 84 100 / 30%);
+  --text-shadow-color: rgb(255 255 255 / 40%);
+  --dimmed-color: var(--lotus-gray-2);
+  --muted-color: var(--lotus-gray-3);
+  --success-color: var(--lotus-green);
+  --success-color-transparent: #6f894e40;
+  --success-color-subtle: #6f894e20;
+  --success-color-glow: #6f894e66;
+  --error-color: var(--lotus-red);
+  --error-color-transparent: #c8405340;
+  --error-color-subtle: #c8405320;
+  --error-color-glow: #c8405366;
+  --kanji-color: var(--lotus-pink);
+  --kanji-color-transparent: #b35b7950;
+  --kanji-color-glow: #b35b7970;
+  --vocabulary-color: var(--lotus-violet-4);
+  --vocabulary-color-transparent: #624c8350;
+  --vocabulary-color-glow: #624c8370;
+  --radical-color: var(--lotus-blue-4);
+  --radical-color-transparent: #4d699b50;
+  --radical-color-glow: #4d699b70;
+  --primary-color: var(--lotus-orange);
+  --primary-color-transparent: #cc6d0040;
+  --primary-color-glow: #cc6d0060;
+  --highlight-color: var(--lotus-yellow3);
+  --selection-color: var(--lotus-blue-3);
+  --on-primary-color: var(--lotus-white-3);
+  --on-success-color: var(--lotus-white-3);
+  --on-error-color: var(--lotus-white-3);
+  --scrollbar-thumb: var(--lotus-gray-3);
+  --scrollbar-thumb-hover: var(--lotus-violet-2);
+  --scrollbar-track: var(--lotus-white-1);
+  --image-filter: invert(25%) sepia(29%) saturate(840%) hue-rotate(201deg) brightness(93%) contrast(88%);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgb(84 84 100 / 15%);
+  --shadow-md: 0 4px 12px rgb(84 84 100 / 20%);
+  --shadow-lg: 0 8px 24px rgb(84 84 100 / 25%);
+
+  color-scheme: light;
+}
+
 *,
 *::before,
 *::after {
@@ -107,7 +186,7 @@ body {
 }
 
 img {
-  filter: invert(94%) sepia(8%) saturate(601%) hue-rotate(7deg) brightness(91%) contrast(91%);
+  filter: var(--image-filter);
 }
 
 input {
@@ -119,12 +198,12 @@ input {
 }
 
 ::selection {
-  background-color: var(--wave-blue-2);
+  background-color: var(--selection-color);
   color: var(--foreground-color-1);
 }
 
 * {
-  scrollbar-color: var(--sumi-ink-4) var(--background-color-1);
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
   scrollbar-width: auto;
 }
 
@@ -135,16 +214,16 @@ input {
 
 ::-webkit-scrollbar-track {
   border-radius: var(--radius-full);
-  background: var(--background-color-1);
+  background: var(--scrollbar-track);
 }
 
 ::-webkit-scrollbar-thumb {
   border-radius: var(--radius-full);
-  background: var(--sumi-ink-4);
+  background: var(--scrollbar-thumb);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--spring-violet-1);
+  background: var(--scrollbar-thumb-hover);
 }
 
 .japanese {

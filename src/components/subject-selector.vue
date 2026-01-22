@@ -443,7 +443,7 @@ const getLevelSelectionButtonText = (level: number) =>
 }
 
 .suggestion.highlighted {
-  background: var(--wave-blue-2);
+  background: var(--selection-color);
   color: var(--foreground-color-0);
 }
 
