@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, ref } from "vue";
 
 import {
   BaseButton,
@@ -11,8 +11,11 @@ import {
 } from "../components";
 import { user, useReviewSelection, useTheme } from "../composables";
 import { bookIconPath, darkModeIconPath, lightIconPath } from "../icon-paths";
+import type { ReviewSubject } from "../types";
 
 const { theme, toggleTheme } = useTheme();
+
+const level = user.value?.level;
 
 const {
   selectedSubjectIds,
@@ -24,7 +27,20 @@ const {
   deleteSubjectId,
   clearSubjectIds,
   onStartReview,
-} = await useReviewSelection(user.value!.level);
+} =
+  level !== undefined
+    ? await useReviewSelection(level)
+    : {
+        selectedSubjectIds: ref<Set<number>>(new Set<number>()),
+        selectedSubjects: computed<ReviewSubject[]>(() => []),
+        shouldShuffle: ref<boolean>(false),
+        isQuizMode: ref<boolean>(false),
+        isLoading: computed<boolean>(() => true),
+        addSubjectId: () => {},
+        deleteSubjectId: () => {},
+        clearSubjectIds: () => {},
+        onStartReview: () => {},
+      };
 
 const canReview = computed<boolean>(() => selectedSubjects.value.length > 0);
 </script>
@@ -69,7 +85,7 @@ const canReview = computed<boolean>(() => selectedSubjects.value.length > 0);
     </base-header>
     <div class="subject-selection-section">
       <subject-selector
-        :level="user!.level"
+        :level="level!"
         :selected-subject-ids="selectedSubjectIds"
         :selected-subjects="selectedSubjects"
         :add-subject-id="addSubjectId"
