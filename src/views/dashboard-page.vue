@@ -4,12 +4,15 @@ import { computed } from "vue";
 import {
   BaseButton,
   BaseHeader,
+  BaseIcon,
   BaseSpinner,
   BaseSwitch,
   SubjectSelector,
 } from "../components";
-import { user, useReviewSelection } from "../composables";
-import { bookIconPath } from "../icon-paths";
+import { user, useReviewSelection, useTheme } from "../composables";
+import { bookIconPath, darkModeIconPath, lightIconPath } from "../icon-paths";
+
+const { theme, toggleTheme } = useTheme();
 
 const {
   selectedSubjectIds,
@@ -35,6 +38,19 @@ const canReview = computed<boolean>(() => selectedSubjects.value.length > 0);
       <p class="text">
         Logged in as <b>{{ user?.username }}</b> (level {{ user?.level }})
         <span class="separator">·&nbsp;</span>
+        <button
+          class="theme-toggle"
+          :title="
+            theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'
+          "
+          @click="toggleTheme"
+        >
+          <base-icon
+            :path="theme === 'dark' ? lightIconPath : darkModeIconPath"
+            width="24px"
+            height="24px"
+          />
+        </button>
         <a
           class="github-link"
           href="https://github.com/metapho-re/wanianki"
@@ -131,6 +147,21 @@ const canReview = computed<boolean>(() => selectedSubjects.value.length > 0);
   margin-inline: 8px;
 }
 
+.theme-toggle {
+  display: inline-flex;
+  border: none;
+  margin-right: 12px;
+  background: transparent;
+  color: var(--foreground-color-1);
+  cursor: pointer;
+  transition: var(--transition-base);
+  vertical-align: middle;
+}
+
+.theme-toggle:hover {
+  color: var(--primary-color);
+}
+
 .github-link {
   display: inline-flex;
   color: var(--foreground-color-1);
@@ -145,7 +176,7 @@ const canReview = computed<boolean>(() => selectedSubjects.value.length > 0);
 
 .github-icon {
   position: relative;
-  bottom: 2px;
+  bottom: 1px;
   width: 24px;
   height: 24px;
 }

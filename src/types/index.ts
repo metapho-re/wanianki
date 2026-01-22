@@ -17,6 +17,7 @@ export type {
   SubjectType,
 } from "./subject";
 export type { Subscription } from "./subscription";
+export type { Theme } from "./theme";
 export type { User } from "./user";
 export type { ReportOrCollection } from "./utils";
 export type { Vocabulary } from "./vocabulary";
