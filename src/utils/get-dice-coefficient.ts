@@ -1,7 +1,7 @@
 const normalize = (str: string): string =>
   str.toLowerCase().replace(/\s+/g, "");
 
-export const getDiceCoefficient = (s1: string, s2: string) => {
+export const getDiceCoefficient = (s1: string, s2: string): number => {
   const str1 = normalize(s1);
   const str2 = normalize(s2);
 
