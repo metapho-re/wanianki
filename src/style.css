@@ -115,7 +115,7 @@
   --lotus-violet-4: #624c83;
   --lotus-blue-4: #4d699b;
   --lotus-green: #6f894e;
-  --lotus-yellow3: #de9800;
+  --lotus-yellow-3: #de9800;
   --lotus-pink: #b35b79;
   --lotus-orange: #cc6d00;
   --lotus-red: #c84053;
@@ -154,7 +154,7 @@
   --primary-color: var(--lotus-orange);
   --primary-color-transparent: #cc6d0040;
   --primary-color-glow: #cc6d0060;
-  --highlight-color: var(--lotus-yellow3);
+  --highlight-color: var(--lotus-yellow-3);
   --selection-color: var(--lotus-blue-3);
   --on-primary-color: var(--lotus-white-3);
   --on-success-color: var(--lotus-white-3);
