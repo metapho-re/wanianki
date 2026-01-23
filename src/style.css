@@ -27,6 +27,7 @@
   --sakura-pink: #d27e99;
   --surimi-orange: #ffa066;
   --samurai-red: #e82424;
+  --ronin-yellow: #ff9e3b;
 
   /* Semantic mappings */
   --foreground-color-0: var(--fuji-white);
@@ -48,6 +49,7 @@
   --error-color-transparent: #e8242440;
   --error-color-subtle: #e8242420;
   --error-color-glow: #e824244d;
+  --warning-color: var(--ronin-yellow);
   --kanji-color: var(--sakura-pink);
   --kanji-color-transparent: #d27e9960;
   --kanji-color-glow: #d27e9980;
@@ -65,6 +67,7 @@
   --on-primary-color: var(--sumi-ink-0);
   --on-success-color: var(--sumi-ink-0);
   --on-error-color: var(--fuji-white);
+  --on-warning-color: var(--sumi-ink-0);
   --scrollbar-thumb: var(--sumi-ink-4);
   --scrollbar-thumb-hover: var(--spring-violet-1);
   --scrollbar-track: var(--sumi-ink-1);
@@ -116,6 +119,7 @@
   --lotus-pink: #b35b79;
   --lotus-orange: #cc6d00;
   --lotus-red: #c84053;
+  --lotus-orange-2: #e98a00;
 
   /* Semantic mappings */
   --foreground-color-0: var(--lotus-ink-2);
@@ -137,6 +141,7 @@
   --error-color-transparent: #c8405340;
   --error-color-subtle: #c8405320;
   --error-color-glow: #c8405366;
+  --warning-color: var(--lotus-orange-2);
   --kanji-color: var(--lotus-pink);
   --kanji-color-transparent: #b35b7950;
   --kanji-color-glow: #b35b7970;
@@ -154,6 +159,7 @@
   --on-primary-color: var(--lotus-white-3);
   --on-success-color: var(--lotus-white-3);
   --on-error-color: var(--lotus-white-3);
+  --on-warning-color: var(--lotus-ink-2);
   --scrollbar-thumb: var(--lotus-gray-3);
   --scrollbar-thumb-hover: var(--lotus-violet-2);
   --scrollbar-track: var(--lotus-white-1);

@@ -32,6 +32,11 @@ defineProps<{
   color: var(--on-error-color);
 }
 
+.notification-item.warning {
+  background-color: var(--warning-color);
+  color: var(--on-warning-color);
+}
+
 @keyframes slide-in {
   from {
     opacity: 0;
