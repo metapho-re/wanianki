@@ -152,6 +152,7 @@ const canReview = computed<boolean>(() => selectedSubjects.value.length > 0);
   margin: 0;
   color: var(--foreground-color-1);
   font-size: 0.9rem;
+  text-align: center;
 }
 
 .text b {
@@ -269,6 +270,14 @@ const canReview = computed<boolean>(() => selectedSubjects.value.length > 0);
 
   .section {
     padding: 12px 16px;
+  }
+
+  .separator {
+    margin-inline: 4px;
+  }
+
+  .theme-toggle {
+    margin-right: 6px;
   }
 
   .control-section {
