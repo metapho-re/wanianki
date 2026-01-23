@@ -3,7 +3,7 @@ import BaseImage from "./base-image.vue";
 
 defineProps<{
   characters: string | null;
-  url: string;
+  url: string | undefined;
   size: string;
 }>();
 </script>
@@ -12,7 +12,8 @@ defineProps<{
   <p v-if="characters" class="japanese characters">
     {{ characters }}
   </p>
-  <base-image v-else :width="size" :height="size" :url="url" />
+  <base-image v-else-if="url" :width="size" :height="size" :url="url" />
+  <div v-else></div>
 </template>
 
 <style scoped>

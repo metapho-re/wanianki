@@ -28,7 +28,7 @@ const vocabularyReading =
 const url =
   subject.object === "radical"
     ? getRadicalImageUrl((subject.data as Radical).character_images)
-    : null;
+    : undefined;
 </script>
 
 <template>
@@ -37,7 +37,7 @@ const url =
       <radical-view
         v-if="subject.object === 'radical'"
         :characters="subject.data.characters"
-        :url="url!"
+        :url="url"
         :size="'32px'"
       />
       <p v-else class="japanese characters">

@@ -26,8 +26,10 @@ const { subject: radical, onNavigate } = useStudyNavigation<Radical>(
 const meanings = computed<ReturnType<typeof getSubjectMeanings> | null>(() =>
   radical.value ? getSubjectMeanings(radical.value) : null,
 );
-const url = computed<string | null>(() =>
-  radical.value ? getRadicalImageUrl(radical.value.character_images!) : null,
+const url = computed<string | undefined>(() =>
+  radical.value
+    ? getRadicalImageUrl(radical.value.character_images)
+    : undefined,
 );
 </script>
 
@@ -40,9 +42,9 @@ const url = computed<string | null>(() =>
       :meaning="meanings!.primary"
     >
       <radical-view
-        :key="url!"
+        :key="url"
         :characters="radical.characters"
-        :url="url!"
+        :url="url"
         :size="'clamp(72px, 24vw, 192px)'"
       />
     </subject-overview>

@@ -6,7 +6,7 @@ import { getSubjectMeanings } from "./get-subject-meanings";
 
 type ReturnValue = {
   characters: string | null;
-  characterImageUrl: string;
+  characterImageUrl: string | undefined;
   meaning: string;
   slug: string;
 }[];

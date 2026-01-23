@@ -13,14 +13,14 @@ const { subject } = defineProps<{
 const url =
   subject.object === "radical"
     ? getRadicalImageUrl((subject.data as Radical).character_images)
-    : null;
+    : undefined;
 </script>
 
 <template>
   <radical-view
     v-if="subject.object === 'radical'"
     :characters="subject.data.characters"
-    :url="url!"
+    :url="url"
     :size="primarySize"
   />
   <p v-else class="japanese characters">
