@@ -50,14 +50,19 @@ const {
   emit,
 });
 
-const getLevelSelectionButtonText = (level: number) =>
-  computed<string>(() =>
-    filteredSubjectsByLevel.value?.[level]?.every(({ id }) =>
-      selectedSubjectIds.has(id),
-    )
-      ? "Deselect all"
-      : "Select all",
-  );
+const levelSelectionButtonTextMap = computed<Record<number, string>>(() => {
+  const result: Record<number, string> = {};
+
+  for (const level of visibleLevels.value) {
+    const allSelected = filteredSubjectsByLevel.value?.[level]?.every(
+      ({ id }) => selectedSubjectIds.has(id),
+    );
+
+    result[level] = allSelected ? "Deselect all" : "Select all";
+  }
+
+  return result;
+});
 </script>
 
 <template>
@@ -156,7 +161,7 @@ const getLevelSelectionButtonText = (level: number) =>
             size="small"
             @click.stop="toggleAllSubjectsInLevel(visibleLevel)"
           >
-            {{ getLevelSelectionButtonText(visibleLevel) }}
+            {{ levelSelectionButtonTextMap[visibleLevel] }}
           </base-button>
         </summary>
         <div class="grid">
