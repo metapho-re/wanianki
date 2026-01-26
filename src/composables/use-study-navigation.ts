@@ -44,7 +44,7 @@ export const useStudyNavigation = <T extends Subject>(
         : getPreviousReviewNavigationPath();
 
     if (navigationPath) {
-      router.push(`../../${navigationPath}`);
+      router.push(`/${navigationPath}`);
     } else {
       router.push("/");
     }

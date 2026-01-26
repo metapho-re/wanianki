@@ -127,7 +127,7 @@ export const useQuizNavigation = (): ReturnValue => {
       const navigationPath = getNextReviewNavigationPath();
 
       if (navigationPath) {
-        router.push(`../../../${navigationPath}`);
+        router.push(`/${navigationPath}`);
       } else {
         openDialog();
       }
