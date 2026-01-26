@@ -12,7 +12,7 @@ import { user } from "./use-login";
 import { useNotifications } from "./use-notifications";
 import { useOpfsStorage } from "./use-opfs-storage";
 
-type ReturnValue = {
+interface ReturnValue {
   isLoading: Ref<boolean>;
   cleanUpData: ({
     onSuccess,
@@ -21,7 +21,7 @@ type ReturnValue = {
     onSuccess?: () => void;
     onComplete?: () => void;
   }) => Promise<void>;
-};
+}
 
 export const useDataCleanup = (): ReturnValue => {
   const isLoading = ref<boolean>(false);

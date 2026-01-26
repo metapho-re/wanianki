@@ -9,7 +9,7 @@ import {
 } from "./use-learning-material";
 import { useReviewNavigationPaths } from "./use-review-navigation-paths";
 
-type ReturnValue = {
+interface ReturnValue {
   selectedSubjectIds: Ref<Set<number>>;
   selectedSubjects: ComputedRef<ReviewSubject[]>;
   shouldShuffle: Ref<boolean>;
@@ -19,7 +19,7 @@ type ReturnValue = {
   deleteSubjectId: (id: number) => void;
   clearSubjectIds: () => void;
   onStartReview: () => void;
-};
+}
 
 export const useReviewSelection = (userLevel: number): ReturnValue => {
   const router = useRouter();

@@ -20,11 +20,11 @@ const onComplete = (data: User | null) => {
   }
 };
 
-type ReturnValue = {
+interface ReturnValue {
   inputValue: Ref<string>;
   isLoading: Ref<boolean>;
   onSubmit: () => Promise<void>;
-};
+}
 
 export const useLogin = (): ReturnValue => {
   const router = useRouter();
