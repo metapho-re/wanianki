@@ -1,14 +1,28 @@
 <script setup lang="ts">
 import { useRouter } from "vue-router";
 
-import { useDataCleanup } from "../composables";
+import { useDataCleanup, useNotifications } from "../composables";
 import { deleteIconPath, kanjiIconPath } from "../icon-paths";
 
 import BaseButton from "./base-button.vue";
 
 const router = useRouter();
 
+const { addNotification } = useNotifications();
 const { cleanUpData, isLoading: isDataCleanupLoading } = useDataCleanup();
+
+const handleCleanUpData = () => {
+  cleanUpData({
+    onSuccess: () => {
+      addNotification("In-browser data successfully deleted", "success");
+    },
+    onComplete: () => {
+      addNotification("Successfully logged out", "success");
+
+      router.push("/login");
+    },
+  });
+};
 
 const navigateHome = () => {
   router.push("/");
@@ -21,14 +35,15 @@ const navigateHome = () => {
       title="Go back to dashboard"
       :left-icon-path="kanjiIconPath"
       @click="navigateHome"
-      >WaniAnki</base-button
     >
+      WaniAnki
+    </base-button>
     <slot></slot>
     <base-button
       title="Clean up browser file system and log out"
       :disabled="isDataCleanupLoading"
       :left-icon-path="deleteIconPath"
-      @click="cleanUpData"
+      @click="handleCleanUpData"
     >
       Log out
     </base-button>

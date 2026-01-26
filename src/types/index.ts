@@ -1,3 +1,4 @@
+export type { CachedData } from "./cache";
 export type { Error } from "./error";
 export type { Kanji, Reading as KanjiReading } from "./kanji";
 export type { Notification, NotificationType } from "./notification";

@@ -1,5 +1,4 @@
 import { ref, type Ref } from "vue";
-import { useRouter } from "vue-router";
 
 import {
   KANJI_KEY,
@@ -15,12 +14,16 @@ import { useOpfsStorage } from "./use-opfs-storage";
 
 type ReturnValue = {
   isLoading: Ref<boolean>;
-  cleanUpData: () => Promise<void>;
+  cleanUpData: ({
+    onSuccess,
+    onComplete,
+  }: {
+    onSuccess?: () => void;
+    onComplete?: () => void;
+  }) => Promise<void>;
 };
 
 export const useDataCleanup = (): ReturnValue => {
-  const router = useRouter();
-
   const isLoading = ref<boolean>(false);
 
   const { addNotification } = useNotifications();
@@ -37,7 +40,13 @@ export const useDataCleanup = (): ReturnValue => {
     useOpfsStorage<Vocabulary, "collection">(VOCABULARY_KEY),
   ];
 
-  const cleanUpData = async () => {
+  const cleanUpData = async ({
+    onSuccess,
+    onComplete,
+  }: {
+    onSuccess?: () => void;
+    onComplete?: () => void;
+  }) => {
     isLoading.value = true;
 
     try {
@@ -50,13 +59,13 @@ export const useDataCleanup = (): ReturnValue => {
 
       user.value = null;
 
-      addNotification("In-browser data successfully deleted", "success");
+      onSuccess?.();
     } catch (error) {
       addNotification((error as Error).message, "error");
     } finally {
       isLoading.value = false;
 
-      router.push("/login");
+      onComplete?.();
     }
   };
 

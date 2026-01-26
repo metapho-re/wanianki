@@ -40,7 +40,7 @@ export const useFetch = async <T, U>({
 
   onMounted(async () => {
     isLoading.value = true;
-    data.value = await getValue();
+    data.value = (await getValue())?.data ?? null;
 
     if (shouldFetchOnMounted && data.value === null) {
       await refresh();

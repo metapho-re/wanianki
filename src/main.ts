@@ -9,16 +9,37 @@ import { createRouter, createWebHistory } from "vue-router";
 
 import "./style.css";
 import App from "./App.vue";
-import { useOpfsStorage, user } from "./composables";
+import {
+  useDataCleanup,
+  useNotifications,
+  useOpfsStorage,
+  user,
+} from "./composables";
 import { routes } from "./routes";
 import { USER_KEY } from "./storage-keys";
 import type { User } from "./types";
 
-const { getValue } = useOpfsStorage<User, "report">(USER_KEY);
-const persistedUser = await getValue();
+const DEFAULT_CACHE_TTL_MS = 14 * 24 * 60 * 60 * 1000;
 
-if (persistedUser) {
-  user.value = persistedUser;
+const { addNotification } = useNotifications();
+const { cleanUpData } = useDataCleanup();
+const { getValue } = useOpfsStorage<User, "report">(USER_KEY);
+
+const cachedUserData = await getValue();
+
+if (cachedUserData) {
+  if (Date.now() - cachedUserData.cachedAt <= DEFAULT_CACHE_TTL_MS) {
+    user.value = cachedUserData.data;
+  } else {
+    await cleanUpData({
+      onComplete: () => {
+        addNotification(
+          "Your cached data is outdated. Please log in to refresh your profile.",
+          "warning",
+        );
+      },
+    });
+  }
 }
 
 const app = createApp(App);
