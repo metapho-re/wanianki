@@ -39,8 +39,8 @@ const wordType = computed<string | null>(() =>
     <subject-overview
       type="vocabulary"
       :level="vocabulary.level"
-      :meaning="meanings!.primary"
-      :reading="readings!.primary"
+      :meaning="meanings?.primary ?? ''"
+      :reading="readings?.primary"
     >
       <p class="vocabulary-characters japanese">{{ vocabulary.characters }}</p>
     </subject-overview>
@@ -49,11 +49,11 @@ const wordType = computed<string | null>(() =>
         <div class="meaning-list">
           <p class="meaning">
             <span class="dimmed">Primary</span><br />
-            {{ meanings!.primary }}
+            {{ meanings?.primary }}
           </p>
-          <p v-if="meanings!.secondary" class="meaning">
+          <p v-if="meanings?.secondary" class="meaning">
             <span class="dimmed">Alternative</span><br />
-            {{ meanings!.secondary }}
+            {{ meanings?.secondary }}
           </p>
         </div>
         <p>

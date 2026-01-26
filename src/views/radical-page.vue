@@ -39,7 +39,7 @@ const url = computed<string | undefined>(() =>
     <subject-overview
       type="radical"
       :level="radical.level"
-      :meaning="meanings!.primary"
+      :meaning="meanings?.primary ?? ''"
     >
       <radical-view
         :key="url"
@@ -53,11 +53,11 @@ const url = computed<string | undefined>(() =>
         <div class="meaning-list">
           <p class="meaning">
             <span class="dimmed">Primary</span><br />
-            {{ meanings!.primary }}
+            {{ meanings?.primary }}
           </p>
-          <p v-if="meanings!.secondary" class="meaning">
+          <p v-if="meanings?.secondary" class="meaning">
             <span class="dimmed">Alternative</span><br />
-            {{ meanings!.secondary }}
+            {{ meanings?.secondary }}
           </p>
         </div>
         <p>

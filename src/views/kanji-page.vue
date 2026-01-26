@@ -47,9 +47,9 @@ const radicals = computed<ReturnType<typeof getRadicalCombination> | null>(
     <subject-overview
       type="kanji"
       :level="kanji.level"
-      :meaning="meanings!.primary"
-      :reading="primaryKanjiReading!.reading"
-      :reading-type="primaryKanjiReading!.type"
+      :meaning="meanings?.primary ?? ''"
+      :reading="primaryKanjiReading?.reading"
+      :reading-type="primaryKanjiReading?.type"
     >
       <p class="kanji-character japanese">{{ kanji.characters }}</p>
     </subject-overview>
@@ -58,11 +58,11 @@ const radicals = computed<ReturnType<typeof getRadicalCombination> | null>(
         <div class="meaning-list">
           <p class="meaning">
             <span class="dimmed">Primary</span><br />
-            {{ meanings!.primary }}
+            {{ meanings?.primary }}
           </p>
-          <p v-if="meanings!.secondary" class="meaning">
+          <p v-if="meanings?.secondary" class="meaning">
             <span class="dimmed">Alternative</span><br />
-            {{ meanings!.secondary }}
+            {{ meanings?.secondary }}
           </p>
         </div>
         <p>
@@ -99,12 +99,12 @@ const radicals = computed<ReturnType<typeof getRadicalCombination> | null>(
           <div class="reading-box">
             <p
               class="reading-text"
-              :class="readings!.onyomi?.primary ? 'primary' : ''"
+              :class="readings?.onyomi?.primary ? 'primary' : ''"
             >
               <span class="dimmed">On'yomi</span>
               <br />
-              <span v-if="readings!.onyomi" class="japanese">
-                {{ readings!.onyomi.reading }}
+              <span v-if="readings?.onyomi" class="japanese">
+                {{ readings?.onyomi?.reading }}
               </span>
               <span v-else>None</span>
             </p>
@@ -112,12 +112,12 @@ const radicals = computed<ReturnType<typeof getRadicalCombination> | null>(
           <div class="reading-box">
             <p
               class="reading-text"
-              :class="readings!.kunyomi?.primary ? 'primary' : ''"
+              :class="readings?.kunyomi?.primary ? 'primary' : ''"
             >
               <span class="dimmed">Kun'yomi</span>
               <br />
-              <span v-if="readings!.kunyomi" class="japanese">
-                {{ readings!.kunyomi.reading }}
+              <span v-if="readings?.kunyomi" class="japanese">
+                {{ readings?.kunyomi?.reading }}
               </span>
               <span v-else>None</span>
             </p>
@@ -125,12 +125,12 @@ const radicals = computed<ReturnType<typeof getRadicalCombination> | null>(
           <div class="reading-box">
             <p
               class="reading-text"
-              :class="readings!.nanori?.primary ? 'primary' : ''"
+              :class="readings?.nanori?.primary ? 'primary' : ''"
             >
               <span class="dimmed">Nanori</span>
               <br />
-              <span v-if="readings!.nanori" class="japanese">
-                {{ readings!.nanori.reading }}
+              <span v-if="readings?.nanori" class="japanese">
+                {{ readings?.nanori?.reading }}
               </span>
               <span v-else>None</span>
             </p>
