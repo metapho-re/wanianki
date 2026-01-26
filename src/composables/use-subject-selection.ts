@@ -7,12 +7,16 @@ import { subjectCollection } from "./use-learning-material";
 
 const MAX_SUGGESTIONS_COUNT = 10;
 
+interface Emit {
+  (event: "add", id: number): void;
+  (event: "delete", id: number): void;
+  (event: "clear"): void;
+}
+
 interface Params {
   level: number;
   selectedSubjectIds: Set<number>;
-  addSubjectId: (id: number) => void;
-  deleteSubjectId: (id: number) => void;
-  clearSubjectIds: () => void;
+  emit: Emit;
 }
 
 interface ReturnValue {
@@ -46,9 +50,7 @@ interface ReturnValue {
 export const useSubjectSelection = ({
   level,
   selectedSubjectIds,
-  addSubjectId,
-  deleteSubjectId,
-  clearSubjectIds,
+  emit,
 }: Params): ReturnValue => {
   const searchQuery = ref<string>("");
 
@@ -176,24 +178,24 @@ export const useSubjectSelection = ({
   };
 
   const addSubject = (subject: ReviewSubject) => {
-    addSubjectId(subject.id);
+    emit("add", subject.id);
     highlightIndex.value = -1;
   };
 
   const removeSubject = (subject: ReviewSubject) => {
-    deleteSubjectId(subject.id);
+    emit("delete", subject.id);
   };
 
   const toggleSubject = (subject: ReviewSubject) => {
     if (selectedSubjectIds.has(subject.id)) {
-      deleteSubjectId(subject.id);
+      emit("delete", subject.id);
     } else {
-      addSubjectId(subject.id);
+      emit("add", subject.id);
     }
   };
 
   const clearSelection = () => {
-    clearSubjectIds();
+    emit("clear");
   };
 
   const toggleAllSubjectsInLevel = (level: number) => {
@@ -204,16 +206,16 @@ export const useSubjectSelection = ({
 
     for (const subject of subjects) {
       if (areAllSubjectsSelected) {
-        deleteSubjectId(subject.id);
+        emit("delete", subject.id);
       } else {
-        addSubjectId(subject.id);
+        emit("add", subject.id);
       }
     }
   };
 
   const selectAllFilteredSubjects = () => {
     for (const subject of filteredSubjects.value) {
-      addSubjectId(subject.id);
+      emit("add", subject.id);
     }
   };
 

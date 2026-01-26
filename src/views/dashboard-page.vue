@@ -88,9 +88,9 @@ const canReview = computed<boolean>(() => selectedSubjects.value.length > 0);
         :level="level!"
         :selected-subject-ids="selectedSubjectIds"
         :selected-subjects="selectedSubjects"
-        :add-subject-id="addSubjectId"
-        :delete-subject-id="deleteSubjectId"
-        :clear-subject-ids="clearSubjectIds"
+        @add="addSubjectId"
+        @delete="deleteSubjectId"
+        @clear="clearSubjectIds"
       />
     </div>
     <div class="control-section section">

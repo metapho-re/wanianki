@@ -10,19 +10,16 @@ import SubjectCard from "./subject-card.vue";
 import SubjectChip from "./subject-chip.vue";
 import SubjectSuggestion from "./subject-suggestion.vue";
 
-const {
-  level,
-  selectedSubjectIds,
-  addSubjectId,
-  deleteSubjectId,
-  clearSubjectIds,
-} = defineProps<{
+const { level, selectedSubjectIds } = defineProps<{
   level: number;
   selectedSubjectIds: Set<number>;
   selectedSubjects: ReviewSubject[];
-  addSubjectId: (id: number) => void;
-  deleteSubjectId: (id: number) => void;
-  clearSubjectIds: () => void;
+}>();
+
+const emit = defineEmits<{
+  add: [id: number];
+  delete: [id: number];
+  clear: [];
 }>();
 
 const {
@@ -50,9 +47,7 @@ const {
 } = useSubjectSelection({
   level,
   selectedSubjectIds,
-  addSubjectId,
-  deleteSubjectId,
-  clearSubjectIds,
+  emit,
 });
 
 const getLevelSelectionButtonText = (level: number) =>
