@@ -42,39 +42,42 @@ const onCompleteFactory =
     }
   };
 
-export const useLearningMaterial = async (
-  level: number,
-): Promise<ComputedRef<boolean>> => {
-  const [
-    { isLoading: isKanjiCollectionLoading },
-    { isLoading: isRadicalCollectionLoading },
-    { isLoading: isVocabularyCollectionLoading },
-  ] = await Promise.all([
-    useFetch<SubjectResponse<Kanji>, "collection">({
-      storageKey: KANJI_KEY,
-      errorMessage: "Failed to load kanji",
-      successMessage: "Kanjis successfully loaded",
-      shouldFetchOnMounted: true,
-      fetcher: getKanjiCollection(level),
-      onComplete: onCompleteFactory(kanjiCollection),
-    }),
-    useFetch<SubjectResponse<Radical>, "collection">({
-      storageKey: RADICAL_KEY,
-      errorMessage: "Failed to load radicals",
-      successMessage: "Radicals successfully loaded",
-      shouldFetchOnMounted: true,
-      fetcher: getRadicalCollection(level),
-      onComplete: onCompleteFactory(radicalCollection),
-    }),
-    useFetch<SubjectResponse<Vocabulary>, "collection">({
-      storageKey: VOCABULARY_KEY,
-      errorMessage: "Failed to load vocabulary",
-      successMessage: "Vocabulary successfully loaded",
-      shouldFetchOnMounted: true,
-      fetcher: getVocabularyCollection(level),
-      onComplete: onCompleteFactory(vocabularyCollection),
-    }),
-  ]);
+export const useLearningMaterial = (level: number): ComputedRef<boolean> => {
+  const { isLoading: isKanjiCollectionLoading } = useFetch<
+    SubjectResponse<Kanji>,
+    "collection"
+  >({
+    storageKey: KANJI_KEY,
+    errorMessage: "Failed to load kanji",
+    successMessage: "Kanjis successfully loaded",
+    shouldFetchOnMounted: true,
+    fetcher: getKanjiCollection(level),
+    onComplete: onCompleteFactory(kanjiCollection),
+  });
+
+  const { isLoading: isRadicalCollectionLoading } = useFetch<
+    SubjectResponse<Radical>,
+    "collection"
+  >({
+    storageKey: RADICAL_KEY,
+    errorMessage: "Failed to load radicals",
+    successMessage: "Radicals successfully loaded",
+    shouldFetchOnMounted: true,
+    fetcher: getRadicalCollection(level),
+    onComplete: onCompleteFactory(radicalCollection),
+  });
+
+  const { isLoading: isVocabularyCollectionLoading } = useFetch<
+    SubjectResponse<Vocabulary>,
+    "collection"
+  >({
+    storageKey: VOCABULARY_KEY,
+    errorMessage: "Failed to load vocabulary",
+    successMessage: "Vocabulary successfully loaded",
+    shouldFetchOnMounted: true,
+    fetcher: getVocabularyCollection(level),
+    onComplete: onCompleteFactory(vocabularyCollection),
+  });
 
   const isLoading = computed<boolean>(
     () =>

@@ -5,14 +5,10 @@ import { NotificationContainer } from "./components";
 </script>
 
 <template>
-  <suspense>
-    <template #default>
-      <div class="wrapper">
-        <RouterView />
-        <NotificationContainer />
-      </div>
-    </template>
-  </suspense>
+  <div class="wrapper">
+    <RouterView />
+    <NotificationContainer />
+  </div>
 </template>
 
 <style scoped>

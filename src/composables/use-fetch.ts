@@ -17,12 +17,12 @@ interface Params<T, U> {
   onComplete?: (data: ReportOrCollection<T, U> | null) => void;
 }
 
-type ReturnValue<T, U> = Promise<{
+type ReturnValue<T, U> = {
   isLoading: Ref<boolean>;
   refresh: () => Promise<ReportOrCollection<T, U> | null>;
-}>;
+};
 
-export const useFetch = async <T, U>({
+export const useFetch = <T, U>({
   storageKey,
   errorMessage,
   successMessage,

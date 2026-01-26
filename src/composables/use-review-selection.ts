@@ -9,7 +9,7 @@ import {
 } from "./use-learning-material";
 import { useReviewNavigationPaths } from "./use-review-navigation-paths";
 
-type ReturnValue = Promise<{
+type ReturnValue = {
   selectedSubjectIds: Ref<Set<number>>;
   selectedSubjects: ComputedRef<ReviewSubject[]>;
   shouldShuffle: Ref<boolean>;
@@ -19,9 +19,9 @@ type ReturnValue = Promise<{
   deleteSubjectId: (id: number) => void;
   clearSubjectIds: () => void;
   onStartReview: () => void;
-}>;
+};
 
-export const useReviewSelection = async (userLevel: number): ReturnValue => {
+export const useReviewSelection = (userLevel: number): ReturnValue => {
   const router = useRouter();
 
   const subjectsById = computed<Record<string, ReviewSubject>>(() => {
@@ -49,7 +49,7 @@ export const useReviewSelection = async (userLevel: number): ReturnValue => {
   const shouldShuffle = ref<boolean>(false);
   const isQuizMode = ref<boolean>(false);
 
-  const isLoading = await useLearningMaterial(userLevel);
+  const isLoading = useLearningMaterial(userLevel);
 
   const addSubjectId = (id: number) => {
     selectedSubjectIds.value.add(id);

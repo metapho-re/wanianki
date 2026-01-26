@@ -29,7 +29,7 @@ const {
   onStartReview,
 } =
   level !== undefined
-    ? await useReviewSelection(level)
+    ? useReviewSelection(level)
     : {
         selectedSubjectIds: ref<Set<number>>(new Set<number>()),
         selectedSubjects: computed<ReviewSubject[]>(() => []),

@@ -3,7 +3,7 @@ import { BaseIcon } from "../components";
 import { useLogin, useTagline } from "../composables";
 import { loginIconPath } from "../icon-paths";
 
-const { inputValue, isLoading, onSubmit } = await useLogin();
+const { inputValue, isLoading, onSubmit } = useLogin();
 
 const tagline = useTagline();
 </script>

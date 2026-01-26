@@ -20,20 +20,20 @@ const onComplete = (data: User | null) => {
   }
 };
 
-type ReturnValue = Promise<{
+type ReturnValue = {
   inputValue: Ref<string>;
   isLoading: Ref<boolean>;
   onSubmit: () => Promise<void>;
-}>;
+};
 
-export const useLogin = async (): ReturnValue => {
+export const useLogin = (): ReturnValue => {
   const router = useRouter();
 
   const { addNotification } = useNotifications();
 
   const { setValue: setUser } = useOpfsStorage<User, "report">(USER_KEY);
 
-  const { isLoading, refresh } = await useFetch<User, "report">({
+  const { isLoading, refresh } = useFetch<User, "report">({
     storageKey: USER_KEY,
     errorMessage: "Failed to load user profile",
     successMessage: "Authenticated successfully",
