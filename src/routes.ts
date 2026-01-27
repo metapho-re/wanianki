@@ -23,4 +23,8 @@ export const routes = [
     path: "/quiz/:quizType/:subjectType/:slug",
     component: () => import("./views/quiz-page.vue"),
   },
+  {
+    path: "/:pathMatch(.*)*",
+    component: () => import("./views/not-found-page.vue"),
+  },
 ];
