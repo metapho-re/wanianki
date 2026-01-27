@@ -16,7 +16,10 @@ import type { QuizReport, QuizType, Subject, SubjectType } from "../types";
 import {
   getAcceptedProperties,
   getDiceCoefficient,
+  getSlugFromSubjectType,
   getSubjectDataFromSlug,
+  isQuizType,
+  isSubjectType,
 } from "../utils";
 
 import { useQuizDialog } from "./use-quiz-dialog";
@@ -50,18 +53,24 @@ export const useQuizNavigation = (): ReturnValue => {
   const { dialogRef, open: openDialog } = useQuizDialog();
   const { quizReport, update: updateQuizReport } = useQuizReport();
 
+  const initialSubjectType = isSubjectType(route.params.subjectType)
+    ? route.params.subjectType
+    : null;
+  const initialQuizType = isQuizType(route.params.quizType)
+    ? route.params.quizType
+    : null;
+  const initialSlug = getSlugFromSubjectType(initialSubjectType, route.params);
+
+  const subjectType = ref<SubjectType>(initialSubjectType ?? "kanji");
+  const quizType = ref<QuizType>(initialQuizType ?? "meaning");
   const subject = ref<Subject | null>(
-    getSubjectDataFromSlug<Subject>(
-      route.params.subjectType === "radical"
-        ? atob(route.params.slug as string)
-        : (route.params.slug as string),
-      subjectCollection[
-        route.params.subjectType as keyof typeof subjectCollection
-      ].value,
-    ),
+    initialSlug && initialSubjectType
+      ? getSubjectDataFromSlug<Subject>(
+          initialSlug,
+          subjectCollection[initialSubjectType].value,
+        )
+      : null,
   );
-  const subjectType = ref<SubjectType>(route.params.subjectType as SubjectType);
-  const quizType = ref<QuizType>(route.params.quizType as QuizType);
 
   const inputValue = ref<string>("");
   const validationResult = ref<ValidationResult>("");
@@ -73,17 +82,24 @@ export const useQuizNavigation = (): ReturnValue => {
   watch(
     () => route.params,
     (params) => {
-      subject.value = getSubjectDataFromSlug<Subject>(
-        params.subjectType === "radical"
-          ? atob(params.slug as string)
-          : (params.slug as string),
-        subjectCollection[params.subjectType as keyof typeof subjectCollection]
-          .value,
-      );
-      subjectType.value = params.subjectType as SubjectType;
-      quizType.value = params.quizType as QuizType;
+      const newSubjectType = isSubjectType(params.subjectType)
+        ? params.subjectType
+        : null;
+      const newQuizType = isQuizType(params.quizType) ? params.quizType : null;
+      const newSlug = getSlugFromSubjectType(newSubjectType, params);
 
-      inputRef.value?.focus();
+      if (!newSubjectType || !newQuizType || !newSlug) {
+        router.push("/");
+      } else {
+        subjectType.value = newSubjectType;
+        quizType.value = newQuizType;
+        subject.value = getSubjectDataFromSlug<Subject>(
+          newSlug,
+          subjectCollection[newSubjectType].value,
+        );
+
+        inputRef.value?.focus();
+      }
     },
   );
 
