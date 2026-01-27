@@ -1,35 +1,26 @@
-import {
-  DashboardPage,
-  KanjiPage,
-  LoginPage,
-  QuizPage,
-  RadicalPage,
-  VocabularyPage,
-} from "./views";
-
 export const routes = [
   {
     path: "/",
-    component: DashboardPage,
+    component: () => import("./views/dashboard-page.vue"),
   },
   {
     path: "/login",
-    component: LoginPage,
+    component: () => import("./views/login-page.vue"),
   },
   {
     path: "/study/kanji/:slug",
-    component: KanjiPage,
+    component: () => import("./views/kanji-page.vue"),
   },
   {
     path: "/study/radical/:slug",
-    component: RadicalPage,
+    component: () => import("./views/radical-page.vue"),
   },
   {
     path: "/study/vocabulary/:slug",
-    component: VocabularyPage,
+    component: () => import("./views/vocabulary-page.vue"),
   },
   {
     path: "/quiz/:quizType/:subjectType/:slug",
-    component: QuizPage,
+    component: () => import("./views/quiz-page.vue"),
   },
 ];
