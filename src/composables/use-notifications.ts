@@ -2,19 +2,17 @@ import { ref, type Ref } from "vue";
 
 import type { Notification, NotificationType } from "../types";
 
-let idCounter = 0;
-
 const notifications = ref<Notification[]>([]);
 
 interface ReturnValue {
   notifications: Ref<Notification[]>;
   addNotification: (message: string, type: NotificationType) => void;
-  removeNotification: (id: number) => void;
+  removeNotification: (id: string) => void;
 }
 
 export const useNotifications = (): ReturnValue => {
   const addNotification = (message: string, type: NotificationType) => {
-    const id = idCounter++;
+    const id = crypto.randomUUID();
 
     notifications.value.push({ id, message, type });
 
@@ -23,7 +21,7 @@ export const useNotifications = (): ReturnValue => {
     }, 3000);
   };
 
-  const removeNotification = (id: number) => {
+  const removeNotification = (id: string) => {
     notifications.value = notifications.value.filter(
       (notification) => notification.id !== id,
     );
