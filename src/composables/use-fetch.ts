@@ -80,7 +80,7 @@ export const useFetch = <T, U>({
       } while (pages?.next_url);
 
       if (Array.isArray(data.value)) {
-        sortByIdAndLevel(data.value);
+        data.value = sortByIdAndLevel(data.value) as ReportOrCollection<T, U>;
       }
 
       await setValue(data.value);

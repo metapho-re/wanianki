@@ -31,14 +31,14 @@ export const useReviewNavigationPaths = (): ReturnValue => {
     shouldShuffle: Ref<boolean>;
     isQuizMode: Ref<boolean>;
   }) => {
-    reviewNavigationPaths.value = getNavigationPathsFromSelectedSubjects({
+    const paths = getNavigationPathsFromSelectedSubjects({
       selectedSubjects,
       isQuizMode,
     });
 
-    if (shouldShuffle.value) {
-      shuffleArray(reviewNavigationPaths.value);
-    }
+    reviewNavigationPaths.value = shouldShuffle.value
+      ? shuffleArray(paths)
+      : paths;
 
     reviewNavigationIndex.value = -1;
   };
