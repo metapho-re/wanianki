@@ -6,4 +6,7 @@ module.exports = {
   ],
   ignoreFiles: ["dist/**/*.css"],
   plugins: ["stylelint-order"],
+  rules: {
+    "value-keyword-case": ["lower", { ignoreFunctions: ["v-bind"] }],
+  },
 };
