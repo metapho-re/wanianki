@@ -57,6 +57,7 @@ npm install           # Install dependencies
 npm run dev           # Start development server
 npm run build         # Create production build
 npm run preview       # Serve production build
+npm run test          # Run the test suite
 npm run lint          # Run the ES linter
 npm run stylelint     # Run the style linter
 npm run type-check    # Run the types check
