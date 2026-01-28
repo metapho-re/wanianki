@@ -58,8 +58,6 @@ export const useStudyNavigation = <T extends Subject>(
   };
 
   const onKeyDownEventListener = (event: KeyboardEvent) => {
-    event.preventDefault();
-
     switch (event.code) {
       case "Space":
       case "Enter": {
