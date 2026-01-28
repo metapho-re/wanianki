@@ -68,10 +68,12 @@ const levelSelectionButtonTextMap = computed<Record<number, string>>(() => {
 <template>
   <div class="review-selector">
     <div class="filters">
-      <div class="tabs">
+      <div class="tabs" role="tablist" aria-label="Filter by subject type">
         <button
           v-for="type in ['radical', 'kanji', 'vocabulary']"
           :key="type"
+          role="tab"
+          :aria-selected="filters.type === type"
           :class="`${type} ${filters.type === type ? 'active' : ''}`"
           class="tab"
           @click="setFilterType(type as SubjectType)"
@@ -79,29 +81,50 @@ const levelSelectionButtonTextMap = computed<Record<number, string>>(() => {
           {{ capitalize(type) }}
         </button>
       </div>
-      <div class="filter-group">
-        <label>Level range</label>
+      <fieldset class="filter-group">
+        <legend>Level range</legend>
         <div class="range">
           <input
+            id="min-level"
             v-model.number="filters.minLevel"
             type="range"
             min="1"
             :max="level"
+            aria-label="Minimum level"
+            :aria-valuemin="1"
+            :aria-valuemax="level"
+            :aria-valuenow="filters.minLevel"
           />
           <input
+            id="max-level"
             v-model.number="filters.maxLevel"
             type="range"
             min="1"
             :max="level"
+            aria-label="Maximum level"
+            :aria-valuemin="1"
+            :aria-valuemax="level"
+            :aria-valuenow="filters.maxLevel"
           />
-          <span> {{ filters.minLevel }}–{{ filters.maxLevel }} </span>
+          <span aria-live="polite">
+            {{ filters.minLevel }}–{{ filters.maxLevel }}
+          </span>
         </div>
-      </div>
+      </fieldset>
       <div class="filter-group search">
         <input
+          id="subject-search"
           v-model.trim="searchQuery"
           type="text"
           placeholder="Search by meaning or reading"
+          role="combobox"
+          aria-label="Search subjects by meaning or reading"
+          aria-autocomplete="list"
+          aria-controls="subject-suggestions"
+          :aria-expanded="isSearchOpen && !!searchQuery"
+          :aria-activedescendant="
+            highlightIndex >= 0 ? `suggestion-${highlightIndex}` : undefined
+          "
           @focus="showSuggestions"
           @blur="hideSuggestions"
           @keydown.up.prevent="highlightPreviousSuggestion"
@@ -110,12 +133,18 @@ const levelSelectionButtonTextMap = computed<Record<number, string>>(() => {
         />
         <div
           v-if="isSearchOpen && searchQuery"
+          id="subject-suggestions"
+          role="listbox"
+          aria-label="Subject suggestions"
           class="suggestions"
           @mouseleave="setHighlightIndex(-1)"
         >
           <div
             v-for="(suggestion, index) in suggestions"
+            :id="`suggestion-${index}`"
             :key="suggestion.id"
+            role="option"
+            :aria-selected="index === highlightIndex"
             :class="`${index === highlightIndex ? 'highlighted' : ''}`"
             class="suggestion"
             @mouseenter="setHighlightIndex(index)"
@@ -164,16 +193,23 @@ const levelSelectionButtonTextMap = computed<Record<number, string>>(() => {
             {{ levelSelectionButtonTextMap[visibleLevel] }}
           </base-button>
         </summary>
-        <div class="grid">
-          <div
+        <div
+          class="grid"
+          role="group"
+          :aria-label="`Level ${visibleLevel} subjects`"
+        >
+          <button
             v-for="item in filteredSubjectsByLevel[visibleLevel]"
             :key="item.id"
+            type="button"
             class="card"
             :class="{ selected: selectedSubjectIds.has(item.id) }"
+            :aria-pressed="selectedSubjectIds.has(item.id)"
+            :aria-label="`${item.data.characters || 'Radical'}, ${selectedSubjectIds.has(item.id) ? 'selected' : 'not selected'}`"
             @click="toggleSubject(item)"
           >
             <subject-card :subject="item" />
-          </div>
+          </button>
         </div>
       </details>
     </div>
@@ -182,15 +218,17 @@ const levelSelectionButtonTextMap = computed<Record<number, string>>(() => {
         <strong>Selected:</strong>
         {{ getPluralizedQuantity("item", selectedSubjectIds.size) }}
       </div>
-      <div class="chips">
-        <div
+      <div class="chips" role="list" aria-label="Selected subjects">
+        <button
           v-for="item in selectedSubjects"
           :key="item.id"
+          type="button"
           class="chip"
+          :aria-label="`Remove ${item.data.characters || 'radical'} from selection`"
           @click="removeSubject(item)"
         >
           <subject-chip :subject="item" />
-        </div>
+        </button>
       </div>
     </div>
   </div>
@@ -309,10 +347,14 @@ const levelSelectionButtonTextMap = computed<Record<number, string>>(() => {
 .filter-group {
   display: flex;
   flex-direction: column;
+  padding: 0;
+  border: none;
+  margin: 0;
   gap: 6px;
 }
 
-.filter-group label {
+.filter-group legend {
+  padding: 0;
   color: var(--foreground-color-1);
   font-size: 0.75rem;
   font-weight: 400;
@@ -515,10 +557,13 @@ const levelSelectionButtonTextMap = computed<Record<number, string>>(() => {
 }
 
 .card {
+  padding: 0;
   border: 2px solid transparent;
   border-radius: var(--radius-md);
   background: var(--background-color-1);
+  color: inherit;
   cursor: pointer;
+  font: inherit;
   transition: var(--transition-base);
 }
 
@@ -566,7 +611,13 @@ const levelSelectionButtonTextMap = computed<Record<number, string>>(() => {
 }
 
 .chip {
+  padding: 0;
+  border: none;
   border-radius: var(--radius-full);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
   transition: var(--transition-fast);
 }
 

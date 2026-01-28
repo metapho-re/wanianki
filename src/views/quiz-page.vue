@@ -44,7 +44,7 @@ const characters = computed<string | null>(() =>
       <quiz-summary :quiz-report="quizReport" />
     </quiz-dialog>
     <review-header :type="subjectType" />
-    <div class="subject-section">
+    <div class="subject-section" role="region" aria-label="Quiz question">
       <span class="subject-type-badge" :class="subjectType">{{
         `${subjectType} - ${quizType}`
       }}</span>
@@ -67,6 +67,7 @@ const characters = computed<string | null>(() =>
     </div>
     <div class="input-section">
       <input
+        id="quiz-input"
         ref="user-input"
         class="input"
         :class="`${validationResult} ${quizType === 'reading' ? 'japanese' : ''}`"
@@ -74,6 +75,10 @@ const characters = computed<string | null>(() =>
         autofocus
         :placeholder="`Type in the ${quizType}...`"
         :disabled="validationResult.includes('correct')"
+        :aria-invalid="
+          validationResult === 'invalid' || validationResult === 'incorrect'
+        "
+        :aria-describedby="validationResult ? 'validation-status' : undefined"
         type="text"
         @input="onInput"
       />
