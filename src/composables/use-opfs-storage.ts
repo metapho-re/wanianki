@@ -25,22 +25,14 @@ export const useOpfsStorage = <T, U>(key: string): ReturnValue<T, U> => {
       return null;
     }
 
-    let value: CachedData<T, U> | ReportOrCollection<T, U> | null = null;
+    let value: CachedData<T, U> | null = null;
 
     try {
       value = JSON.parse(serializedValue);
     } catch {
       addNotification("Failed to parse data in OPFS storage", "error");
     } finally {
-      // Support for previous, non-cached data format
-      if (value && typeof value === "object" && !("cachedAt" in value)) {
-        return {
-          data: value,
-          cachedAt: 0,
-        } as CachedData<T, U>;
-      }
-
-      return value as CachedData<T, U> | null;
+      return value;
     }
   };
 
