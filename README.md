@@ -8,6 +8,7 @@ A lightweight web application that **fetches review subjects from your WaniKani 
 - 🎯 **Flexible selection** — filter by subject type and level range, search by meaning or reading, or toggle entire levels at once.
 - 💾 **Local persistence** — all data is stored in-browser using the OPFS API.
 - 📚 **Two review modes** — study mode for reading content, quiz mode for testing yourself.
+- 🗂️ **Saved review decks** — save your current selection as a named deck and load it later for quick access.
 - ⌨️ **Easy keyboard navigation** — use keyboard shortcuts to easily navigate through review subjects.
 - 🔒 **API token safety** — the API token is not kept in memory.
 
