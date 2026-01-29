@@ -1,16 +1,19 @@
-import { ref, type Ref, watch } from "vue";
+import { type Ref, watch } from "vue";
 
 import { THEME_KEY } from "../storage-keys";
 import type { Theme } from "../types";
-import { applyTheme, getInitialTheme } from "../utils";
+import { applyTheme } from "../utils";
 
-const theme = ref<Theme>(getInitialTheme());
+import { useLocalStorage } from "./use-local-storage";
+
+const getDefaultTheme = () =>
+  window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+
+const theme = useLocalStorage<Theme>(THEME_KEY, getDefaultTheme());
 
 applyTheme(theme.value);
 
 watch(theme, (newTheme) => {
-  localStorage.setItem(THEME_KEY, newTheme);
-
   applyTheme(newTheme);
 });
 

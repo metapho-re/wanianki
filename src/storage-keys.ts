@@ -3,3 +3,4 @@ export const KANJI_KEY = "KANJI";
 export const RADICAL_KEY = "RADICAL";
 export const VOCABULARY_KEY = "VOCABULARY";
 export const THEME_KEY = "THEME";
+export const DECKS_KEY = "DECKS";

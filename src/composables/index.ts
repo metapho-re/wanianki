@@ -1,4 +1,6 @@
 export { useDataCleanup } from "./use-data-cleanup";
+export { useDecks } from "./use-decks";
+export { useLocalStorage } from "./use-local-storage";
 export { subjectCollection } from "./use-learning-material";
 export { apiToken, useLogin, user } from "./use-login";
 export { useNotifications } from "./use-notifications";

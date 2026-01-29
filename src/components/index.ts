@@ -4,6 +4,7 @@ import BaseIcon from "./base-icon.vue";
 import BaseSection from "./base-section.vue";
 import BaseSpinner from "./base-spinner.vue";
 import BaseSwitch from "./base-switch.vue";
+import DeckDialog from "./deck-dialog.vue";
 import HighlightedText from "./highlighted-text.vue";
 import NotificationContainer from "./notification-container.vue";
 import QuizDialog from "./quiz-dialog.vue";
@@ -23,6 +24,7 @@ export {
   BaseSection,
   BaseSpinner,
   BaseSwitch,
+  DeckDialog,
   HighlightedText,
   NotificationContainer,
   QuizDialog,

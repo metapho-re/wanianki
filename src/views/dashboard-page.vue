@@ -7,13 +7,23 @@ import {
   BaseIcon,
   BaseSpinner,
   BaseSwitch,
+  DeckDialog,
   SubjectSelector,
 } from "../components";
-import { user, useReviewSelection, useTheme } from "../composables";
-import { bookIconPath, darkModeIconPath, lightIconPath } from "../icon-paths";
+import { user, useDecks, useReviewSelection, useTheme } from "../composables";
+import {
+  bookIconPath,
+  cardsStackIconPath,
+  darkModeIconPath,
+  lightIconPath,
+} from "../icon-paths";
 import type { ReviewSubject } from "../types";
 
 const { theme, toggleTheme } = useTheme();
+
+const { decks, saveDeck, removeDeck } = useDecks();
+
+const deckDialogRef = ref<InstanceType<typeof DeckDialog> | null>(null);
 
 const level = user.value?.level;
 
@@ -43,6 +53,20 @@ const {
       };
 
 const canReview = computed<boolean>(() => selectedSubjects.value.length > 0);
+
+const openDeckDialog = () => {
+  deckDialogRef.value?.dialogRef?.showModal();
+};
+
+const handleSaveDeck = (name: string) => {
+  saveDeck(name, [...selectedSubjectIds.value]);
+};
+
+const handleLoadDeck = (subjectIds: number[]) => {
+  clearSubjectIds();
+
+  subjectIds.forEach((id) => addSubjectId(id));
+};
 </script>
 
 <template>
@@ -66,6 +90,13 @@ const canReview = computed<boolean>(() => selectedSubjects.value.length > 0);
             width="24px"
             height="24px"
           />
+        </button>
+        <button
+          class="decks-toggle"
+          title="Manage saved decks"
+          @click="openDeckDialog"
+        >
+          <base-icon :path="cardsStackIconPath" width="24px" height="24px" />
         </button>
         <a
           class="github-link"
@@ -114,6 +145,14 @@ const canReview = computed<boolean>(() => selectedSubjects.value.length > 0);
       />
     </div>
   </div>
+  <deck-dialog
+    ref="deckDialogRef"
+    :decks="decks"
+    :has-selection="canReview"
+    @save="handleSaveDeck"
+    @load="handleLoadDeck"
+    @remove="removeDeck"
+  />
 </template>
 
 <style scoped>
@@ -176,6 +215,21 @@ const canReview = computed<boolean>(() => selectedSubjects.value.length > 0);
 }
 
 .theme-toggle:hover {
+  color: var(--primary-color);
+}
+
+.decks-toggle {
+  display: inline-flex;
+  border: none;
+  margin-right: 16px;
+  background: transparent;
+  color: var(--foreground-color-1);
+  cursor: pointer;
+  transition: var(--transition-base);
+  vertical-align: middle;
+}
+
+.decks-toggle:hover {
   color: var(--primary-color);
 }
 
@@ -278,6 +332,10 @@ const canReview = computed<boolean>(() => selectedSubjects.value.length > 0);
 
   .theme-toggle {
     margin-right: 6px;
+  }
+
+  .decks-toggle {
+    margin-right: 10px;
   }
 
   .control-section {
