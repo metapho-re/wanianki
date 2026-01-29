@@ -7,6 +7,41 @@ export const reviewNavigationPaths = ref<string[]>([]);
 
 export const reviewNavigationIndex = ref<number>(-1);
 
+const createReviewNavigationPaths = ({
+  selectedSubjects,
+  shouldShuffle,
+  isQuizMode,
+}: {
+  selectedSubjects: ComputedRef<ReviewSubject[]>;
+  shouldShuffle: Ref<boolean>;
+  isQuizMode: Ref<boolean>;
+}) => {
+  const paths = getNavigationPathsFromSelectedSubjects({
+    selectedSubjects,
+    isQuizMode,
+  });
+
+  reviewNavigationPaths.value = shouldShuffle.value
+    ? shuffleArray(paths)
+    : paths;
+
+  reviewNavigationIndex.value = -1;
+};
+
+const getPreviousReviewNavigationPath = () => {
+  if (reviewNavigationIndex.value > 0) {
+    reviewNavigationIndex.value -= 1;
+  }
+
+  return reviewNavigationPaths.value[reviewNavigationIndex.value];
+};
+
+const getNextReviewNavigationPath = () => {
+  reviewNavigationIndex.value += 1;
+
+  return reviewNavigationPaths.value[reviewNavigationIndex.value];
+};
+
 interface ReturnValue {
   createReviewNavigationPaths: ({
     selectedSubjects,
@@ -21,45 +56,8 @@ interface ReturnValue {
   getNextReviewNavigationPath: () => string | undefined;
 }
 
-export const useReviewNavigationPaths = (): ReturnValue => {
-  const createReviewNavigationPaths = ({
-    selectedSubjects,
-    shouldShuffle,
-    isQuizMode,
-  }: {
-    selectedSubjects: ComputedRef<ReviewSubject[]>;
-    shouldShuffle: Ref<boolean>;
-    isQuizMode: Ref<boolean>;
-  }) => {
-    const paths = getNavigationPathsFromSelectedSubjects({
-      selectedSubjects,
-      isQuizMode,
-    });
-
-    reviewNavigationPaths.value = shouldShuffle.value
-      ? shuffleArray(paths)
-      : paths;
-
-    reviewNavigationIndex.value = -1;
-  };
-
-  const getPreviousReviewNavigationPath = () => {
-    if (reviewNavigationIndex.value > 0) {
-      reviewNavigationIndex.value -= 1;
-    }
-
-    return reviewNavigationPaths.value[reviewNavigationIndex.value];
-  };
-
-  const getNextReviewNavigationPath = () => {
-    reviewNavigationIndex.value += 1;
-
-    return reviewNavigationPaths.value[reviewNavigationIndex.value];
-  };
-
-  return {
-    createReviewNavigationPaths,
-    getPreviousReviewNavigationPath,
-    getNextReviewNavigationPath,
-  };
-};
+export const useReviewNavigationPaths = (): ReturnValue => ({
+  createReviewNavigationPaths,
+  getPreviousReviewNavigationPath,
+  getNextReviewNavigationPath,
+});

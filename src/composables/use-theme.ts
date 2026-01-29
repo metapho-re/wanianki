@@ -6,10 +6,10 @@ import { applyTheme } from "../utils";
 
 import { useLocalStorage } from "./use-local-storage";
 
-const getDefaultTheme = () =>
-  window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
-
-const theme = useLocalStorage<Theme>(THEME_KEY, getDefaultTheme());
+const theme = useLocalStorage<Theme>(
+  THEME_KEY,
+  window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark",
+);
 
 applyTheme(theme.value);
 
@@ -17,18 +17,16 @@ watch(theme, (newTheme) => {
   applyTheme(newTheme);
 });
 
+const toggleTheme = () => {
+  theme.value = theme.value === "dark" ? "light" : "dark";
+};
+
 interface ReturnValue {
   theme: Ref<Theme>;
   toggleTheme: () => void;
 }
 
-export const useTheme = (): ReturnValue => {
-  const toggleTheme = () => {
-    theme.value = theme.value === "dark" ? "light" : "dark";
-  };
-
-  return {
-    theme,
-    toggleTheme,
-  };
-};
+export const useTheme = (): ReturnValue => ({
+  theme,
+  toggleTheme,
+});
