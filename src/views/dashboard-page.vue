@@ -76,42 +76,46 @@ const handleLoadDeck = (subjectIds: number[]) => {
   <div v-else class="dashboard-page">
     <base-header>
       <p class="text">
-        Logged in as <b>{{ user?.username }}</b> (level {{ user?.level }})
-        <span class="separator">·&nbsp;</span>
-        <button
-          class="theme-toggle"
-          :title="
-            theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'
-          "
-          @click="toggleTheme"
-        >
-          <base-icon
-            :path="theme === 'dark' ? lightIconPath : darkModeIconPath"
-            width="24px"
-            height="24px"
-          />
-        </button>
-        <button
-          class="decks-toggle"
-          title="Manage saved decks"
-          @click="openDeckDialog"
-        >
-          <base-icon :path="cardsStackIconPath" width="24px" height="24px" />
-        </button>
-        <a
-          class="github-link"
-          href="https://github.com/metapho-re/wanianki"
-          target="_blank"
-          rel="noopener noreferrer"
-          title="View source"
-        >
-          <svg viewBox="0 0 24 24" class="github-icon">
-            <path
-              fill="currentColor"
-              d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"
+        <span class="user-info">
+          Logged in as <b>{{ user?.username }}</b> (level {{ user?.level }})
+        </span>
+        <span class="header-actions">
+          <span class="separator">·&nbsp;</span>
+          <button
+            class="theme-toggle"
+            :title="
+              theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'
+            "
+            @click="toggleTheme"
+          >
+            <base-icon
+              :path="theme === 'dark' ? lightIconPath : darkModeIconPath"
+              width="24px"
+              height="24px"
             />
-          </svg>
-        </a>
+          </button>
+          <button
+            class="decks-toggle"
+            title="Manage saved decks"
+            @click="openDeckDialog"
+          >
+            <base-icon :path="cardsStackIconPath" width="24px" height="24px" />
+          </button>
+          <a
+            class="github-link"
+            href="https://github.com/metapho-re/wanianki"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="View source"
+          >
+            <svg viewBox="0 0 24 24" class="github-icon">
+              <path
+                fill="currentColor"
+                d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"
+              />
+            </svg>
+          </a>
+        </span>
       </p>
     </base-header>
     <div class="subject-selection-section">
@@ -278,6 +282,26 @@ const handleLoadDeck = (subjectIds: number[]) => {
 .vocabulary {
   border: 1px solid var(--vocabulary-color);
   background-color: var(--vocabulary-color-transparent);
+}
+
+@media (width <= 992px) {
+  .text {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .user-info {
+    width: 100%;
+  }
+
+  .header-actions {
+    margin-top: 8px;
+  }
+
+  .separator {
+    display: none;
+  }
 }
 
 @media (width <= 768px) {
