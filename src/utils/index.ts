@@ -16,6 +16,7 @@ export { getSubjectDataFromSlug } from "./get-subject-data-from-slug";
 export { getSubjectMeanings } from "./get-subject-meanings";
 export { getSubjectQueryString } from "./get-subject-query-string";
 export { getSubjectsUrl } from "./get-subjects-url";
+export { getTagline } from "./get-tagline";
 export { getVocabularyReadings } from "./get-vocabulary-readings";
 export { isQuizType } from "./is-quiz-type";
 export { isSubjectType } from "./is-subject-type";

@@ -10,5 +10,4 @@ export { useReviewCounter } from "./use-review-counter";
 export { useReviewSelection } from "./use-review-selection";
 export { useStudyNavigation } from "./use-study-navigation";
 export { useSubjectSelection } from "./use-subject-selection";
-export { useTagline } from "./use-tagline";
 export { useTheme } from "./use-theme";
