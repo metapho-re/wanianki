@@ -7,7 +7,6 @@ import BaseSwitch from "./base-switch.vue";
 import DeckDialog from "./deck-dialog.vue";
 import HighlightedText from "./highlighted-text.vue";
 import NotificationContainer from "./notification-container.vue";
-import QuizDialog from "./quiz-dialog.vue";
 import QuizSummary from "./quiz-summary.vue";
 import RadicalView from "./radical-view.vue";
 import ReviewGrid from "./review-grid.vue";
@@ -27,7 +26,6 @@ export {
   DeckDialog,
   HighlightedText,
   NotificationContainer,
-  QuizDialog,
   QuizSummary,
   RadicalView,
   ReviewGrid,
