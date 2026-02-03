@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { ref } from "vue";
 
 import {
   BaseButton,
@@ -10,98 +10,38 @@ import {
   DeckDialog,
   SubjectSelector,
 } from "../components";
-import {
-  user,
-  useDecks,
-  useQuizReport,
-  useReviewSelection,
-  useTheme,
-} from "../composables";
+import { useDashboard, useDecks, useTheme, user } from "../composables";
 import {
   bookIconPath,
   cardsStackIconPath,
   darkModeIconPath,
   lightIconPath,
 } from "../icon-paths";
-import type { ReviewSubject } from "../types";
 
 const { theme, toggleTheme } = useTheme();
 
 const { decks, saveDeck, removeDeck } = useDecks();
 
-const { resetQuizReport, setSourceDeckId } = useQuizReport();
-
-const deckDialogRef = ref<InstanceType<typeof DeckDialog> | null>(null);
-
-const loadedDeckId = ref<string | null>(null);
-
-const level = user.value?.level;
-
 const {
+  level,
   selectedSubjectIds,
   selectedSubjects,
   shouldShuffle,
   isQuizMode,
   isLoading,
-  addSubjectId,
-  deleteSubjectId,
-  clearSubjectIds,
-  onStartReview,
-} =
-  level !== undefined
-    ? useReviewSelection(level)
-    : {
-        selectedSubjectIds: ref<Set<number>>(new Set<number>()),
-        selectedSubjects: computed<ReviewSubject[]>(() => []),
-        shouldShuffle: ref<boolean>(false),
-        isQuizMode: ref<boolean>(false),
-        isLoading: computed<boolean>(() => true),
-        addSubjectId: () => {},
-        deleteSubjectId: () => {},
-        clearSubjectIds: () => {},
-        onStartReview: () => {},
-      };
+  canReview,
+  handleLoadDeck,
+  handleSaveDeck,
+  handleAddSubjectId,
+  handleDeleteSubjectId,
+  handleClearSubjectIds,
+  handleStartReview,
+} = useDashboard(saveDeck);
 
-const canReview = computed<boolean>(() => selectedSubjects.value.length > 0);
+const deckDialogRef = ref<InstanceType<typeof DeckDialog> | null>(null);
 
 const openDeckDialog = () => {
   deckDialogRef.value?.dialogRef?.showModal();
-};
-
-const handleSaveDeck = (name: string) => {
-  saveDeck(name, [...selectedSubjectIds.value]);
-};
-
-const handleLoadDeck = (deckId: string, subjectIds: number[]) => {
-  clearSubjectIds();
-
-  subjectIds.forEach((id) => addSubjectId(id));
-
-  loadedDeckId.value = deckId;
-};
-
-const handleAddSubjectId = (id: number) => {
-  addSubjectId(id);
-
-  loadedDeckId.value = null;
-};
-
-const handleDeleteSubjectId = (id: number) => {
-  deleteSubjectId(id);
-
-  loadedDeckId.value = null;
-};
-
-const handleClearSubjectIds = () => {
-  clearSubjectIds();
-
-  loadedDeckId.value = null;
-};
-
-const handleStartReview = () => {
-  resetQuizReport();
-  setSourceDeckId(loadedDeckId.value);
-  onStartReview();
 };
 </script>
 

@@ -1,43 +1,23 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from "vue";
-import { useRouter } from "vue-router";
-
 import { BaseButton, QuizSummary, RadicalView } from "../components";
-import { useDecks, useQuizReport } from "../composables";
-import type { Deck, Radical, ReviewSubject } from "../types";
-import { getEmptyQuizReport, getRadicalImageUrl } from "../utils";
+import { useQuizSummary } from "../composables";
+import type { Radical, ReviewSubject } from "../types";
+import { getRadicalImageUrl } from "../utils";
 
-const router = useRouter();
-
-const { quizReport, incorrectItems, sourceDeckId, resetQuizReport } =
-  useQuizReport();
-
-const { decks, saveDeck, updateDeck } = useDecks();
-
-const newDeckName = ref<string>("");
-const shouldShowNameInput = ref<boolean>(false);
-
-const sourceDeck = computed<Deck | null | undefined>(() =>
-  sourceDeckId.value
-    ? decks.value.find((deck) => deck.id === sourceDeckId.value)
-    : null,
-);
-const incorrectItemIds = computed<number[]>(() =>
-  incorrectItems.value.map(({ id }) => id),
-);
-const hasIncorrectItems = computed<boolean>(
-  () => incorrectItems.value.length > 0,
-);
-const hasQuizReport = computed<boolean>(
-  () =>
-    JSON.stringify(quizReport.value) !== JSON.stringify(getEmptyQuizReport()),
-);
-
-onMounted(() => {
-  if (!hasQuizReport.value) {
-    router.push("/");
-  }
-});
+const {
+  quizReport,
+  incorrectItems,
+  newDeckName,
+  shouldShowNameInput,
+  sourceDeck,
+  hasIncorrectItems,
+  hasQuizReport,
+  showNameInput,
+  hideNameInput,
+  handleDismiss,
+  handleCreateDeck,
+  handleUpdateDeck,
+} = useQuizSummary();
 
 const getCharacters = (item: ReviewSubject) => item.data.characters;
 
@@ -47,36 +27,6 @@ const getRadicalUrl = (item: ReviewSubject) => {
   }
 
   return undefined;
-};
-
-const showNameInput = () => {
-  shouldShowNameInput.value = true;
-};
-
-const hideNameInput = () => {
-  shouldShowNameInput.value = false;
-};
-
-const handleDismiss = () => {
-  resetQuizReport();
-
-  router.push("/");
-};
-
-const handleCreateDeck = () => {
-  const trimmedName = newDeckName.value.trim();
-
-  if (trimmedName) {
-    saveDeck(trimmedName, incorrectItemIds.value);
-    handleDismiss();
-  }
-};
-
-const handleUpdateDeck = () => {
-  if (sourceDeckId.value) {
-    updateDeck(sourceDeckId.value, incorrectItemIds.value);
-    handleDismiss();
-  }
 };
 </script>
 

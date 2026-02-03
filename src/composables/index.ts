@@ -1,3 +1,4 @@
+export { useDashboard } from "./use-dashboard";
 export { useDataCleanup } from "./use-data-cleanup";
 export { useDecks } from "./use-decks";
 export { useLocalStorage } from "./use-local-storage";
@@ -7,6 +8,7 @@ export { useNotifications } from "./use-notifications";
 export { useOpfsStorage } from "./use-opfs-storage";
 export { useQuizNavigation } from "./use-quiz-navigation";
 export { useQuizReport } from "./use-quiz-report";
+export { useQuizSummary } from "./use-quiz-summary";
 export { useReviewCounter } from "./use-review-counter";
 export { useReviewSelection } from "./use-review-selection";
 export { useStudyNavigation } from "./use-study-navigation";
