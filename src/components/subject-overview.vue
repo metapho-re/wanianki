@@ -19,7 +19,7 @@ defineProps<{
     <div class="meaning-reading">
       <p v-if="reading" :class="type">
         <span class="japanese">{{ reading }}</span>
-        <span v-if="readingType"> ({{ readingType }})</span>
+        <span v-if="readingType">({{ readingType }})</span>
       </p>
       <p :class="type">{{ meaning }}</p>
     </div>
