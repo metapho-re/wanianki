@@ -12,17 +12,22 @@ import { useRoute, useRouter } from "vue-router";
 import { isHiragana, toHiragana, toRomaji } from "wanakana";
 
 import { subjectCollection } from "../composables";
-import type { QuizReport, QuizType, Subject, SubjectType } from "../types";
+import type {
+  QuizReport,
+  QuizType,
+  ReviewSubject,
+  Subject,
+  SubjectType,
+} from "../types";
 import {
   getAcceptedProperties,
   getDiceCoefficient,
   getSlugFromSubjectType,
-  getSubjectDataFromSlug,
+  getSubjectFromSlug,
   isQuizType,
   isSubjectType,
 } from "../utils";
 
-import { useQuizDialog } from "./use-quiz-dialog";
 import { useQuizReport } from "./use-quiz-report";
 import { useReviewNavigationPaths } from "./use-review-navigation-paths";
 
@@ -34,11 +39,10 @@ interface ReturnValue {
   inputValue: Ref<string>;
   validationResult: Ref<ValidationResult>;
   acceptedAnswers: ComputedRef<string[]>;
-  subject: Ref<Subject | null>;
+  subject: ComputedRef<Subject | null>;
   subjectType: Ref<SubjectType>;
   quizType: Ref<QuizType>;
   quizReport: Ref<QuizReport>;
-  dialogRef: Ref<{ dialogRef: HTMLDialogElement | null }>;
   onInput: (event: Event) => void;
   onNavigate: () => void;
 }
@@ -50,8 +54,7 @@ export const useQuizNavigation = (): ReturnValue => {
   const inputRef = useTemplateRef<HTMLInputElement>("user-input");
 
   const { getNextReviewNavigationPath } = useReviewNavigationPaths();
-  const { dialogRef, open: openDialog } = useQuizDialog();
-  const { quizReport, update: updateQuizReport } = useQuizReport();
+  const { quizReport, updateQuizReport } = useQuizReport();
 
   const initialSubjectType = isSubjectType(route.params.subjectType)
     ? route.params.subjectType
@@ -60,21 +63,24 @@ export const useQuizNavigation = (): ReturnValue => {
     ? route.params.quizType
     : null;
   const initialSlug = getSlugFromSubjectType(initialSubjectType, route.params);
+  const initialReviewSubject =
+    initialSlug && initialSubjectType
+      ? getSubjectFromSlug(
+          initialSlug,
+          subjectCollection[initialSubjectType].value as ReviewSubject[],
+        )
+      : null;
 
   const subjectType = ref<SubjectType>(initialSubjectType ?? "kanji");
   const quizType = ref<QuizType>(initialQuizType ?? "meaning");
-  const subject = ref<Subject | null>(
-    initialSlug && initialSubjectType
-      ? getSubjectDataFromSlug<Subject>(
-          initialSlug,
-          subjectCollection[initialSubjectType].value,
-        )
-      : null,
-  );
+  const reviewSubject = ref<ReviewSubject | null>(initialReviewSubject);
 
   const inputValue = ref<string>("");
   const validationResult = ref<ValidationResult>("");
 
+  const subject = computed<Subject | null>(
+    () => reviewSubject.value?.data ?? null,
+  );
   const acceptedAnswers = computed<string[]>(() =>
     getAcceptedProperties(subject.value, quizType.value),
   );
@@ -91,12 +97,14 @@ export const useQuizNavigation = (): ReturnValue => {
       if (!newSubjectType || !newQuizType || !newSlug) {
         router.push("/");
       } else {
+        const newReviewSubject = getSubjectFromSlug(
+          newSlug,
+          subjectCollection[newSubjectType].value as ReviewSubject[],
+        );
+
         subjectType.value = newSubjectType;
         quizType.value = newQuizType;
-        subject.value = getSubjectDataFromSlug<Subject>(
-          newSlug,
-          subjectCollection[newSubjectType].value,
-        );
+        reviewSubject.value = newReviewSubject;
 
         inputRef.value?.focus();
       }
@@ -129,7 +137,12 @@ export const useQuizNavigation = (): ReturnValue => {
     validationResult.value = _validationResult;
 
     if (_validationResult === "correct" || _validationResult === "incorrect") {
-      updateQuizReport(subjectType.value, quizType.value, _validationResult);
+      updateQuizReport({
+        subjectType: subjectType.value,
+        quizType: quizType.value,
+        subject: reviewSubject.value,
+        status: _validationResult,
+      });
     }
   };
 
@@ -145,7 +158,7 @@ export const useQuizNavigation = (): ReturnValue => {
       if (navigationPath) {
         router.push(`/${navigationPath}`);
       } else {
-        openDialog();
+        router.push("/quiz-summary");
       }
     }
   };
@@ -201,7 +214,6 @@ export const useQuizNavigation = (): ReturnValue => {
     subjectType,
     quizType,
     quizReport,
-    dialogRef,
     onInput,
     onNavigate,
   };

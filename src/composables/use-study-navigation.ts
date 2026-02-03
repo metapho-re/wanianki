@@ -2,7 +2,7 @@ import { onMounted, onUnmounted, ref, type Ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
 import type { Store, Subject, SubjectResponse } from "../types";
-import { getSubjectDataFromSlug, parseSlug } from "../utils";
+import { getSubjectFromSlug, parseSlug } from "../utils";
 
 import { useReviewNavigationPaths } from "./use-review-navigation-paths";
 
@@ -21,7 +21,7 @@ export const useStudyNavigation = <T extends Subject>(
 
   const subject = ref<T | null>(
     initialSlug
-      ? getSubjectDataFromSlug(initialSlug, subjectCollection.value)
+      ? (getSubjectFromSlug<T>(initialSlug, subjectCollection.value)?.data as T)
       : null,
   );
 
@@ -33,10 +33,8 @@ export const useStudyNavigation = <T extends Subject>(
       if (!newSlug) {
         router.push("/");
       } else {
-        subject.value = getSubjectDataFromSlug(
-          newSlug,
-          subjectCollection.value,
-        );
+        subject.value = getSubjectFromSlug<T>(newSlug, subjectCollection.value)
+          ?.data as T;
       }
     },
   );

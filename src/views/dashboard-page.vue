@@ -10,7 +10,13 @@ import {
   DeckDialog,
   SubjectSelector,
 } from "../components";
-import { user, useDecks, useReviewSelection, useTheme } from "../composables";
+import {
+  user,
+  useDecks,
+  useQuizReport,
+  useReviewSelection,
+  useTheme,
+} from "../composables";
 import {
   bookIconPath,
   cardsStackIconPath,
@@ -23,7 +29,11 @@ const { theme, toggleTheme } = useTheme();
 
 const { decks, saveDeck, removeDeck } = useDecks();
 
+const { resetQuizReport, setSourceDeckId } = useQuizReport();
+
 const deckDialogRef = ref<InstanceType<typeof DeckDialog> | null>(null);
+
+const loadedDeckId = ref<string | null>(null);
 
 const level = user.value?.level;
 
@@ -62,10 +72,36 @@ const handleSaveDeck = (name: string) => {
   saveDeck(name, [...selectedSubjectIds.value]);
 };
 
-const handleLoadDeck = (subjectIds: number[]) => {
+const handleLoadDeck = (deckId: string, subjectIds: number[]) => {
   clearSubjectIds();
 
   subjectIds.forEach((id) => addSubjectId(id));
+
+  loadedDeckId.value = deckId;
+};
+
+const handleAddSubjectId = (id: number) => {
+  addSubjectId(id);
+
+  loadedDeckId.value = null;
+};
+
+const handleDeleteSubjectId = (id: number) => {
+  deleteSubjectId(id);
+
+  loadedDeckId.value = null;
+};
+
+const handleClearSubjectIds = () => {
+  clearSubjectIds();
+
+  loadedDeckId.value = null;
+};
+
+const handleStartReview = () => {
+  resetQuizReport();
+  setSourceDeckId(loadedDeckId.value);
+  onStartReview();
 };
 </script>
 
@@ -123,9 +159,9 @@ const handleLoadDeck = (subjectIds: number[]) => {
         :level="level!"
         :selected-subject-ids="selectedSubjectIds"
         :selected-subjects="selectedSubjects"
-        @add="addSubjectId"
-        @delete="deleteSubjectId"
-        @clear="clearSubjectIds"
+        @add="handleAddSubjectId"
+        @delete="handleDeleteSubjectId"
+        @clear="handleClearSubjectIds"
       />
     </div>
     <div class="control-section section">
@@ -138,7 +174,7 @@ const handleLoadDeck = (subjectIds: number[]) => {
         title="Start a fresh review session"
         :left-icon-path="bookIconPath"
         :disabled="!canReview"
-        @click="onStartReview"
+        @click="handleStartReview"
       >
         Start review
       </base-button>

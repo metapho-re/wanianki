@@ -1,13 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 
-import {
-  QuizDialog,
-  QuizSummary,
-  RadicalView,
-  ReviewHeader,
-  ReviewNavigation,
-} from "../components";
+import { RadicalView, ReviewHeader, ReviewNavigation } from "../components";
 import { useQuizNavigation } from "../composables";
 import type { Kanji, Radical, Vocabulary } from "../types";
 import { getRadicalImageUrl } from "../utils";
@@ -19,8 +13,6 @@ const {
   subject,
   subjectType,
   quizType,
-  quizReport,
-  dialogRef,
   onInput,
   onNavigate,
 } = useQuizNavigation();
@@ -39,10 +31,6 @@ const characters = computed<string | null>(() =>
 
 <template>
   <div class="quiz-page">
-    <quiz-dialog ref="dialogRef">
-      <template #header>Review Summary</template>
-      <quiz-summary :quiz-report="quizReport" />
-    </quiz-dialog>
     <review-header :type="subjectType" />
     <div class="subject-section" role="region" aria-label="Quiz question">
       <span class="subject-type-badge" :class="subjectType">{{

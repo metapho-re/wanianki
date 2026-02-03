@@ -14,7 +14,7 @@ defineProps<{
 }>();
 
 const emit = defineEmits<{
-  load: [subjectIds: number[]];
+  load: [deckId: string, subjectIds: number[]];
   remove: [id: string];
   save: [name: string];
 }>();
@@ -39,8 +39,8 @@ const handleSave = () => {
   }
 };
 
-const handleLoad = (subjectIds: number[]) => {
-  emit("load", subjectIds);
+const handleLoad = (deckId: string, subjectIds: number[]) => {
+  emit("load", deckId, subjectIds);
 
   dialogRef.value?.close();
 };
@@ -81,7 +81,7 @@ defineExpose<{
           <button
             class="deck-name"
             :aria-label="`Load deck ${deck.name}`"
-            @click="handleLoad(deck.subjectIds)"
+            @click="handleLoad(deck.id, deck.subjectIds)"
           >
             {{ deck.name }}
             <span class="deck-count"
