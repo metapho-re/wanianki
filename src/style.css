@@ -50,6 +50,7 @@
   --error-color-subtle: #e8242420;
   --error-color-glow: #e824244d;
   --warning-color: var(--ronin-yellow);
+  --info-color: var(--crystal-blue);
   --kanji-color: var(--sakura-pink);
   --kanji-color-transparent: #d27e9960;
   --kanji-color-glow: #d27e9980;
@@ -68,6 +69,7 @@
   --on-success-color: var(--sumi-ink-0);
   --on-error-color: var(--fuji-white);
   --on-warning-color: var(--sumi-ink-0);
+  --on-info-color: var(--sumi-ink-0);
   --scrollbar-thumb: var(--sumi-ink-4);
   --scrollbar-thumb-hover: var(--spring-violet-1);
   --scrollbar-track: var(--sumi-ink-1);
@@ -142,6 +144,7 @@
   --error-color-subtle: #c8405320;
   --error-color-glow: #c8405366;
   --warning-color: var(--lotus-orange-2);
+  --info-color: var(--lotus-blue-4);
   --kanji-color: var(--lotus-pink);
   --kanji-color-transparent: #b35b7950;
   --kanji-color-glow: #b35b7970;
@@ -160,6 +163,7 @@
   --on-success-color: var(--lotus-white-3);
   --on-error-color: var(--lotus-white-3);
   --on-warning-color: var(--lotus-ink-2);
+  --on-info-color: var(--lotus-white-3);
   --scrollbar-thumb: var(--lotus-gray-3);
   --scrollbar-thumb-hover: var(--lotus-violet-2);
   --scrollbar-track: var(--lotus-white-1);
