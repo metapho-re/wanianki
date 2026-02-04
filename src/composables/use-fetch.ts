@@ -2,7 +2,7 @@ import { isAxiosError } from "axios";
 import { onMounted, ref, type Ref } from "vue";
 
 import type { Fetcher } from "../api";
-import type { Error, Pagination, ReportOrCollection, Store } from "../types";
+import type { Error, Pagination, ReportOrCollection } from "../types";
 import { sortByIdAndLevel } from "../utils";
 
 import { useNotifications } from "./use-notifications";
@@ -34,7 +34,7 @@ export const useFetch = <T, U>({
   const { getValue, setValue } = useOpfsStorage<T, U>(storageKey);
 
   const isLoading = ref<boolean>(false);
-  const data: Store<T, U, true> = {
+  const data: { value: ReportOrCollection<T, U> | null } = {
     value: null,
   };
 
@@ -65,15 +65,15 @@ export const useFetch = <T, U>({
         const { data: responseData } = await fetcher(pages.next_url);
 
         if (responseData.object === "report") {
-          (data as Store<T, "report", true>).value = responseData.data;
+          (data as { value: T | null }).value = responseData.data;
         } else {
           pages = responseData.pages;
 
-          (data as Store<T, "collection", true>).value =
+          (data as { value: T[] | null }).value =
             data.value === null
               ? responseData.data
               : [
-                  ...(data as Store<T, "collection", true>).value!,
+                  ...(data as { value: T[] | null }).value!,
                   ...responseData.data,
                 ];
         }

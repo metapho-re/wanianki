@@ -1,7 +1,14 @@
-import { onMounted, onUnmounted, ref, type Ref, watch } from "vue";
+import {
+  onMounted,
+  onUnmounted,
+  ref,
+  type Ref,
+  type ShallowRef,
+  watch,
+} from "vue";
 import { useRoute, useRouter } from "vue-router";
 
-import type { Store, Subject, SubjectResponse } from "../types";
+import type { Subject, SubjectResponse } from "../types";
 import { getSubjectFromSlug, parseSlug } from "../utils";
 
 import { useReviewNavigationPaths } from "./use-review-navigation-paths";
@@ -12,7 +19,7 @@ interface ReturnValue<T> {
 }
 
 export const useStudyNavigation = <T extends Subject>(
-  subjectCollection: Store<SubjectResponse<T>, "collection">,
+  subjectCollection: ShallowRef<SubjectResponse<T>[]>,
 ): ReturnValue<T> => {
   const route = useRoute();
   const router = useRouter();

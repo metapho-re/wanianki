@@ -11,7 +11,6 @@ export type {
   ReportResponse,
   Response,
 } from "./response";
-export type { Store } from "./store";
 export type {
   ReviewSubject,
   Subject,

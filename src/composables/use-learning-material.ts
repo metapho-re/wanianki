@@ -23,10 +23,10 @@ export const subjectCollection = {
 };
 
 const onCompleteFactory =
-  <T>(collectionStore: ShallowRef<SubjectResponse<T>[]>) =>
+  <T>(collection: ShallowRef<SubjectResponse<T>[]>) =>
   (data: SubjectResponse<T>[] | null) => {
     if (data) {
-      collectionStore.value = data;
+      collection.value = data;
     }
   };
 
