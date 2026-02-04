@@ -1,14 +1,17 @@
 import type { SubjectType } from "../types";
 
-const getLevelsQueryParameter = (level: number): string =>
-  Array.from({ length: level }, (_, index) => index + 1).reduce(
-    (previousValue, currentValue, index) =>
-      index === 0 ? `${currentValue}` : `${previousValue},${currentValue}`,
-    "",
-  );
+const getLevelsQueryParameter = (
+  startLevel: number,
+  endLevel: number,
+): string =>
+  Array.from(
+    { length: endLevel - startLevel + 1 },
+    (_, index) => startLevel + index,
+  ).join(",");
 
 export const getSubjectsUrl = (
-  level: number,
+  startLevel: number,
+  endLevel: number,
   subjectType: SubjectType,
 ): string =>
-  `/subjects?types=${subjectType}&levels=${getLevelsQueryParameter(level)}`;
+  `/subjects?types=${subjectType}&levels=${getLevelsQueryParameter(startLevel, endLevel)}`;

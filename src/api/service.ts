@@ -24,26 +24,26 @@ export function getUserReport() {
   return getResource<User>("/user");
 }
 
-export function getKanjiCollection(level: number) {
+export function getKanjiCollection(startLevel: number, endLevel: number) {
   return function (url: string | null) {
     return getResource<SubjectResponse<Kanji>>(
-      url ?? getSubjectsUrl(level, "kanji"),
+      url ?? getSubjectsUrl(startLevel, endLevel, "kanji"),
     );
   };
 }
 
-export function getRadicalCollection(level: number) {
+export function getRadicalCollection(startLevel: number, endLevel: number) {
   return function (url: string | null) {
     return getResource<SubjectResponse<Radical>>(
-      url ?? getSubjectsUrl(level, "radical"),
+      url ?? getSubjectsUrl(startLevel, endLevel, "radical"),
     );
   };
 }
 
-export function getVocabularyCollection(level: number) {
+export function getVocabularyCollection(startLevel: number, endLevel: number) {
   return function (url: string | null) {
     return getResource<SubjectResponse<Vocabulary>>(
-      url ?? getSubjectsUrl(level, "vocabulary"),
+      url ?? getSubjectsUrl(startLevel, endLevel, "vocabulary"),
     );
   };
 }

@@ -16,6 +16,8 @@ import type {
 
 import { useFetch } from "./use-fetch";
 
+const FIRST_LEVEL = 1;
+
 type SubjectResponseStore<T> = Store<SubjectResponse<T>, "collection">;
 
 const kanjiCollection: SubjectResponseStore<Kanji> = {
@@ -51,7 +53,7 @@ export const useLearningMaterial = (level: number): ComputedRef<boolean> => {
     errorMessage: "Failed to load kanji",
     successMessage: "Kanjis successfully loaded",
     shouldFetchOnMounted: true,
-    fetcher: getKanjiCollection(level),
+    fetcher: getKanjiCollection(FIRST_LEVEL, level),
     onComplete: onCompleteFactory(kanjiCollection),
   });
 
@@ -63,7 +65,7 @@ export const useLearningMaterial = (level: number): ComputedRef<boolean> => {
     errorMessage: "Failed to load radicals",
     successMessage: "Radicals successfully loaded",
     shouldFetchOnMounted: true,
-    fetcher: getRadicalCollection(level),
+    fetcher: getRadicalCollection(FIRST_LEVEL, level),
     onComplete: onCompleteFactory(radicalCollection),
   });
 
@@ -75,7 +77,7 @@ export const useLearningMaterial = (level: number): ComputedRef<boolean> => {
     errorMessage: "Failed to load vocabulary",
     successMessage: "Vocabulary successfully loaded",
     shouldFetchOnMounted: true,
-    fetcher: getVocabularyCollection(level),
+    fetcher: getVocabularyCollection(FIRST_LEVEL, level),
     onComplete: onCompleteFactory(vocabularyCollection),
   });
 
