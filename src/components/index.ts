@@ -1,3 +1,4 @@
+import ApiKeyDialog from "./api-key-dialog.vue";
 import BaseButton from "./base-button.vue";
 import BaseHeader from "./base-header.vue";
 import BaseIcon from "./base-icon.vue";
@@ -17,6 +18,7 @@ import SubjectOverview from "./subject-overview.vue";
 import SubjectSelector from "./subject-selector.vue";
 
 export {
+  ApiKeyDialog,
   BaseButton,
   BaseHeader,
   BaseIcon,

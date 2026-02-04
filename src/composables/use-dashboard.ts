@@ -8,7 +8,7 @@ import { useReviewSelection } from "./use-review-selection";
 
 interface ReturnValue {
   loadedDeckId: Ref<string | null>;
-  level: number | undefined;
+  level: ComputedRef<number | undefined>;
   selectedSubjectIds: Ref<Set<number>>;
   selectedSubjects: ComputedRef<ReviewSubject[]>;
   shouldShuffle: Ref<boolean>;
@@ -30,7 +30,7 @@ export const useDashboard = (
 
   const loadedDeckId = ref<string | null>(null);
 
-  const level = user.value?.level;
+  const level = computed<number | undefined>(() => user.value?.level);
 
   const {
     selectedSubjectIds,
@@ -43,8 +43,8 @@ export const useDashboard = (
     clearSubjectIds,
     onStartReview,
   } =
-    level !== undefined
-      ? useReviewSelection(level)
+    level.value !== undefined
+      ? useReviewSelection(level.value)
       : {
           selectedSubjectIds: ref<Set<number>>(new Set<number>()),
           selectedSubjects: computed<ReviewSubject[]>(() => []),

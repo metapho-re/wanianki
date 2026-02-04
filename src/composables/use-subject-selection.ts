@@ -14,7 +14,7 @@ interface Emit {
 }
 
 interface Params {
-  level: number;
+  level: Ref<number | undefined>;
   selectedSubjectIds: Set<number>;
   emit: Emit;
 }
@@ -65,7 +65,7 @@ export const useSubjectSelection = ({
   }>({
     type: "kanji",
     minLevel: 1,
-    maxLevel: level,
+    maxLevel: level.value || 1,
   });
 
   const availableSubjects = computed<ReviewSubject[]>(
@@ -170,6 +170,13 @@ export const useSubjectSelection = ({
       if (searchQuery.value.length > 0) {
         isSearchOpen.value = true;
       }
+    },
+  );
+
+  watch(
+    () => level.value,
+    () => {
+      filters.value.maxLevel = level.value || 1;
     },
   );
 

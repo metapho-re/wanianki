@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, toRef } from "vue";
 
 import { useSubjectSelection } from "../composables";
 import type { ReviewSubject, SubjectType } from "../types";
@@ -10,8 +10,8 @@ import SubjectCard from "./subject-card.vue";
 import SubjectChip from "./subject-chip.vue";
 import SubjectSuggestion from "./subject-suggestion.vue";
 
-const { level, selectedSubjectIds } = defineProps<{
-  level: number;
+const props = defineProps<{
+  level: number | undefined;
   selectedSubjectIds: Set<number>;
   selectedSubjects: ReviewSubject[];
 }>();
@@ -45,8 +45,8 @@ const {
   showSuggestions,
   hideSuggestions,
 } = useSubjectSelection({
-  level,
-  selectedSubjectIds,
+  level: toRef(props, "level"),
+  selectedSubjectIds: props.selectedSubjectIds,
   emit,
 });
 
@@ -55,7 +55,7 @@ const levelSelectionButtonTextMap = computed<Record<number, string>>(() => {
 
   for (const level of visibleLevels.value) {
     const allSelected = filteredSubjectsByLevel.value?.[level]?.every(
-      ({ id }) => selectedSubjectIds.has(id),
+      ({ id }) => props.selectedSubjectIds.has(id),
     );
 
     result[level] = allSelected ? "Deselect all" : "Select all";
@@ -86,6 +86,7 @@ const levelSelectionButtonTextMap = computed<Record<number, string>>(() => {
         <div class="range">
           <input
             id="min-level"
+            :key="`min-level-${level}`"
             v-model.number="filters.minLevel"
             type="range"
             min="1"
@@ -97,6 +98,7 @@ const levelSelectionButtonTextMap = computed<Record<number, string>>(() => {
           />
           <input
             id="max-level"
+            :key="`max-level-${level}`"
             v-model.number="filters.maxLevel"
             type="range"
             min="1"

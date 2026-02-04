@@ -1,4 +1,4 @@
-import { computed, type ComputedRef } from "vue";
+import { computed, type ComputedRef, shallowRef, type ShallowRef } from "vue";
 
 import {
   getKanjiCollection,
@@ -6,29 +6,15 @@ import {
   getVocabularyCollection,
 } from "../api";
 import { KANJI_KEY, RADICAL_KEY, VOCABULARY_KEY } from "../storage-keys";
-import type {
-  Kanji,
-  Radical,
-  Store,
-  SubjectResponse,
-  Vocabulary,
-} from "../types";
+import type { Kanji, Radical, SubjectResponse, Vocabulary } from "../types";
 
 import { useFetch } from "./use-fetch";
 
 const FIRST_LEVEL = 1;
 
-type SubjectResponseStore<T> = Store<SubjectResponse<T>, "collection">;
-
-const kanjiCollection: SubjectResponseStore<Kanji> = {
-  value: [],
-};
-const radicalCollection: SubjectResponseStore<Radical> = {
-  value: [],
-};
-const vocabularyCollection: SubjectResponseStore<Vocabulary> = {
-  value: [],
-};
+const kanjiCollection = shallowRef<SubjectResponse<Kanji>[]>([]);
+const radicalCollection = shallowRef<SubjectResponse<Radical>[]>([]);
+const vocabularyCollection = shallowRef<SubjectResponse<Vocabulary>[]>([]);
 
 export const subjectCollection = {
   kanji: kanjiCollection,
@@ -37,7 +23,7 @@ export const subjectCollection = {
 };
 
 const onCompleteFactory =
-  <T>(collectionStore: Store<SubjectResponse<T>, "collection">) =>
+  <T>(collectionStore: ShallowRef<SubjectResponse<T>[]>) =>
   (data: SubjectResponse<T>[] | null) => {
     if (data) {
       collectionStore.value = data;

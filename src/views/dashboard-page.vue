@@ -2,6 +2,7 @@
 import { ref } from "vue";
 
 import {
+  ApiKeyDialog,
   BaseButton,
   BaseHeader,
   BaseIcon,
@@ -10,15 +11,24 @@ import {
   DeckDialog,
   SubjectSelector,
 } from "../components";
-import { useDashboard, useDecks, useTheme, user } from "../composables";
+import {
+  useDashboard,
+  useDecks,
+  user,
+  useRefreshData,
+  useTheme,
+} from "../composables";
 import {
   bookIconPath,
   cardsStackIconPath,
   darkModeIconPath,
   lightIconPath,
+  syncIconPath,
 } from "../icon-paths";
 
 const { theme, toggleTheme } = useTheme();
+
+const { isRefreshing, refresh } = useRefreshData();
 
 const { decks, saveDeck, removeDeck } = useDecks();
 
@@ -39,9 +49,18 @@ const {
 } = useDashboard(saveDeck);
 
 const deckDialogRef = ref<InstanceType<typeof DeckDialog> | null>(null);
+const apiKeyDialogRef = ref<InstanceType<typeof ApiKeyDialog> | null>(null);
 
 const openDeckDialog = () => {
   deckDialogRef.value?.dialogRef?.showModal();
+};
+
+const openApiKeyDialog = () => {
+  apiKeyDialogRef.value?.dialogRef?.showModal();
+};
+
+const handleRefreshSubmit = (apiKey: string) => {
+  refresh(apiKey);
 };
 </script>
 
@@ -76,6 +95,15 @@ const openDeckDialog = () => {
             @click="openDeckDialog"
           >
             <base-icon :path="cardsStackIconPath" width="24px" height="24px" />
+          </button>
+          <button
+            class="refresh-button"
+            :class="{ refreshing: isRefreshing }"
+            title="Check for level changes"
+            :disabled="isRefreshing"
+            @click="openApiKeyDialog"
+          >
+            <base-icon :path="syncIconPath" width="24px" height="24px" />
           </button>
           <a
             class="github-link"
@@ -133,6 +161,7 @@ const openDeckDialog = () => {
     @load="handleLoadDeck"
     @remove="removeDeck"
   />
+  <api-key-dialog ref="apiKeyDialogRef" @submit="handleRefreshSubmit" />
 </template>
 
 <style scoped>
@@ -183,6 +212,40 @@ const openDeckDialog = () => {
   margin-inline: 8px;
 }
 
+.refresh-button {
+  display: inline-flex;
+  border: none;
+  margin-right: 16px;
+  background: transparent;
+  color: var(--foreground-color-1);
+  cursor: pointer;
+  transition: var(--transition-base);
+  vertical-align: middle;
+}
+
+.refresh-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.refresh-button:hover:not(:disabled) {
+  color: var(--primary-color);
+}
+
+.refresh-button.refreshing :deep(svg) {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .theme-toggle {
   display: inline-flex;
   border: none;
@@ -201,7 +264,7 @@ const openDeckDialog = () => {
 .decks-toggle {
   display: inline-flex;
   border: none;
-  margin-right: 16px;
+  margin-right: 12px;
   background: transparent;
   color: var(--foreground-color-1);
   cursor: pointer;
@@ -328,6 +391,10 @@ const openDeckDialog = () => {
 
   .separator {
     margin-inline: 4px;
+  }
+
+  .refresh-button {
+    margin-right: 6px;
   }
 
   .theme-toggle {
