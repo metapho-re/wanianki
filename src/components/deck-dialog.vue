@@ -6,6 +6,7 @@ import type { Deck } from "../types";
 import { getPluralizedQuantity } from "../utils";
 
 import BaseButton from "./base-button.vue";
+import BaseDialog from "./base-dialog.vue";
 import BaseIcon from "./base-icon.vue";
 
 defineProps<{
@@ -19,13 +20,11 @@ const emit = defineEmits<{
   save: [name: string];
 }>();
 
-const dialogRef = ref<HTMLDialogElement | null>(null);
+const baseDialogRef = ref<InstanceType<typeof BaseDialog> | null>(null);
 const newDeckName = ref<string>("");
 
-const close = (event: MouseEvent) => {
-  if (event.clientX > 0 && event.clientY > 0) {
-    dialogRef.value?.close();
-  }
+const handleClose = () => {
+  baseDialogRef.value?.close();
 };
 
 const handleSave = () => {
@@ -35,122 +34,76 @@ const handleSave = () => {
     emit("save", trimmedName);
 
     newDeckName.value = "";
-    dialogRef.value?.close();
+
+    handleClose();
   }
 };
 
 const handleLoad = (deckId: string, subjectIds: number[]) => {
   emit("load", deckId, subjectIds);
 
-  dialogRef.value?.close();
+  handleClose();
 };
 
 const handleRemove = (id: string) => {
   emit("remove", id);
 };
 
-defineExpose<{
-  dialogRef: typeof dialogRef;
-}>({ dialogRef });
+defineExpose({
+  get dialogRef() {
+    return baseDialogRef.value?.dialogRef;
+  },
+});
 </script>
 
 <template>
-  <dialog ref="dialogRef" class="dialog">
-    <header class="dialog-header">
-      <span>Saved Review Decks</span>
-    </header>
-    <section class="dialog-body">
-      <div class="save-section">
-        <input
-          v-model="newDeckName"
-          class="deck-input"
-          placeholder="New deck name..."
-          aria-label="New deck name"
-          @keyup.enter="handleSave"
-        />
-        <base-button
-          size="small"
-          :disabled="!hasSelection || !newDeckName.trim()"
-          @click="handleSave"
+  <base-dialog ref="baseDialogRef" title="Saved Review Decks" width="500px">
+    <div class="save-section">
+      <input
+        v-model="newDeckName"
+        class="deck-input"
+        placeholder="New deck name..."
+        aria-label="New deck name"
+        @keyup.enter="handleSave"
+      />
+      <base-button
+        size="small"
+        :disabled="!hasSelection || !newDeckName.trim()"
+        @click="handleSave"
+      >
+        Save Current
+      </base-button>
+    </div>
+    <ul v-if="decks.length > 0" class="deck-list" role="list">
+      <li v-for="deck in decks" :key="deck.id" class="deck-item">
+        <button
+          class="deck-name"
+          :aria-label="`Load deck ${deck.name}`"
+          @click="handleLoad(deck.id, deck.subjectIds)"
         >
-          Save Current
-        </base-button>
-      </div>
-      <ul v-if="decks.length > 0" class="deck-list" role="list">
-        <li v-for="deck in decks" :key="deck.id" class="deck-item">
-          <button
-            class="deck-name"
-            :aria-label="`Load deck ${deck.name}`"
-            @click="handleLoad(deck.id, deck.subjectIds)"
-          >
-            {{ deck.name }}
-            <span class="deck-count"
-              >({{
-                getPluralizedQuantity("item", deck.subjectIds.length)
-              }})</span
-            >
-          </button>
-          <button
-            class="remove-button"
-            title="Remove deck"
-            :aria-label="`Remove deck ${deck.name}`"
-            @click="handleRemove(deck.id)"
-          >
-            <base-icon :path="deleteIconPath" width="20px" height="20px" />
-          </button>
-        </li>
-      </ul>
-      <p v-else class="empty-message">No saved decks yet.</p>
-    </section>
-    <footer class="dialog-footer">
-      <base-button @click="close">Close</base-button>
-    </footer>
-  </dialog>
+          {{ deck.name }}
+          <span class="deck-count">
+            ({{ getPluralizedQuantity("item", deck.subjectIds.length) }})
+          </span>
+        </button>
+        <button
+          class="remove-button"
+          title="Remove deck"
+          :aria-label="`Remove deck ${deck.name}`"
+          @click="handleRemove(deck.id)"
+        >
+          <base-icon :path="deleteIconPath" width="20px" height="20px" />
+        </button>
+      </li>
+    </ul>
+    <p v-else class="empty-message">No saved decks yet.</p>
+    <template #footer>
+      <base-button @click="handleClose">Close</base-button>
+    </template>
+  </base-dialog>
 </template>
 
 <style scoped>
-.dialog {
-  width: 400px;
-  max-width: calc(100vw - 48px);
-  padding: 32px 40px;
-  border: 1px solid var(--background-color-3);
-  border-radius: var(--radius-lg);
-  background: linear-gradient(
-    180deg,
-    var(--background-color-2) 0%,
-    var(--background-color-1) 100%
-  );
-  box-shadow:
-    var(--shadow-lg),
-    0 0 60px var(--overlay-color);
-  color: var(--foreground-color-0);
-}
-
-.dialog::backdrop {
-  backdrop-filter: blur(4px);
-  background: var(--overlay-color);
-}
-
-.dialog-header {
-  display: flex;
-  justify-content: space-between;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--background-color-3);
-  font-size: 1.3rem;
-  font-weight: 700;
-}
-
-.dialog-body {
-  padding-block: 24px;
-}
-
-.dialog-footer {
-  display: flex;
-  justify-content: flex-end;
-  padding-top: 16px;
-  border-top: 1px solid var(--background-color-3);
-}
-
 .save-section {
   display: flex;
   margin-bottom: 20px;
@@ -253,58 +206,15 @@ defineExpose<{
 }
 
 @media (width >= 1024px) {
-  .dialog {
-    width: 500px;
-  }
-
   .deck-list {
     max-height: 400px;
   }
 }
 
 @media (width <= 768px) {
-  .dialog {
-    width: calc(100vw - 48px);
-    max-width: 500px;
-    padding: 24px;
-  }
-
-  .dialog-header {
-    padding-bottom: 12px;
-    font-size: 1.1rem;
-  }
-
-  .dialog-body {
-    padding-block: 16px;
-  }
-
-  .dialog-footer {
-    padding-top: 12px;
-  }
-
   .save-section {
     flex-direction: column;
     gap: 10px;
-  }
-}
-
-@media (width <= 480px) {
-  .dialog {
-    width: calc(100vw - 32px);
-    padding: 16px;
-  }
-
-  .dialog-header {
-    padding-bottom: 10px;
-    font-size: 1rem;
-  }
-
-  .dialog-body {
-    padding-block: 12px;
-  }
-
-  .dialog-footer {
-    padding-top: 10px;
   }
 }
 </style>
