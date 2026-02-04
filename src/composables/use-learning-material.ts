@@ -44,7 +44,9 @@ const onCompleteFactory =
     }
   };
 
-export const useLearningMaterial = (level: number): ComputedRef<boolean> => {
+export const useLearningMaterial = (
+  userLevel: number,
+): ComputedRef<boolean> => {
   const { isLoading: isKanjiCollectionLoading } = useFetch<
     SubjectResponse<Kanji>,
     "collection"
@@ -53,7 +55,7 @@ export const useLearningMaterial = (level: number): ComputedRef<boolean> => {
     errorMessage: "Failed to load kanji",
     successMessage: "Kanjis successfully loaded",
     shouldFetchOnMounted: true,
-    fetcher: getKanjiCollection(FIRST_LEVEL, level),
+    fetcher: getKanjiCollection(FIRST_LEVEL, userLevel),
     onComplete: onCompleteFactory(kanjiCollection),
   });
 
@@ -65,7 +67,7 @@ export const useLearningMaterial = (level: number): ComputedRef<boolean> => {
     errorMessage: "Failed to load radicals",
     successMessage: "Radicals successfully loaded",
     shouldFetchOnMounted: true,
-    fetcher: getRadicalCollection(FIRST_LEVEL, level),
+    fetcher: getRadicalCollection(FIRST_LEVEL, userLevel),
     onComplete: onCompleteFactory(radicalCollection),
   });
 
@@ -77,7 +79,7 @@ export const useLearningMaterial = (level: number): ComputedRef<boolean> => {
     errorMessage: "Failed to load vocabulary",
     successMessage: "Vocabulary successfully loaded",
     shouldFetchOnMounted: true,
-    fetcher: getVocabularyCollection(FIRST_LEVEL, level),
+    fetcher: getVocabularyCollection(FIRST_LEVEL, userLevel),
     onComplete: onCompleteFactory(vocabularyCollection),
   });
 
