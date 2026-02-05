@@ -1,14 +1,13 @@
-import { isAxiosError } from "axios";
 import { onMounted, ref, type Ref } from "vue";
 
 import type { Fetcher } from "../api";
-import type { Error, Pagination, ReportOrCollection } from "../types";
-import { sortByIdAndLevel } from "../utils";
+import type { ReportOrCollection, ResponseType } from "../types";
+import { fetchAllPages, getErrorMessage } from "../utils";
 
 import { useNotifications } from "./use-notifications";
 import { useOpfsStorage } from "./use-opfs-storage";
 
-interface Params<T, U> {
+interface Params<T, U extends ResponseType> {
   storageKey: string;
   errorMessage: string;
   successMessage: string;
@@ -17,12 +16,12 @@ interface Params<T, U> {
   onComplete?: (data: ReportOrCollection<T, U> | null) => void;
 }
 
-interface ReturnValue<T, U> {
+interface ReturnValue<T, U extends ResponseType> {
   isLoading: Ref<boolean>;
   refresh: () => Promise<ReportOrCollection<T, U> | null>;
 }
 
-export const useFetch = <T, U>({
+export const useFetch = <T, U extends ResponseType>({
   storageKey,
   errorMessage,
   successMessage,
@@ -34,6 +33,7 @@ export const useFetch = <T, U>({
   const { getValue, setValue } = useOpfsStorage<T, U>(storageKey);
 
   const isLoading = ref<boolean>(false);
+
   const data: { value: ReportOrCollection<T, U> | null } = {
     value: null,
   };
@@ -55,47 +55,13 @@ export const useFetch = <T, U>({
 
   const refresh = async () => {
     try {
-      data.value = null;
-
-      let pages: Pagination | undefined = {
-        next_url: null,
-      };
-
-      do {
-        const { data: responseData } = await fetcher(pages.next_url);
-
-        if (responseData.object === "report") {
-          (data as { value: T | null }).value = responseData.data;
-        } else {
-          pages = responseData.pages;
-
-          (data as { value: T[] | null }).value =
-            data.value === null
-              ? responseData.data
-              : [
-                  ...(data as { value: T[] | null }).value!,
-                  ...responseData.data,
-                ];
-        }
-      } while (pages?.next_url);
-
-      if (Array.isArray(data.value)) {
-        data.value = sortByIdAndLevel(data.value) as ReportOrCollection<T, U>;
-      }
+      data.value = await fetchAllPages<T, U>(fetcher);
 
       await setValue(data.value);
+
       addNotification(successMessage, "success");
     } catch (error) {
-      if (isAxiosError(error)) {
-        const { response } = error;
-
-        addNotification(
-          (response?.data as Error).error || errorMessage,
-          "error",
-        );
-      } else {
-        addNotification(errorMessage, "error");
-      }
+      addNotification(getErrorMessage(error, errorMessage), "error");
     }
 
     return data.value;

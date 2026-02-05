@@ -10,7 +10,9 @@ export type {
   Pagination,
   ReportResponse,
   Response,
+  ResponseType,
 } from "./response";
+export type { Sortable } from "./sortable";
 export type {
   ReviewSubject,
   Subject,

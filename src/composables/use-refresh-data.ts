@@ -1,8 +1,6 @@
-import { isAxiosError } from "axios";
 import { ref, type Ref } from "vue";
 
 import {
-  type Fetcher,
   getKanjiCollection,
   getRadicalCollection,
   getUserReport,
@@ -15,37 +13,18 @@ import {
   VOCABULARY_KEY,
 } from "../storage-keys";
 import type {
-  Error,
   Kanji,
-  Pagination,
   Radical,
   SubjectResponse,
   User,
   Vocabulary,
 } from "../types";
-import { sortByIdAndLevel } from "../utils";
+import { fetchAllPages, getErrorMessage, sortByIdAndLevel } from "../utils";
 
 import { subjectCollection } from "./use-learning-material";
 import { apiToken, user } from "./use-login";
 import { useNotifications } from "./use-notifications";
 import { useOpfsStorage } from "./use-opfs-storage";
-
-const fetchSubjectsForLevelRange = async <T>(fetcher: Fetcher<T>) => {
-  const results: T[] = [];
-
-  let pages: Pagination = { next_url: null };
-
-  do {
-    const { data: responseData } = await fetcher(pages.next_url);
-
-    if (responseData.object === "collection") {
-      pages = responseData.pages;
-      results.push(...responseData.data);
-    }
-  } while (pages.next_url);
-
-  return results;
-};
 
 interface ReturnValue {
   isRefreshing: Ref<boolean>;
@@ -97,13 +76,13 @@ export const useRefreshData = (): ReturnValue => {
           newRadicalCollection,
           newVocabularyCollection,
         ] = await Promise.all([
-          fetchSubjectsForLevelRange<SubjectResponse<Kanji>>(
+          fetchAllPages<SubjectResponse<Kanji>, "collection">(
             getKanjiCollection(startLevel, endLevel),
           ),
-          fetchSubjectsForLevelRange<SubjectResponse<Radical>>(
+          fetchAllPages<SubjectResponse<Radical>, "collection">(
             getRadicalCollection(startLevel, endLevel),
           ),
-          fetchSubjectsForLevelRange<SubjectResponse<Vocabulary>>(
+          fetchAllPages<SubjectResponse<Vocabulary>, "collection">(
             getVocabularyCollection(startLevel, endLevel),
           ),
         ]);
@@ -142,16 +121,10 @@ export const useRefreshData = (): ReturnValue => {
         addNotification("Your level hasn't changed.", "info");
       }
     } catch (error) {
-      if (isAxiosError(error)) {
-        const { response } = error;
-
-        addNotification(
-          (response?.data as Error).error || "Failed to refresh data",
-          "error",
-        );
-      } else {
-        addNotification("Failed to refresh data", "error");
-      }
+      addNotification(
+        getErrorMessage(error, "Failed to refresh data"),
+        "error",
+      );
     } finally {
       apiToken.value = null;
       isRefreshing.value = false;

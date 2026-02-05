@@ -16,3 +16,5 @@ export interface ReportResponse<T> {
 export type Response<T> = T extends unknown[]
   ? CollectionResponse<T>
   : ReportResponse<T>;
+
+export type ResponseType = "report" | "collection";

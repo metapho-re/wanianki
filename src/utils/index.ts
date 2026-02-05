@@ -1,9 +1,11 @@
 export { applyTheme } from "./apply-theme";
 export { capitalize } from "./capitalize";
 export { clamp } from "./clamp";
+export { fetchAllPages } from "./fetch-all-pages";
 export { getAcceptedProperties } from "./get-accepted-properties";
 export { getDiceCoefficient } from "./get-dice-coefficient";
 export { getEmptyQuizReport } from "./get-empty-quiz-report";
+export { getErrorMessage } from "./get-error-message";
 export { getFormattedPercentage } from "./get-formatted-percentage";
 export { getKanjiReadings } from "./get-kanji-readings";
 export { getNavigationPathsFromSelectedSubjects } from "./get-navigation-paths-from-selected-subjects";
